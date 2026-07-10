@@ -1,0 +1,3231 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102820">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Voyage Balkans">
+  <title>Voyage Balkans</title>
+  <style>
+* { box-sizing: border-box; }
+:root {
+  color-scheme: light;
+  --ink: #17201c;
+  --muted: #66706b;
+  --paper: #f7f4ed;
+  --panel: #fffaf0;
+  --line: #ded6c5;
+  --green: #102820;
+  --green-2: #1f5c4d;
+  --terracotta: #b85c38;
+  --blue: #2e5f7f;
+  --gold: #c99735;
+  --danger: #9f3a32;
+  --shadow: 0 10px 26px rgba(31, 38, 35, 0.10);
+}
+html, body { margin: 0; min-height: 100%; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+body { padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
+button, input { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+.app-shell { min-height: 100vh; padding: 14px 14px 92px; max-width: 860px; margin: 0 auto; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 2px 10px; }
+.eyebrow { margin: 0 0 2px; color: var(--terracotta); font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0; }
+h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; letter-spacing: 0; }
+.icon-button { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--green); color: white; font-weight: 900; box-shadow: var(--shadow); }
+.search-strip { position: sticky; top: env(safe-area-inset-top); z-index: 4; padding: 8px 0 10px; background: rgba(247, 244, 237, 0.96); backdrop-filter: blur(12px); }
+.search-box { display: flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; background: white; box-shadow: 0 4px 14px rgba(30, 35, 32, 0.05); }
+.search-box span { color: var(--blue); font-size: 1.2rem; }
+.search-box input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); }
+.chips { display: flex; gap: 7px; overflow-x: auto; padding: 9px 1px 1px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: 0 0 auto; min-height: 34px; border: 1px solid var(--line); border-radius: 999px; background: white; color: var(--green); padding: 0 13px; font-weight: 750; }
+.chip.active { background: var(--green); color: white; border-color: var(--green); }
+.view { display: grid; gap: 12px; }
+.hero-map { min-height: 236px; border: 1px solid var(--line); border-radius: 8px; background: #eef1e8; overflow: hidden; box-shadow: var(--shadow); }
+.hero-map svg { display: block; width: 100%; height: 100%; min-height: 236px; }
+.map-label { font-size: 10px; font-weight: 800; paint-order: stroke; stroke: white; stroke-width: 3px; stroke-linejoin: round; fill: var(--green); }
+.route-path { fill: none; stroke: var(--terracotta); stroke-width: 3.8; stroke-linecap: round; stroke-linejoin: round; }
+.route-path-muted { fill: none; stroke: rgba(46,95,127,0.22); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+.map-dot { fill: var(--panel); stroke: var(--green); stroke-width: 2.2; }
+.map-dot.active { fill: var(--gold); stroke: var(--danger); stroke-width: 3; }
+.map-country { fill: none; stroke: rgba(16,40,32,0.13); stroke-width: 1; }
+.card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: var(--shadow); padding: 13px; }
+.card.white { background: white; }
+.day-card { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: start; text-align: left; width: 100%; border: 1px solid var(--line); border-radius: 8px; background: white; padding: 12px; box-shadow: 0 7px 18px rgba(31, 38, 35, 0.06); color: var(--ink); }
+.day-card.active { border-color: var(--terracotta); box-shadow: 0 0 0 2px rgba(184,92,56,0.15); }
+.day-badge { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 8px; background: var(--green); color: white; font-weight: 900; }
+.day-card h2, .detail-head h2 { margin: 0 0 5px; font-size: 1.02rem; line-height: 1.25; letter-spacing: 0; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.pill { display: inline-flex; align-items: center; min-height: 27px; padding: 0 9px; border-radius: 999px; background: #efe6d2; color: #4b4233; font-size: 0.78rem; font-weight: 780; }
+.pill.green { background: #dfece6; color: var(--green); }
+.pill.blue { background: #dfeaf1; color: var(--blue); }
+.pill.red { background: #f4ded9; color: var(--danger); }
+.small { color: var(--muted); font-size: 0.9rem; line-height: 1.35; }
+.detail-head { display: grid; gap: 7px; }
+.section-title { margin: 2px 0 8px; font-size: 0.88rem; color: var(--green); text-transform: uppercase; font-weight: 900; letter-spacing: 0; }
+.stack { display: grid; gap: 9px; }
+.list { display: grid; gap: 7px; padding: 0; margin: 0; list-style: none; }
+.list li { padding: 9px 10px; background: white; border: 1px solid #eadfcc; border-radius: 8px; line-height: 1.3; }
+.timeline { display: grid; gap: 9px; }
+.time-row { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 10px; background: white; border: 1px solid #eadfcc; border-radius: 8px; }
+.time-row strong { color: var(--terracotta); }
+.time-row h3 { margin: 0 0 4px; font-size: 0.96rem; letter-spacing: 0; }
+.time-row p { margin: 0; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.action { display: grid; place-items: center; min-height: 42px; border: 1px solid var(--green); border-radius: 8px; background: var(--green); color: white; text-decoration: none; font-weight: 850; }
+.action.secondary { background: white; color: var(--green); }
+.budget-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+.budget-cell { background: white; border: 1px solid #eadfcc; border-radius: 8px; padding: 10px; }
+.budget-cell b { display: block; color: var(--green); font-size: 1.1rem; }
+.empty { text-align: center; padding: 36px 20px; color: var(--muted); }
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; padding: 8px max(8px, env(safe-area-inset-left)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-right)); background: rgba(255,250,240,0.95); border-top: 1px solid var(--line); backdrop-filter: blur(14px); }
+.tab { min-height: 54px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); display: grid; place-items: center; gap: 2px; }
+.tab span { font-size: 1.18rem; line-height: 1; }
+.tab b { font-size: 0.68rem; letter-spacing: 0; }
+.tab.active { color: white; background: var(--green); }
+.check-row { display: grid; grid-template-columns: 34px 1fr; gap: 9px; align-items: center; min-height: 44px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 8px; background: white; }
+.check-row input { width: 24px; height: 24px; accent-color: var(--green); }
+.check-row.done span { text-decoration: line-through; color: var(--muted); }
+@media (min-width: 720px) {
+  .app-shell { padding-left: 22px; padding-right: 22px; }
+  .route-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .detail-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: 12px; align-items: start; }
+  .hero-map { min-height: 360px; }
+  .hero-map svg { min-height: 360px; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Interrail 30 jours</p>
+        <h1>Voyage Balkans</h1>
+      </div>
+      <button class="icon-button" id="todayButton" type="button" aria-label="Aller au jour actuel">J</button>
+    </header>
+
+    <section class="search-strip" aria-label="Recherche et filtres">
+      <label class="search-box">
+        <span>Rech.</span>
+        <input id="searchInput" type="search" placeholder="Rechercher ville, visite, train de nuit..." autocomplete="off">
+      </label>
+      <div class="chips" id="filterChips">
+        <button type="button" class="chip active" data-filter="all">Tout</button>
+        <button type="button" class="chip" data-filter="ottoman">Ottoman</button>
+        <button type="button" class="chip" data-filter="hike">Rando</button>
+        <button type="button" class="chip" data-filter="night">Nuit</button>
+        <button type="button" class="chip" data-filter="bus">Bus</button>
+      </div>
+    </section>
+
+    <div class="card white" style="margin-bottom:12px; border-color:#c99735;">
+      <strong>Horaires &#224; v&#233;rifier 48h avant.</strong>
+      <div class="small">V&#233;rifie toujours les trains, bus, r&#233;servations et horaires d'ouverture avant chaque &#233;tape.</div>
+    </div>
+
+    <main id="app" class="view"></main>
+
+    <nav class="tabbar" aria-label="Navigation principale">
+      <button type="button" class="tab active" data-view="route"><span>R</span><b>Parcours</b></button>
+      <button type="button" class="tab" data-view="day"><span>J</span><b>Jour</b></button>
+      <button type="button" class="tab" data-view="map"><span>C</span><b>Carte</b></button>
+      <button type="button" class="tab" data-view="search"><span>Rech.</span><b>Recherche</b></button>
+      <button type="button" class="tab" data-view="checklist"><span>S</span><b>Sac</b></button>
+    </nav>
+  </div>
+  <script>window.__STOPS_DATA__ = {
+  "stops": [
+    {
+      "id": "j01-strasbourg-verone",
+      "day": 1,
+      "name": "Strasbourg \u2192 V\u00e9rone",
+      "country": "France / Italie",
+      "sleep_city": "V\u00e9rone",
+      "departure_latest": "07h00",
+      "summary": "Grande entree en Italie par Verone, premiere soiree dans un centre historique tres lisible.",
+      "ottoman_trace": "Pas ottoman, mais porte ferroviaire vers Adriatique et Balkans.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Arena de Verone",
+        "Piazza Bra",
+        "Piazza delle Erbe",
+        "Castelvecchio",
+        "Ponte Scaligero",
+        "Arche Scaligere",
+        "Ponte Pietra",
+        "Castel San Pietro",
+        "Torre dei Lamberti",
+        "Basilique San Zeno",
+        "Giardino Giusti"
+      ],
+      "quiet_spots": [
+        "Giardino Giusti",
+        "Basilique San Zeno",
+        "Balade nocturne centre historique"
+      ],
+      "hikes": [
+        "Montee Ponte Pietra vers Castel San Pietro",
+        "Collines des Torricelle"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Strasbourg max 07h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Arena de Verone",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Piazza Bra",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Piazza delle Erbe",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Castelvecchio",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Trieste",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": true,
+        "night_train": false,
+        "notes": "Train de jour italien, reservation possible. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 34,
+        "food": 19,
+        "local_transport": 4,
+        "reservations_or_bus": 12
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ],
+      "night_train_options": [
+        {
+          "title": "Option avant J1 : train de nuit vers Munich/Salzburg/Vienne",
+          "details": "Possible seulement en partant la veille au soir, puis train de jour vers Verone. Reservation couchette ou siege a verifier. Horaires et correspondances a verifier 48h avant."
+        }
+      ]
+    },
+    {
+      "id": "j02-verone-trieste",
+      "day": 2,
+      "name": "V\u00e9rone \u2192 Trieste",
+      "country": "Italie",
+      "sleep_city": "Trieste",
+      "departure_latest": "12h00",
+      "summary": "Trieste marque la transition Adriatique, austro-balkanique et portuaire.",
+      "ottoman_trace": "Pas ottoman majeur, mais ville de seuil vers les Balkans.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Piazza Unita d Italia",
+        "Molo Audace",
+        "Canal Grande",
+        "Caffe historiques",
+        "Chateau San Giusto",
+        "Cathedrale San Giusto",
+        "Front de mer",
+        "Barcola",
+        "Chateau de Miramare",
+        "Vieux port"
+      ],
+      "quiet_spots": [
+        "Molo Audace",
+        "Barcola",
+        "Cafes historiques"
+      ],
+      "hikes": [
+        "Balade Barcola vers Miramare",
+        "Sentiero Rilke pres Duino",
+        "Grotta Gigante option"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Verone max 12h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Piazza Unita d Italia",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Molo Audace",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Canal Grande",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Caffe historiques",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Ljubljana",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Liaison transfrontaliere a verifier. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 24,
+        "food": 14,
+        "local_transport": 5,
+        "reservations_or_bus": 10
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j03-trieste-ljubljana",
+      "day": 3,
+      "name": "Trieste \u2192 Ljubljana",
+      "country": "Italie / Slov\u00e9nie",
+      "sleep_city": "Ljubljana",
+      "departure_latest": "12h00",
+      "summary": "Capitale compacte, verte, parfaite a pied.",
+      "ottoman_trace": "Traces indirectes des guerres ottomanes par le role de frontiere habsbourgeoise.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Vieille ville",
+        "Riviere Ljubljanica",
+        "Triple Bridge",
+        "Marche central",
+        "Chateau de Ljubljana",
+        "Metelkova",
+        "Parc Tivoli",
+        "Cafes au bord de la riviere"
+      ],
+      "quiet_spots": [
+        "Cafes au bord de la riviere",
+        "Parc Tivoli",
+        "Coucher de soleil depuis le chateau"
+      ],
+      "hikes": [
+        "Montee a pied vers le chateau",
+        "Tivoli vers Roznik",
+        "Boucle Tivoli Roznik centre"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Trieste max 12h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Vieille ville",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Riviere Ljubljanica",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Triple Bridge",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Marche central",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Zagreb",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Train international court. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 24,
+        "food": 14,
+        "local_transport": 5,
+        "reservations_or_bus": 10
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j04-ljubljana-zagreb",
+      "day": 4,
+      "name": "Ljubljana \u2192 Zagreb",
+      "country": "Slov\u00e9nie / Croatie",
+      "sleep_city": "Zagreb",
+      "departure_latest": "13h00",
+      "summary": "Pause croate avant la Bosnie, utile pour organiser le bus long.",
+      "ottoman_trace": "Contexte de frontiere habsbourgeoise face au monde ottoman.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Ban Jelacic Square",
+        "Dolac Market",
+        "Upper Town Gradec",
+        "Eglise Saint Marc",
+        "Stone Gate",
+        "Tkalciceva Street",
+        "Lotrscak Tower",
+        "Museum of Broken Relationships",
+        "Zagreb City Museum",
+        "Maksimir Park",
+        "Nikola Tesla Technical Museum"
+      ],
+      "quiet_spots": [
+        "Dolac Market matin",
+        "Tkalciceva cafes",
+        "Maksimir Park"
+      ],
+      "hikes": [
+        "Medvednica Sljeme option forte",
+        "Boucle Upper Town"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Ljubljana max 13h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Ban Jelacic Square",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Dolac Market",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Upper Town Gradec",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Eglise Saint Marc",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Travnik/Jajce",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus vers Bosnie souvent non inclus Interrail. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 24,
+        "food": 14,
+        "local_transport": 5,
+        "reservations_or_bus": 10
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j05-zagreb-travnik",
+      "day": 5,
+      "name": "Zagreb \u2192 Travnik/Jajce",
+      "country": "Croatie / Bosnie-Herz\u00e9govine",
+      "sleep_city": "Travnik/Jajce",
+      "departure_latest": "09h00",
+      "summary": "Entree en Bosnie centrale et premiere vraie etape ottomane.",
+      "ottoman_trace": "Travnik fut residence des vizirs ottomans de Bosnie.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Forteresse de Travnik",
+        "Vue depuis la forteresse",
+        "Plava Voda",
+        "Mosquee Sulejmanija mosquee coloree",
+        "Vieille ville",
+        "Jeni Mosque",
+        "Tombeaux des vizirs",
+        "Maison natale Ivo Andric",
+        "Cafe bosnien a Plava Voda"
+      ],
+      "quiet_spots": [
+        "Plava Voda",
+        "Cafe bosnien",
+        "Vieille ville"
+      ],
+      "hikes": [
+        "Petite marche autour forteresse",
+        "Vlasich Mountain option forte"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Zagreb max 09h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Forteresse de Travnik",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Vue depuis la forteresse",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Plava Voda",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Mosquee Sulejmanija mosquee coloree",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Sarajevo",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus bosnien non inclus. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 22,
+        "food": 14,
+        "local_transport": 4,
+        "reservations_or_bus": 18
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j06-travnik-sarajevo",
+      "day": 6,
+      "name": "Travnik/Jajce \u2192 Sarajevo",
+      "country": "Bosnie-Herz\u00e9govine",
+      "sleep_city": "Sarajevo",
+      "departure_latest": "13h00",
+      "summary": "Arrivee dans le coeur ottoman du voyage.",
+      "ottoman_trace": "Sarajevo concentre bazar, mosquees, hans, cafes et quartiers ottomans.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Bascarsija",
+        "Sebilj",
+        "Mosquee Gazi Husrev-beg",
+        "Morica Han",
+        "Sahat Kula",
+        "Latin Bridge",
+        "Vijecnica",
+        "Cafe bosnien",
+        "Cevapi",
+        "Yellow Fortress"
+      ],
+      "quiet_spots": [
+        "Cafe bosnien dans Bascarsija",
+        "Cimetiere Kovaci",
+        "Rives Miljacka"
+      ],
+      "hikes": [
+        "Yellow Fortress",
+        "White Fortress option",
+        "Trebevic par telepherique",
+        "Ancienne piste de bobsleigh",
+        "Balade foret Trebevic"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart max 13h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Bascarsija",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Sebilj",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Mosquee Gazi Husrev-beg",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Morica Han",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Sarajevo journee complete",
+        "mode": "local",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 24,
+        "food": 15,
+        "local_transport": 4,
+        "reservations_or_bus": 8
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j07-sarajevo",
+      "day": 7,
+      "name": "Sarajevo : Bascarsija, Gazi Husrev-beg, Trebevic",
+      "country": "Bosnie-Herz\u00e9govine",
+      "sleep_city": "Sarajevo",
+      "departure_latest": "-",
+      "summary": "Journee complete Sarajevo ottomane, panoramas et memoire.",
+      "ottoman_trace": "Bascarsija et Gazi Husrev-beg forment le coeur ottoman de Sarajevo.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Bascarsija",
+        "Sebilj",
+        "Mosquee Gazi Husrev-beg",
+        "Morica Han",
+        "Sahat Kula",
+        "Latin Bridge",
+        "Vijecnica",
+        "Cimetiere Kovaci",
+        "Tunnel of Hope",
+        "Gallery 11/07/95",
+        "Musee Sarajevo 1878-1918",
+        "Vrelo Bosne"
+      ],
+      "quiet_spots": [
+        "Cafe bosnien lent",
+        "Vrelo Bosne option calme",
+        "Bascarsija tot"
+      ],
+      "hikes": [
+        "Yellow Fortress",
+        "Trebevic telepherique",
+        "Ancienne piste de bobsleigh",
+        "White Fortress"
+      ],
+      "full_day_plan": [
+        {
+          "time": "10:00",
+          "title": "Bascarsija",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Sebilj",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Mosquee Gazi Husrev-beg",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Morica Han",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Mostar",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Train Sarajevo-Mostar si disponible, bus sinon. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 24,
+        "food": 15,
+        "local_transport": 4,
+        "reservations_or_bus": 5
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j08-sarajevo-mostar",
+      "day": 8,
+      "name": "Sarajevo \u2192 Mostar",
+      "country": "Bosnie-Herz\u00e9govine",
+      "sleep_city": "Mostar",
+      "departure_latest": "12h00",
+      "summary": "Descente vers Mostar et la Neretva.",
+      "ottoman_trace": "Mostar montre pont, bazar, mosquees et maisons ottomanes.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Stari Most",
+        "Vieille ville ottomane",
+        "Bazar Kujundziluk",
+        "Mosquee Koski Mehmed Pasha",
+        "Kriva Cuprija",
+        "Maisons ottomanes",
+        "Stari Most tot matin",
+        "Stari Most soiree"
+      ],
+      "quiet_spots": [
+        "Neretva",
+        "Vieille ville tot",
+        "Soiree sur le pont"
+      ],
+      "hikes": [
+        "Fortica Skywalk",
+        "Colline Fortica"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Sarajevo max 12h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Stari Most",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Vieille ville ottomane",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Bazar Kujundziluk",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Mosquee Koski Mehmed Pasha",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Blagaj et Pocitelj",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Excursion locale non incluse. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 23,
+        "food": 14,
+        "local_transport": 4,
+        "reservations_or_bus": 10
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j09-blagaj-pocitelj",
+      "day": 9,
+      "name": "Blagaj + Po\u010ditelj depuis Mostar",
+      "country": "Bosnie-Herz\u00e9govine",
+      "sleep_city": "Mostar",
+      "departure_latest": "08h30 local",
+      "summary": "Journee autour de la Buna, tekke et village fortifie.",
+      "ottoman_trace": "Blagaj Tekke et Pocitelj sont deux traces fortes du monde ottoman en Herzegovine.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Blagaj Tekke",
+        "Source de la Buna",
+        "Pocitelj",
+        "Montee dans Pocitelj",
+        "Mosquee de Pocitelj",
+        "Vue sur la vallee",
+        "Kravica Waterfalls option"
+      ],
+      "quiet_spots": [
+        "Source de la Buna",
+        "Ruelles de Pocitelj",
+        "Mostar soiree"
+      ],
+      "hikes": [
+        "Montee Pocitelj",
+        "Fortica option",
+        "Balade Neretva"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart local max 08h30. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Blagaj Tekke",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Source de la Buna",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Pocitelj",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Montee dans Pocitelj",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Kotor",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Long bus vers Montenegro. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 23,
+        "food": 14,
+        "local_transport": 12,
+        "reservations_or_bus": 0
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j10-mostar-kotor",
+      "day": 10,
+      "name": "Mostar \u2192 Kotor",
+      "country": "Bosnie-Herz\u00e9govine / Mont\u00e9n\u00e9gro",
+      "sleep_city": "Kotor",
+      "departure_latest": "08h00",
+      "summary": "Passage vers la baie de Kotor.",
+      "ottoman_trace": "Kotor est surtout venitienne, mais annonce les frontieres ottomanes du Montenegro.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Vieille ville fortifiee",
+        "Cathedrale Saint Tryphon",
+        "Ruelles tot matin",
+        "Remparts de Kotor",
+        "Baie de Kotor",
+        "Forteresse San Giovanni",
+        "Vue sur la baie",
+        "Perast option",
+        "Our Lady of the Rocks option"
+      ],
+      "quiet_spots": [
+        "Baie de Kotor",
+        "Ruelles tot",
+        "Coucher soleil baie"
+      ],
+      "hikes": [
+        "Forteresse San Giovanni",
+        "Ladder of Kotor",
+        "Petit dejeuner tot plus montee forteresse"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Mostar max 08h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Vieille ville fortifiee",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Cathedrale Saint Tryphon",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Ruelles tot matin",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Remparts de Kotor",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Bar / Stari Bar",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus cotier non inclus. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 30,
+        "food": 18,
+        "local_transport": 5,
+        "reservations_or_bus": 18
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j11-kotor-bar",
+      "day": 11,
+      "name": "Kotor \u2192 Bar / Stari Bar",
+      "country": "Mont\u00e9n\u00e9gro",
+      "sleep_city": "Bar / Stari Bar",
+      "departure_latest": "10h00",
+      "summary": "Ajout de Stari Bar pour les traces ottomanes montenegrines.",
+      "ottoman_trace": "Stari Bar conserve mosquees, hammam, clock tower, aqueduc et ruines ottomanes.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Stari Bar",
+        "Forteresse ruines de Stari Bar",
+        "Aqueduc de Bar",
+        "Omerbasica Mosque",
+        "Skanjevica Mosque",
+        "Ruines de hammam",
+        "Clock Tower",
+        "Vieil olivier de Bar",
+        "Vue depuis Stari Bar"
+      ],
+      "quiet_spots": [
+        "Ruelles autour de Stari Bar",
+        "Repas local autour Stari Bar"
+      ],
+      "hikes": [
+        "Mount Rumija option forte",
+        "Contreforts de Rumija petite marche"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Kotor max 10h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Stari Bar",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Forteresse ruines de Stari Bar",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Aqueduc de Bar",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Omerbasica Mosque",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Ulcinj",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus local non inclus. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 24,
+        "food": 14,
+        "local_transport": 5,
+        "reservations_or_bus": 8
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j12-bar-ulcinj",
+      "day": 12,
+      "name": "Bar / Stari Bar \u2192 Ulcinj",
+      "country": "Mont\u00e9n\u00e9gro",
+      "sleep_city": "Ulcinj",
+      "departure_latest": "11h00",
+      "summary": "Ulcinj ajoute une vraie ambiance islamique/adriatique avant l Albanie.",
+      "ottoman_trace": "Ulcinj garde mosquees, vieille ville, citadelle et memoire ottomane maritime.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Vieille ville Ulcinj",
+        "Citadelle Balsic Tower",
+        "Pashas Mosque",
+        "Sailors Mosque",
+        "Ruelles vieille ville",
+        "Small Beach",
+        "Long Beach Velika Plaza",
+        "Valdanos Bay",
+        "Ada Bojana option"
+      ],
+      "quiet_spots": [
+        "Coucher soleil Adriatique",
+        "Repas bord de mer",
+        "Small Beach"
+      ],
+      "hikes": [
+        "Long Beach marche",
+        "Valdanos Bay nature option"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Bar max 11h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Vieille ville Ulcinj",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Citadelle Balsic Tower",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Pashas Mosque",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Sailors Mosque",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Shkoder",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus vers Albanie non inclus, frontiere a verifier. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 22,
+        "food": 14,
+        "local_transport": 5,
+        "reservations_or_bus": 10
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j13-ulcinj-shkoder",
+      "day": 13,
+      "name": "Ulcinj \u2192 Shkod\u00ebr",
+      "country": "Mont\u00e9n\u00e9gro / Albanie",
+      "sleep_city": "Shkod\u00ebr",
+      "departure_latest": "10h00",
+      "summary": "Entree en Albanie par Shkoder.",
+      "ottoman_trace": "Shkoder combine forteresse, lac, mosquee centrale et culture albanaise du nord.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Rozafa Castle",
+        "Vue depuis Rozafa",
+        "Lac de Shkoder",
+        "Centre pieton",
+        "Ebu Bekr Mosque",
+        "Musee photo Marubi",
+        "Pont de Mesi",
+        "Cafe centre ville"
+      ],
+      "quiet_spots": [
+        "Lac de Shkoder",
+        "Centre pieton",
+        "Coucher soleil Rozafa ou lac"
+      ],
+      "hikes": [
+        "Montee Rozafa",
+        "Balade velo autour lac",
+        "Pont de Mesi option"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Ulcinj max 10h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Rozafa Castle",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Vue depuis Rozafa",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Lac de Shkoder",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Centre pieton",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Kruje puis Tirana",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus/furgon albanais non inclus. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 18,
+        "food": 12,
+        "local_transport": 5,
+        "reservations_or_bus": 12
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j14-shkoder-kruje-tirana",
+      "day": 14,
+      "name": "Shkod\u00ebr \u2192 Kruj\u00eb \u2192 Tirana",
+      "country": "Albanie",
+      "sleep_city": "Tirana",
+      "departure_latest": "08h30",
+      "summary": "Passage par Kruje puis capitale albanaise.",
+      "ottoman_trace": "Kruje et Tirana donnent bazar, mosquee Et hem Bey, memoire albanaise et logistique.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Kruje Castle",
+        "Bazar de Kruje",
+        "Skanderbeg Square",
+        "Mosquee Et hem Bey",
+        "Clock Tower",
+        "Bunk Art 2",
+        "Pyramide de Tirana",
+        "Blloku",
+        "Pazari i Ri",
+        "Grand Park",
+        "Bunk Art 1",
+        "House of Leaves",
+        "Mount Dajti"
+      ],
+      "quiet_spots": [
+        "Grand Park",
+        "Pazari i Ri",
+        "Cafes Blloku"
+      ],
+      "hikes": [
+        "Mount Dajti telepherique",
+        "Grand Park marche"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Shkoder max 08h30. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Kruje Castle",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Bazar de Kruje",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Skanderbeg Square",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Mosquee Et hem Bey",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Prizren",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus international Albanie/Kosovo non inclus. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 20,
+        "food": 12,
+        "local_transport": 8,
+        "reservations_or_bus": 18
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j15-tirana-prizren",
+      "day": 15,
+      "name": "Tirana \u2192 Prizren",
+      "country": "Albanie / Kosovo",
+      "sleep_city": "Prizren",
+      "departure_latest": "08h00",
+      "summary": "Route vers la principale etape kosovare du theme ottoman.",
+      "ottoman_trace": "Prizren concentre Sinan Pasha, vieux bazar, hammam, pont, tekke et forteresse.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Mosquee Sinan Pasha",
+        "Stone Bridge",
+        "Shadervan Square",
+        "Vieux bazar",
+        "Hammam ancien",
+        "Bistrica",
+        "Forteresse de Prizren",
+        "Museum of Albanian League",
+        "Halveti Tekke",
+        "Eglises anciennes du centre",
+        "Qebapa"
+      ],
+      "quiet_spots": [
+        "Cafes Shadervan",
+        "Balade Bistrica",
+        "Vieux centre soir"
+      ],
+      "hikes": [
+        "Forteresse coucher soleil",
+        "Sentiers au dessus forteresse option"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Tirana max 08h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Mosquee Sinan Pasha",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Stone Bridge",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Shadervan Square",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Vieux bazar",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Prizren journee complete",
+        "mode": "local",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 20,
+        "food": 12,
+        "local_transport": 4,
+        "reservations_or_bus": 24
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j16-prizren",
+      "day": 16,
+      "name": "Prizren : vieille ville, forteresse, Sinan Pasha",
+      "country": "Kosovo",
+      "sleep_city": "Prizren",
+      "departure_latest": "-",
+      "summary": "Journee complete a Prizren.",
+      "ottoman_trace": "Mosquee ottomane du XVIIe siecle dominant le centre, vieux bazar et forteresse.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Mosquee Sinan Pasha",
+        "Stone Bridge",
+        "Shadervan Square",
+        "Vieux bazar",
+        "Hammam ancien",
+        "Forteresse coucher soleil",
+        "Halveti Tekke",
+        "Museum of Albanian League of Prizren"
+      ],
+      "quiet_spots": [
+        "Cafes Shadervan",
+        "Rives Bistrica",
+        "Cours de mosquees"
+      ],
+      "hikes": [
+        "Forteresse de Prizren",
+        "Sentiers courts au dessus"
+      ],
+      "full_day_plan": [
+        {
+          "time": "10:00",
+          "title": "Mosquee Sinan Pasha",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Stone Bridge",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Shadervan Square",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Vieux bazar",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Gjakova puis Peja",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus Kosovo non inclus. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 20,
+        "food": 12,
+        "local_transport": 3,
+        "reservations_or_bus": 10
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j17-prizren-gjakova-peja",
+      "day": 17,
+      "name": "Prizren \u2192 Gjakova \u2192 Peja",
+      "country": "Kosovo",
+      "sleep_city": "Peja",
+      "departure_latest": "08h30",
+      "summary": "Ajout de Gjakova entre Prizren et Peja.",
+      "ottoman_trace": "Gjakova apporte Grand Bazaar, Hadum Mosque, clock tower et traces soufies.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Grand Bazaar Carsia e Madhe",
+        "Mosquee Hadum",
+        "Clock Tower",
+        "Tekke traces soufies",
+        "Cafes dans le bazar",
+        "Ateliers artisanat",
+        "Rues commerçantes anciennes",
+        "Dejeuner dans le bazar",
+        "Colline de Cabrat"
+      ],
+      "quiet_spots": [
+        "Cafes bazar",
+        "Ruelles photo",
+        "Dejeuner bazar"
+      ],
+      "hikes": [
+        "Colline de Cabrat option vue",
+        "Petite balade photo ruelles"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Prizren max 08h30. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Grand Bazaar Carsia e Madhe",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Mosquee Hadum",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Clock Tower",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Tekke traces soufies",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Peja / Rugova journee nature",
+        "mode": "local",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Pas de grand trajet, transports locaux. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 20,
+        "food": 12,
+        "local_transport": 5,
+        "reservations_or_bus": 8
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j18-peja-rugova",
+      "day": 18,
+      "name": "Peja / Rugova",
+      "country": "Kosovo",
+      "sleep_city": "Peja",
+      "departure_latest": "-",
+      "summary": "Grande respiration nature du Kosovo.",
+      "ottoman_trace": "Peja combine vieux bazar et acces rapide aux gorges de Rugova.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Vieux bazar de Peja",
+        "Centre de Peja",
+        "Rugova Gorge",
+        "Entree de Rugova Gorge",
+        "Balade dans la gorge",
+        "Points de vue Rugova",
+        "White Drin Waterfall Radavc",
+        "Patriarcat de Pec",
+        "Marche local Peja"
+      ],
+      "quiet_spots": [
+        "Pause repas vue montagne",
+        "Centre de Peja",
+        "Entree Rugova"
+      ],
+      "hikes": [
+        "Balade Rugova Gorge",
+        "White Drin Waterfall",
+        "Via ferrata seulement avec prestataire",
+        "Kuqishta lacs option"
+      ],
+      "full_day_plan": [
+        {
+          "time": "10:00",
+          "title": "Vieux bazar de Peja",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Centre de Peja",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Rugova Gorge",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Entree de Rugova Gorge",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Skopje via Pristina",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus via Pristina probable. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 20,
+        "food": 12,
+        "local_transport": 6,
+        "reservations_or_bus": 10
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j19-peja-skopje",
+      "day": 19,
+      "name": "Peja/Pristina \u2192 Skopje",
+      "country": "Kosovo / Mac\u00e9doine du Nord",
+      "sleep_city": "Skopje",
+      "departure_latest": "09h30",
+      "summary": "Passage vers Skopje et son vieux bazar ottoman.",
+      "ottoman_trace": "Skopje possede un des grands bazars ottomans des Balkans.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Old Bazaar Carsija",
+        "Stone Bridge",
+        "Kale Fortress",
+        "Mustafa Pasha Mosque",
+        "Daut Pasha Hammam",
+        "Cifte Hammam",
+        "Macedonia Square",
+        "Vardar River",
+        "Old Bazaar de nuit"
+      ],
+      "quiet_spots": [
+        "Old Bazaar de nuit",
+        "Manger dans vieux bazar",
+        "Vardar River"
+      ],
+      "hikes": [
+        "Kale Fortress",
+        "Vodno Mountain",
+        "Millennium Cross",
+        "Matka Canyon option"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart max 09h30. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Old Bazaar Carsija",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Stone Bridge",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Kale Fortress",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Mustafa Pasha Mosque",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Skopje journee complete",
+        "mode": "local",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 20,
+        "food": 12,
+        "local_transport": 4,
+        "reservations_or_bus": 16
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j20-skopje",
+      "day": 20,
+      "name": "Skopje : vieux bazar, Kale, Stone Bridge",
+      "country": "Mac\u00e9doine du Nord",
+      "sleep_city": "Skopje",
+      "departure_latest": "-",
+      "summary": "Journee complete a Skopje.",
+      "ottoman_trace": "Old Bazaar, mosquees, hammams, hans et Stone Bridge dessinent la ville ottomane.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Old Bazaar",
+        "Stone Bridge",
+        "Kale Fortress",
+        "Mustafa Pasha Mosque",
+        "Daut Pasha Hammam",
+        "Cifte Hammam",
+        "Museum of Macedonian Struggle",
+        "Mother Teresa Memorial House",
+        "Vodno Mountain",
+        "Matka Canyon"
+      ],
+      "quiet_spots": [
+        "Old Bazaar de nuit",
+        "Vardar",
+        "Cours de hans"
+      ],
+      "hikes": [
+        "Kale",
+        "Vodno vers Millennium Cross",
+        "Matka Canyon",
+        "Randonnee Vodno vers Matka forte"
+      ],
+      "full_day_plan": [
+        {
+          "time": "10:00",
+          "title": "Old Bazaar",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Stone Bridge",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Kale Fortress",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Mustafa Pasha Mosque",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Tetovo puis Ohrid",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Bus/train local a verifier. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 20,
+        "food": 12,
+        "local_transport": 4,
+        "reservations_or_bus": 6
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j21-skopje-tetovo-ohrid",
+      "day": 21,
+      "name": "Skopje \u2192 Tetovo \u2192 Ohrid",
+      "country": "Mac\u00e9doine du Nord",
+      "sleep_city": "Ohrid",
+      "departure_latest": "09h00",
+      "summary": "Ajout de Tetovo avant Ohrid pour la mosquee peinte.",
+      "ottoman_trace": "Tetovo ajoute Sarena Dzamija et Arabati Baba Tekke, deux traces ottomanes majeures.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Mosquee peinte Sarena Dzamija",
+        "Interieur de la mosquee peinte",
+        "Arabati Baba Tekke",
+        "Riviere Pena",
+        "Centre de Tetovo",
+        "Photos exterieures mosquee",
+        "Contreforts Sar Planina"
+      ],
+      "quiet_spots": [
+        "Cafe rapide Tetovo",
+        "Riviere Pena",
+        "Pause avant Ohrid"
+      ],
+      "hikes": [
+        "Contreforts Sar Planina option legere"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Skopje max 09h00, arret Tetovo, puis Ohrid. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Mosquee peinte Sarena Dzamija",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Interieur de la mosquee peinte",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Arabati Baba Tekke",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Riviere Pena",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Ohrid journee complete",
+        "mode": "local",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 22,
+        "food": 13,
+        "local_transport": 6,
+        "reservations_or_bus": 12
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j22-ohrid",
+      "day": 22,
+      "name": "Ohrid : lac, vieille ville, Kaneo, forteresse",
+      "country": "Mac\u00e9doine du Nord",
+      "sleep_city": "Ohrid",
+      "departure_latest": "-",
+      "summary": "Journee lacustre et patrimoniale.",
+      "ottoman_trace": "Ohrid est surtout byzantine, avec vieux bazar et maisons ottomanes en contraste.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Lac Ohrid",
+        "Vieille ville",
+        "Saint Jean de Kaneo",
+        "Forteresse de Samuel",
+        "Ancient Theatre",
+        "Plaosnik",
+        "Boucle vieux centre Kaneo Plaosnik forteresse",
+        "Bateau sur le lac",
+        "Saint Naum option"
+      ],
+      "quiet_spots": [
+        "Coucher soleil bord du lac",
+        "Petite plage cafe",
+        "Baignade rapide"
+      ],
+      "hikes": [
+        "Boucle vieux centre vers Kaneo et forteresse",
+        "Parc national Galicica option forte"
+      ],
+      "full_day_plan": [
+        {
+          "time": "10:00",
+          "title": "Lac Ohrid",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Vieille ville",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Saint Jean de Kaneo",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Forteresse de Samuel",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Skopje puis Sofia",
+        "mode": "bus",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Tres long trajet J23. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 22,
+        "food": 13,
+        "local_transport": 4,
+        "reservations_or_bus": 12
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j23-ohrid-sofia",
+      "day": 23,
+      "name": "Ohrid \u2192 Skopje \u2192 Sofia",
+      "country": "Mac\u00e9doine du Nord / Bulgarie",
+      "sleep_city": "Sofia",
+      "departure_latest": "06h30",
+      "summary": "Long trajet vers Sofia, priorite fiabilite.",
+      "ottoman_trace": "Arrivee dans une capitale avec mosquee Banya Bashi et bains mineraux.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Arrivee Sofia",
+        "Banya Bashi exterieur si possible",
+        "Bains mineraux exterieur",
+        "Vitosha Boulevard repos"
+      ],
+      "quiet_spots": [
+        "Jardins autour bains",
+        "Boulevard Vitosha"
+      ],
+      "hikes": [
+        "Aucune rando jour de transport"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Ohrid max 06h30. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Arrivee Sofia",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Banya Bashi exterieur si possible",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Bains mineraux exterieur",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Vitosha Boulevard repos",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Sofia journee complete",
+        "mode": "local",
+        "interrail_included": false,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 24,
+        "food": 14,
+        "local_transport": 5,
+        "reservations_or_bus": 28
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j24-sofia",
+      "day": 24,
+      "name": "Sofia : Banya Bashi, bains mineraux, Vitosha",
+      "country": "Bulgarie",
+      "sleep_city": "Sofia",
+      "departure_latest": "-",
+      "summary": "Journee Sofia entre traces ottomanes et montagne.",
+      "ottoman_trace": "Banya Bashi est le repere ottoman majeur de Sofia.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Mosquee Banya Bashi",
+        "Anciens bains mineraux",
+        "Sources minerales publiques",
+        "Ruines de Serdica",
+        "Cathedrale Alexandre Nevski",
+        "Eglise Sainte Sophie",
+        "Vitosha Boulevard",
+        "Synagogue de Sofia",
+        "National Archaeological Museum",
+        "Boyana Church"
+      ],
+      "quiet_spots": [
+        "Sources minerales",
+        "Marches zone Banya Bashi",
+        "Vitosha Boulevard"
+      ],
+      "hikes": [
+        "Vitosha Mountain",
+        "Boyana Waterfall",
+        "Cherni Vrah option forte",
+        "Vue Sofia depuis Vitosha"
+      ],
+      "full_day_plan": [
+        {
+          "time": "10:00",
+          "title": "Mosquee Banya Bashi",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Anciens bains mineraux",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Sources minerales publiques",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Ruines de Serdica",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Bucarest",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": true,
+        "night_train": false,
+        "notes": "Long trajet international, reservation possible. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 24,
+        "food": 14,
+        "local_transport": 5,
+        "reservations_or_bus": 8
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j25-sofia-bucarest",
+      "day": 25,
+      "name": "Sofia \u2192 Bucarest",
+      "country": "Bulgarie / Roumanie",
+      "sleep_city": "Bucarest",
+      "departure_latest": "07h30",
+      "summary": "Retour vers la Roumanie.",
+      "ottoman_trace": "Bucarest garde Hanul lui Manuc et des influences balkaniques/orientales.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Vieille ville Lipscani",
+        "Hanul lui Manuc",
+        "Curtea Veche",
+        "Calea Victoriei",
+        "Palais du Parlement exterieur",
+        "Parc Carol",
+        "Herastrau",
+        "Musee du village Dimitrie Gusti",
+        "Athenee roumain",
+        "Therme Bucuresti",
+        "Carturesti Carusel"
+      ],
+      "quiet_spots": [
+        "Parc Carol",
+        "Herastrau",
+        "Therme Bucuresti recuperation"
+      ],
+      "hikes": [
+        "Grande marche Lipscani Calea Victoriei",
+        "Parc Carol"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Sofia max 07h30. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Vieille ville Lipscani",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Hanul lui Manuc",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Curtea Veche",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Calea Victoriei",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Constanta",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Train roumain vers mer Noire. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 25,
+        "food": 14,
+        "local_transport": 5,
+        "reservations_or_bus": 8
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j26-bucarest-constanta",
+      "day": 26,
+      "name": "Bucarest \u2192 Constan\u021ba",
+      "country": "Roumanie",
+      "sleep_city": "Constan\u021ba",
+      "departure_latest": "08h00",
+      "summary": "Mer Noire et traces musulmanes de Dobroudja.",
+      "ottoman_trace": "Constanta justifie le detour par Carol I, Hunkar et la Dobroudja turco-tatare.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Grande Mosquee Carol I",
+        "Minaret de Carol I",
+        "Mosquee Hunkar",
+        "Ovid Square",
+        "Vieux centre",
+        "Casino de Constanta",
+        "Front de mer",
+        "Port marina",
+        "Musee histoire archeologie",
+        "Plage rapide"
+      ],
+      "quiet_spots": [
+        "Front de mer",
+        "Repas bord de mer",
+        "Lever ou coucher de soleil"
+      ],
+      "hikes": [
+        "Promenade front de mer",
+        "Boucle mosquees casino"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Bucarest max 08h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Grande Mosquee Carol I",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Minaret de Carol I",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Mosquee Hunkar",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Ovid Square",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Bucarest puis Budapest",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": true,
+        "night_train": true,
+        "notes": "Retour Bucarest puis train de nuit si disponible. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 24,
+        "food": 14,
+        "local_transport": 4,
+        "reservations_or_bus": 4
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j27-constanta-budapest-night",
+      "day": 27,
+      "name": "Constan\u021ba \u2192 Bucarest \u2192 Budapest si train de nuit",
+      "country": "Roumanie / Hongrie",
+      "sleep_city": "Train de nuit vers Budapest si disponible",
+      "departure_latest": "Constanta 12h00 / Bucarest 15h-16h",
+      "summary": "Jour charniere : mer Noire puis train long ou de nuit.",
+      "ottoman_trace": "Fin Dobroudja puis retour centre-europeen.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Promenade maritime",
+        "Dernier tour vieux centre",
+        "Gara de Nord Bucarest",
+        "Preparation Dacia EuroNight",
+        "Nuit en train"
+      ],
+      "quiet_spots": [
+        "Bord de mer tot",
+        "Repos train"
+      ],
+      "hikes": [
+        "Marche cotiere courte"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Constanta max 12h00, depart Bucarest max 15h-16h. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Promenade maritime",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Dernier tour vieux centre",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Gara de Nord Bucarest",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Preparation Dacia EuroNight",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Budapest",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": true,
+        "night_train": true,
+        "notes": "Dacia/EuroNight ou train long via Budapest/Vienne, couchette probable. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 0,
+        "food": 16,
+        "local_transport": 4,
+        "reservations_or_bus": 40
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ],
+      "night_train_options": [
+        {
+          "title": "Option principale : Bucarest vers Budapest/Vienne en train de nuit",
+          "details": "Chercher Dacia/EuroNight ou train long depuis Bucarest apres retour de Constanta. Couchette/lit ou siege avec reservation payante probable. Horaires et correspondances a verifier 48h avant."
+        }
+      ]
+    },
+    {
+      "id": "j28-budapest",
+      "day": 28,
+      "name": "Budapest : arrivee, Gül Baba, bains Rudas",
+      "country": "Hongrie",
+      "sleep_city": "Budapest",
+      "departure_latest": "-",
+      "summary": "Arrivee/repos apres train de nuit, puis Budapest ottomane si energie.",
+      "ottoman_trace": "Budapest garde tombeau de Gul Baba et bains turcs.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Tombeau de Gul Baba",
+        "Rose Garden",
+        "Bains Rudas",
+        "Buda Castle",
+        "Fishermans Bastion",
+        "Pont des Chaines",
+        "Danube de nuit",
+        "Gellert Hill",
+        "Gellert Baths",
+        "Szechenyi Baths",
+        "Grande synagogue",
+        "Marche couvert",
+        "Ruin bars"
+      ],
+      "quiet_spots": [
+        "Rose Garden",
+        "Danube de nuit",
+        "Bains Rudas recuperation"
+      ],
+      "hikes": [
+        "Gellert Hill",
+        "Citadella points de vue"
+      ],
+      "full_day_plan": [
+        {
+          "time": "10:00",
+          "title": "Tombeau de Gul Baba",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Rose Garden",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Bains Rudas",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Buda Castle",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Pecs aller-retour ou Budapest",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": false,
+        "night_train": false,
+        "notes": "Pecs faisable si depart tot J29. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 28,
+        "food": 16,
+        "local_transport": 5,
+        "reservations_or_bus": 8
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ]
+    },
+    {
+      "id": "j29-budapest-pecs",
+      "day": 29,
+      "name": "Budapest ou aller-retour P\u00e9cs",
+      "country": "Hongrie",
+      "sleep_city": "Budapest",
+      "departure_latest": "09h00 vers Pecs / retour 18h00",
+      "summary": "Derniere journee ottomane : Budapest ou Pecs.",
+      "ottoman_trace": "Pecs conserve la mosquee de Pasha Qasim et Yakovali Hassan.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Mosquee de Pasha Qasim",
+        "Szechenyi Square",
+        "Yakovali Hassan Mosque",
+        "Zsolnay Cultural Quarter",
+        "Centre historique",
+        "Kiraly Street",
+        "Cathedrale de Pecs",
+        "Early Christian Necropolis",
+        "Tettye Park",
+        "Mecsek Hills",
+        "Misina TV Tower"
+      ],
+      "quiet_spots": [
+        "Cafe centre Pecs",
+        "Terrasse Szechenyi",
+        "Retour Budapest tot"
+      ],
+      "hikes": [
+        "Tettye Park",
+        "Mecsek Hills",
+        "Misina TV Tower",
+        "Jakab-hegy option forte"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Budapest max 09h00 si Pecs. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Mosquee de Pasha Qasim",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Szechenyi Square",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Yakovali Hassan Mosque",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Zsolnay Cultural Quarter",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Strasbourg",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": true,
+        "night_train": false,
+        "notes": "Retour J30 en train de jour ; option nuit seulement depart J29. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 28,
+        "food": 16,
+        "local_transport": 8,
+        "reservations_or_bus": 16
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ],
+      "night_train_options": [
+        {
+          "title": "Option retour : Budapest vers Munich/Zurich/Vienne de nuit",
+          "details": "Possible seulement en partant le soir de J29 et en terminant J30 vers Strasbourg en train de jour avant expiration du pass. Horaires et correspondances a verifier 48h avant."
+        }
+      ]
+    },
+    {
+      "id": "j30-budapest-strasbourg",
+      "day": 30,
+      "name": "Budapest \u2192 Strasbourg",
+      "country": "Hongrie / Autriche / Allemagne / France",
+      "sleep_city": "Strasbourg",
+      "departure_latest": "07h00",
+      "summary": "Retour final en train de jour.",
+      "ottoman_trace": "Fin du parcours ottoman apres Budapest/Pecs.",
+      "crowd_level": "moyen",
+      "must_see": [
+        "Gare de Budapest",
+        "Correspondances Autriche Allemagne",
+        "Arrivee Strasbourg",
+        "Tri photos et notes"
+      ],
+      "quiet_spots": [
+        "Repos train"
+      ],
+      "hikes": [
+        "Aucune rando"
+      ],
+      "full_day_plan": [
+        {
+          "time": "08:00",
+          "title": "Transport / depart",
+          "details": "Depart Budapest max 07h00. Horaires et correspondances a verifier 48h avant."
+        },
+        {
+          "time": "10:00",
+          "title": "Gare de Budapest",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "12:00",
+          "title": "Correspondances Autriche Allemagne",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "14:30",
+          "title": "Arrivee Strasbourg",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "17:00",
+          "title": "Tri photos et notes",
+          "details": "Visite ou balade a adapter selon fatigue, meteo et horaires reels."
+        },
+        {
+          "time": "19:00",
+          "title": "Preparation du lendemain",
+          "details": "Verifier transport, billets, eau, repas et depart maximum. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "transport_next": {
+        "to": "Fin du voyage",
+        "mode": "train",
+        "interrail_included": true,
+        "reservation_needed": true,
+        "night_train": false,
+        "notes": "Aucun train de nuit ce jour-la si pass expire a 23h59. Horaires et correspondances a verifier 48h avant."
+      },
+      "budget": {
+        "sleep": 0,
+        "food": 18,
+        "local_transport": 4,
+        "reservations_or_bus": 15
+      },
+      "cheap_food_tips": [
+        "Boulangerie ou marche local",
+        "Supermarche pour eau et pique-nique",
+        "Plat simple local plutot que restaurant touristique"
+      ],
+      "cheap_sleep_tips": [
+        "Logement simple proche gare ou gare routiere",
+        "Verifier arrivee tardive et consigne bagages"
+      ],
+      "shower_laundry_tips": [
+        "Douche au logement",
+        "Laverie a chercher dans les grandes villes",
+        "Lessive manuelle possible les jours tampon"
+      ],
+      "safety_notes": [
+        "Garder passeport et carte bancaire en securite",
+        "Ne pas laisser le sac sans surveillance",
+        "Toujours verifier horaires 48h avant"
+      ],
+      "night_train_options": [
+        {
+          "title": "Aucun train de nuit au depart de J30",
+          "details": "Si le pass expire a 23h59, ne pas prendre de train de nuit le soir de J30 sauf billet separe hors pass. Horaires et correspondances a verifier 48h avant."
+        }
+      ]
+    }
+  ]
+};
+  </script>
+  <script>
+const VERIFY_NOTE = "Horaires et correspondances ? v?rifier 48h avant.";
+const CHECKLIST = [
+  "Pass Interrail", "Pi?ce identit? / passeport", "R?servations", "Carte bancaire", "Esp?ces",
+  "Serviette microfibre", "Cadenas", "Batterie externe", "Adaptateur", "Gourde",
+  "Chaussures rando", "Lessive", "M?dicaments", "Chargeur iPhone", "Copies hors-ligne billets"
+];
+const LOCATION_COORDS = {
+  "Strasbourg": [7.7521, 48.5734], "V?rone": [10.9916, 45.4384], "Trieste": [13.7768, 45.6495],
+  "Ljubljana": [14.5058, 46.0569], "Zagreb": [15.9819, 45.8150], "Travnik/Jajce": [17.48, 44.25],
+  "Travnik": [17.6658, 44.2264], "Jajce": [17.2706, 44.3420], "Sarajevo": [18.4131, 43.8563],
+  "Mostar": [17.8078, 43.3438], "Blagaj": [17.9026, 43.2576], "Po?itelj": [17.7313, 43.1345],
+  "Kotor": [18.7712, 42.4247], "Bar": [19.1003, 42.0931], "Stari Bar": [19.1347, 42.0917],
+  "Ulcinj": [19.2183, 41.9311], "Shkod?r": [19.5126, 42.0683], "Kruj?": [19.7978, 41.5095],
+  "Tirana": [19.8187, 41.3275], "Prizren": [20.7397, 42.2139], "Gjakova": [20.4358, 42.3803],
+  "Peja/Rugova": [20.2883, 42.6591], "Peja": [20.2883, 42.6591], "Rugova": [20.16, 42.70],
+  "Pristina": [21.1655, 42.6629], "Skopje": [21.4316, 41.9981], "Tetovo": [20.9714, 42.0106],
+  "Ohrid": [20.8016, 41.1231], "Sofia": [23.3219, 42.6977], "Bucarest": [26.1025, 44.4268],
+  "Constan?a": [28.6348, 44.1598], "Budapest": [19.0402, 47.4979], "P?cs": [18.2323, 46.0727]
+};
+
+const state = { stops: [], selected: 0, view: "route", filter: "all", query: "" };
+const app = document.getElementById("app");
+const searchInput = document.getElementById("searchInput");
+
+function escapeHtml(value = "") {
+  return String(value).replace(/[&<>'"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch]));
+}
+function slugText(value = "") { return String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
+function stopText(stop) { return slugText(JSON.stringify(stop)); }
+function selectedStop() { return state.stops[state.selected] || state.stops[0]; }
+function cityForStop(stop) { return stop.sleep_city || stop.name?.split("?").pop()?.trim() || stop.name; }
+function coordsForStop(stop) {
+  const candidates = [cityForStop(stop), ...(stop.name || "").split("?").map(x => x.trim()), stop.transport_next?.to].filter(Boolean);
+  for (const name of candidates) {
+    for (const key of Object.keys(LOCATION_COORDS).sort((a,b) => b.length - a.length)) {
+      if (name.includes(key)) return LOCATION_COORDS[key];
+    }
+  }
+  return null;
+}
+function googleMapsSearch(label, city) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(label + " " + (city || ""))}`;
+}
+function googleMapsRoute(stop) {
+  const parts = (stop.name || "").split("?").map(x => x.trim());
+  const origin = parts[0] || cityForStop(stop);
+  const destination = parts[1] || stop.transport_next?.to || cityForStop(stop);
+  return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=transit`;
+}
+function tagsFor(stop) {
+  const tags = [];
+  if (stop.departure_latest) tags.push(`<span class="pill blue">D?part max ${escapeHtml(stop.departure_latest)}</span>`);
+  if (stop.sleep_city) tags.push(`<span class="pill green">Nuit ${escapeHtml(stop.sleep_city)}</span>`);
+  if (stop.transport_next?.night_train || (stop.night_train_options || []).length) tags.push(`<span class="pill red">Train de nuit</span>`);
+  if (stop.transport_next && stop.transport_next.mode !== "train") tags.push(`<span class="pill">${escapeHtml(stop.transport_next.mode)}</span>`);
+  return tags.join("");
+}
+function matchesFilter(stop) {
+  const text = stopText(stop);
+  if (state.query && !text.includes(slugText(state.query))) return false;
+  if (state.filter === "ottoman") return text.includes("ottoman") || text.includes("mosquee") || text.includes("bazar") || text.includes("hammam") || text.includes("tekke");
+  if (state.filter === "hike") return (stop.hikes || []).length > 0 || text.includes("rando") || text.includes("vue");
+  if (state.filter === "night") return Boolean(stop.transport_next?.night_train || (stop.night_train_options || []).length);
+  if (state.filter === "bus") return stop.transport_next?.mode === "bus" || text.includes("bus non inclus");
+  return true;
+}
+function setView(view) {
+  state.view = view;
+  document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.view === view));
+  render();
+}
+function chooseDay(index, view = "day") {
+  state.selected = Math.max(0, Math.min(index, state.stops.length - 1));
+  setView(view);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function listItems(items, city) {
+  if (!items || !items.length) return `<p class="small">Rien de sp?cial ici.</p>`;
+  return `<ul class="list">${items.map(item => `<li><a href="${googleMapsSearch(item, city)}" target="_blank" rel="noreferrer">${escapeHtml(item)}</a></li>`).join("")}</ul>`;
+}
+function budget(stop) {
+  const b = stop.budget || {};
+  const total = Object.values(b).reduce((sum, value) => sum + (Number(value) || 0), 0);
+  return `<div class="budget-grid">
+    <div class="budget-cell"><b>${b.sleep ?? 0}?</b><span class="small">Nuit</span></div>
+    <div class="budget-cell"><b>${b.food ?? 0}?</b><span class="small">Repas</span></div>
+    <div class="budget-cell"><b>${b.local_transport ?? 0}?</b><span class="small">Local</span></div>
+    <div class="budget-cell"><b>${total}?</b><span class="small">Total estim?</span></div>
+  </div>`;
+}
+function dayCard(stop, index) {
+  return `<button type="button" class="day-card ${index === state.selected ? "active" : ""}" data-day="${index}">
+    <span class="day-badge">J${stop.day}</span>
+    <span><h2>${escapeHtml(stop.name)}</h2><p class="small">${escapeHtml(stop.summary || "")}</p><span class="meta">${tagsFor(stop)}</span></span>
+  </button>`;
+}
+function renderRoute() {
+  const stops = state.stops.filter(matchesFilter);
+  app.innerHTML = `${routeMap(state.selected)}<div class="route-grid">${stops.map(stop => dayCard(stop, state.stops.indexOf(stop))).join("") || `<div class="empty">Aucun r?sultat.</div>`}</div>`;
+  app.querySelectorAll("[data-day]").forEach(button => button.addEventListener("click", () => chooseDay(Number(button.dataset.day))));
+}
+function renderDay() {
+  const stop = selectedStop();
+  const city = cityForStop(stop);
+  const transport = stop.transport_next || {};
+  const night = stop.night_train_options || [];
+  app.innerHTML = `<article class="stack">
+    <section class="card detail-head">
+      <div class="meta"><span class="pill">J${stop.day}</span><span class="pill green">${escapeHtml(stop.country || "")}</span></div>
+      <h2>${escapeHtml(stop.name)}</h2>
+      <p class="small">${escapeHtml(stop.summary || "")}</p>
+      <span class="meta">${tagsFor(stop)}</span>
+      <div class="actions"><button class="action secondary" id="prevDay" type="button">Jour pr?c?dent</button><button class="action" id="nextDay" type="button">Jour suivant</button></div>
+    </section>
+    <section class="detail-grid">
+      <div class="stack">
+        <section class="card white"><h3 class="section-title">Programme</h3><div class="timeline">${(stop.full_day_plan || []).map(row => `<div class="time-row"><strong>${escapeHtml(row.time || "")}</strong><span><h3>${escapeHtml(row.title || "")}</h3><p class="small">${escapeHtml(row.details || "")}</p></span></div>`).join("")}</div></section>
+        <section class="card white"><h3 class="section-title">? voir</h3>${listItems(stop.must_see, city)}</section>
+        <section class="card white"><h3 class="section-title">Calme</h3>${listItems(stop.quiet_spots, city)}</section>
+        <section class="card white"><h3 class="section-title">Rando / vues</h3>${listItems(stop.hikes, city)}</section>
+      </div>
+      <div class="stack">
+        <section class="card"><h3 class="section-title">Carte</h3>${routeMap(state.selected, true)}<div class="actions"><a class="action" href="${googleMapsRoute(stop)}" target="_blank" rel="noreferrer">Trajet Google Maps</a><a class="action secondary" href="${googleMapsSearch(city, stop.country)}" target="_blank" rel="noreferrer">Ville</a></div></section>
+        <section class="card"><h3 class="section-title">Transport suivant</h3><p class="small"><b>${escapeHtml(transport.mode || "")}</b> vers ${escapeHtml(transport.to || "")}. ${escapeHtml(transport.notes || VERIFY_NOTE)}</p><span class="meta"><span class="pill ${transport.interrail_included ? "green" : "red"}">${transport.interrail_included ? "Interrail" : "Non inclus"}</span><span class="pill ${transport.reservation_needed ? "red" : ""}">${transport.reservation_needed ? "R?servation" : "Sans r?servation"}</span></span></section>
+        <section class="card"><h3 class="section-title">Trains de nuit</h3>${night.length ? `<ul class="list">${night.map(item => `<li><b>${escapeHtml(item.title)}</b><br><span class="small">${escapeHtml(item.details)}</span></li>`).join("")}</ul>` : `<p class="small">Pas de train de nuit utile indiqu? pour cette ?tape. ${VERIFY_NOTE}</p>`}</section>
+        <section class="card"><h3 class="section-title">Budget</h3>${budget(stop)}</section>
+        <section class="card"><h3 class="section-title">Notes pratiques</h3>${listItems([...(stop.cheap_food_tips || []), ...(stop.cheap_sleep_tips || []), ...(stop.shower_laundry_tips || []), ...(stop.safety_notes || [])], city)}</section>
+      </div>
+    </section>
+  </article>`;
+  document.getElementById("prevDay").addEventListener("click", () => chooseDay(state.selected - 1));
+  document.getElementById("nextDay").addEventListener("click", () => chooseDay(state.selected + 1));
+}
+function renderSearch() {
+  const results = state.stops.filter(matchesFilter);
+  app.innerHTML = `<section class="stack"><div class="card"><h2>Recherche</h2><p class="small">${results.length} r?sultat(s)</p></div>${results.map(stop => dayCard(stop, state.stops.indexOf(stop))).join("") || `<div class="empty">Aucun r?sultat.</div>`}</section>`;
+  app.querySelectorAll("[data-day]").forEach(button => button.addEventListener("click", () => chooseDay(Number(button.dataset.day))));
+}
+function renderMapView() {
+  const stop = selectedStop();
+  app.innerHTML = `<section class="stack"><div class="card"><h2>Carte du parcours</h2><p class="small">${escapeHtml(stop.name)} ? Nuit ${escapeHtml(stop.sleep_city || "")}</p></div>${routeMap(state.selected)}<div class="actions"><button class="action secondary" id="mapPrev" type="button">Pr?c?dent</button><button class="action" id="mapNext" type="button">Suivant</button></div>${dayCard(stop, state.selected)}</section>`;
+  document.getElementById("mapPrev").addEventListener("click", () => chooseDay(state.selected - 1, "map"));
+  document.getElementById("mapNext").addEventListener("click", () => chooseDay(state.selected + 1, "map"));
+  app.querySelector("[data-day]").addEventListener("click", () => chooseDay(state.selected));
+}
+function renderChecklist() {
+  const saved = JSON.parse(localStorage.getItem("balkans-checklist") || "{}");
+  app.innerHTML = `<section class="stack"><div class="card"><h2>Sac et papiers</h2><p class="small">Sauvegard? sur cet iPhone.</p></div>${CHECKLIST.map((item, idx) => `<label class="check-row ${saved[item] ? "done" : ""}"><input type="checkbox" data-check="${idx}" ${saved[item] ? "checked" : ""}><span>${escapeHtml(item)}</span></label>`).join("")}</section>`;
+  app.querySelectorAll("[data-check]").forEach(input => input.addEventListener("change", () => {
+    const item = CHECKLIST[Number(input.dataset.check)];
+    saved[item] = input.checked;
+    localStorage.setItem("balkans-checklist", JSON.stringify(saved));
+    input.closest(".check-row").classList.toggle("done", input.checked);
+  }));
+}
+function routeMap(activeIndex = 0, compact = false) {
+  const points = state.stops.map((stop, index) => ({ stop, index, coord: coordsForStop(stop) })).filter(p => p.coord);
+  const lons = points.map(p => p.coord[0]);
+  const lats = points.map(p => p.coord[1]);
+  const minLon = Math.min(...lons) - 1.2, maxLon = Math.max(...lons) + 1.2;
+  const minLat = Math.min(...lats) - 0.9, maxLat = Math.max(...lats) + 0.9;
+  const w = 760, h = compact ? 300 : 430, pad = 42;
+  const xy = ([lon, lat]) => [pad + ((lon - minLon) / (maxLon - minLon)) * (w - pad * 2), h - pad - ((lat - minLat) / (maxLat - minLat)) * (h - pad * 2)];
+  const path = points.map((p, i) => `${i ? "L" : "M"}${xy(p.coord).map(n => n.toFixed(1)).join(" ")}`).join(" ");
+  const labels = points.filter((p, i) => i === 0 || i === points.length - 1 || p.index === activeIndex || ["Sarajevo","Kotor","Tirana","Skopje","Sofia","Budapest"].some(city => cityForStop(p.stop).includes(city)));
+  return `<div class="hero-map"><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Carte simplifi?e du parcours">
+    <rect width="${w}" height="${h}" fill="#eef1e8"></rect>
+    <path class="map-country" d="M70 170 C170 90 230 110 300 150 S430 130 510 210 S620 250 700 190"></path>
+    <path class="map-country" d="M110 290 C220 250 300 300 380 255 S560 270 680 330"></path>
+    <path class="route-path-muted" d="${path}"></path><path class="route-path" d="${path}"></path>
+    ${points.map(p => { const [x,y] = xy(p.coord); return `<circle class="map-dot ${p.index === activeIndex ? "active" : ""}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${p.index === activeIndex ? 8 : 5}"></circle>`; }).join("")}
+    ${labels.map(p => { const [x,y] = xy(p.coord); return `<text class="map-label" x="${x.toFixed(1)}" y="${(y - 12).toFixed(1)}" text-anchor="middle">J${p.stop.day} ${escapeHtml(cityForStop(p.stop).replace(" / ", "/"))}</text>`; }).join("")}
+  </svg></div>`;
+}
+function render() {
+  if (!state.stops.length) { app.innerHTML = `<div class="empty">Chargement impossible.</div>`; return; }
+  if (state.view === "day") renderDay();
+  else if (state.view === "map") renderMapView();
+  else if (state.view === "search") renderSearch();
+  else if (state.view === "checklist") renderChecklist();
+  else renderRoute();
+}
+async function init() {
+  try {
+    const payload = window.__STOPS_DATA__;
+    state.stops = payload.stops || [];
+  } catch (error) {
+    app.innerHTML = `<div class="empty">Impossible de charger le parcours.</div>`;
+    return;
+  }
+  searchInput.addEventListener("input", event => { state.query = event.target.value; if (state.view !== "route") state.view = "search"; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.view === state.view)); render(); });
+  document.querySelectorAll(".chip").forEach(chip => chip.addEventListener("click", () => { state.filter = chip.dataset.filter; document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === chip)); render(); }));
+  document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => setView(tab.dataset.view)));
+  document.getElementById("todayButton").addEventListener("click", () => chooseDay(state.selected, "day"));
+  // Single-file mode: no service worker needed.
+  render();
+}
+init();
+
+  </script>
+</body>
+</html>
