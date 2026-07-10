@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102820">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Voyage Balkans">
+  <title>Voyage Balkans</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Interrail 30 jours</p>
+        <h1>Voyage Balkans</h1>
+      </div>
+      <button class="icon-button" id="todayButton" type="button" aria-label="Aller au jour actuel">J</button>
+    </header>
+
+    <section class="search-strip" aria-label="Recherche et filtres">
+      <label class="search-box">
+        <span>?</span>
+        <input id="searchInput" type="search" placeholder="Rechercher ville, visite, train de nuit..." autocomplete="off">
+      </label>
+      <div class="chips" id="filterChips">
+        <button type="button" class="chip active" data-filter="all">Tout</button>
+        <button type="button" class="chip" data-filter="ottoman">Ottoman</button>
+        <button type="button" class="chip" data-filter="hike">Rando</button>
+        <button type="button" class="chip" data-filter="night">Nuit</button>
+        <button type="button" class="chip" data-filter="bus">Bus</button>
+      </div>
+    </section>
+
+    <main id="app" class="view"></main>
+
+    <nav class="tabbar" aria-label="Navigation principale">
+      <button type="button" class="tab active" data-view="route"><span>?</span><b>Parcours</b></button>
+      <button type="button" class="tab" data-view="day"><span>?</span><b>Jour</b></button>
+      <button type="button" class="tab" data-view="map"><span>?</span><b>Carte</b></button>
+      <button type="button" class="tab" data-view="search"><span>?</span><b>Recherche</b></button>
+      <button type="button" class="tab" data-view="checklist"><span>?</span><b>Sac</b></button>
+    </nav>
+  </div>
+  <script src="app.js" defer></script>
+</body>
+</html>
