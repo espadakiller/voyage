@@ -73,6 +73,16 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .visit-route-list a { color: #1d6488; font-weight: 750; text-decoration: none; }
 .visit-number-small { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: #12445a; color: white; font-size: .76rem; font-weight: 900; }
 .visit-optional { color: #6c7780; font-size: .78rem; }
+.list a { text-decoration: none; }
+.place-item { display: block; padding: 8px; background: #ffffff; border: 1px solid #d8e6ee; border-radius: 12px; }
+.place-link { display: grid; grid-template-columns: 68px 1fr; gap: 11px; align-items: center; color: var(--ink); text-decoration: none; }
+.place-link:hover { border-color: #9dc6da; }
+.place-thumb { position: relative; display: grid; place-items: center; width: 68px; height: 54px; overflow: hidden; border-radius: 9px; background: #dcecf4; color: #12445a; }
+.place-thumb-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+.place-thumb-icon { font-size: 1.5rem; font-weight: 900; line-height: 1; }
+.place-copy { display: grid; gap: 4px; min-width: 0; }
+.place-name { color: #12445a; font-weight: 850; line-height: 1.2; }
+.place-sub { color: var(--muted); font-size: .76rem; line-height: 1.2; }
 
 .travel-card { background: #e3f5ee; border-color: #86cbb6; }
 .travel-card strong { color: #146650; }
@@ -3983,7 +3993,7 @@ function visitMap(stop, city) {
   const apple = "https://maps.apple.com/?saddr=" + encodeURIComponent(origin) + "&daddr=" + encodeURIComponent(destination + " " + origin) + "&dirflg=w";
   return '<div id="visit-map-' + stop.day + '" class="real-map"><div class="real-map-status">Chargement de la carte reelle...<br>Une connexion internet est necessaire pour afficher les lieux.</div></div>' +
     '<div class="actions"><a class="action" href="' + google + '" target="_blank" rel="noreferrer">Parcours Google Maps</a><a class="action secondary" href="' + apple + '" target="_blank" rel="noreferrer">Plans Apple</a></div>' +
-    '<ol class="visit-route-list">' + places.map((point, index) => '<li><span class="visit-number-small">' + (Number(index) + 1) + '</span><span><a href="' + googleMapsSearch(point.name, origin) + '" target="_blank" rel="noreferrer">' + escapeHtml(point.name) + '</a>' + (point.optional ? ' <span class="visit-optional">option / calme / rando</span>' : "") + '</span></li>').join("") + '</ol>';
+    '<ol class="visit-route-list">' + places.map((point, index) => '<li><span class="visit-number-small">' + safeOrdinal(index) + '</span><span><a href="' + googleMapsSearch(point.name, origin) + '" target="_blank" rel="noreferrer">' + escapeHtml(point.name) + '</a>' + (point.optional ? ' <span class="visit-optional">option / calme / rando</span>' : "") + '</span></li>').join("") + '</ol>';
 }
 let leafletPromise = null;
 const geocodeCacheKey = "voyage-balkans-geocode-v1";
@@ -4022,7 +4032,7 @@ async function initVisitLeaflet(stop, city) {
   if (!element) return;
   try {
     await loadLeaflet();
-    const places = [...(stop.must_see || []), ...(stop.quiet_spots || []), ...(stop.hikes || [])].filter((name, index, all) => all.indexOf(name) === index);
+    const places = placesForStop(stop);
     const locations = [];
     for (let index = 0; index < places.length; index += 1) {
       if (index > 0) await sleepMs(1100);
@@ -4045,9 +4055,9 @@ async function initVisitLeaflet(stop, city) {
     L.polyline(line, { color: "#c6554a", weight: 4, opacity: 0.9 }).addTo(map);
     locations.forEach(location => {
       const marker = L.marker([location.lat, location.lon], {
-        icon: L.divIcon({ className: "visit-pin", html: "<span>" + (Number(location.index) + 1) + "</span>", iconSize: [30, 30], iconAnchor: [15, 15] })
+        icon: L.divIcon({ className: "visit-pin", html: "<span>" + safeOrdinal(location.index) + "</span>", iconSize: [30, 30], iconAnchor: [15, 15] })
       }).addTo(map);
-      marker.bindPopup("<b>" + (Number(location.index) + 1) + ". " + escapeHtml(location.name) + "</b>");
+      marker.bindPopup("<b>" + safeOrdinal(location.index) + ". " + escapeHtml(location.name) + "</b>");
     });
     map.fitBounds(L.latLngBounds(line).pad(0.18));
     setTimeout(() => map.invalidateSize(), 100);
@@ -4083,9 +4093,98 @@ function chooseDay(index, view = "day") {
   setView(view);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
-function listItems(items, city) {
-  if (!items || !items.length) return `<p class="small">Rien de special ici.</p>`;
-  return `<ul class="list">${items.map(item => `<li><a href="${googleMapsSearch(item, city)}" target="_blank" rel="noreferrer">${escapeHtml(item)}</a></li>`).join("")}</ul>`;
+function safeOrdinal(value, fallback = 1) {
+  const number = Number(value);
+  return Number.isFinite(number) && number >= 0 ? Math.floor(number) + 1 : fallback;
+}
+function placesForStop(stop) {
+  return [...(stop.must_see || []), ...(stop.quiet_spots || []), ...(stop.hikes || [])]
+    .filter((name, index, all) => name && all.indexOf(name) === index);
+}
+function visitIcon(name) {
+  const text = slugText(name);
+  if (text.includes("mosquee") || text.includes("tekke") || text.includes("hammam")) return "M";
+  if (text.includes("pont") || text.includes("bridge")) return "+";
+  if (text.includes("chateau") || text.includes("castel") || text.includes("fort") || text.includes("citadelle")) return "F";
+  if (text.includes("musee") || text.includes("museum") || text.includes("gallery")) return "U";
+  if (text.includes("lac") || text.includes("mer") || text.includes("baie") || text.includes("plage")) return "L";
+  if (text.includes("jardin") || text.includes("parc") || text.includes("montagne") || text.includes("rando")) return "R";
+  return "V";
+}
+const imageCacheKey = "voyage-balkans-visit-images-v1";
+function imageQueryForPlace(name, city) {
+  const aliases = {
+    "Arena de Verone": "Arena di Verona",
+    "Castelvecchio": "Castelvecchio Verona",
+    "Chateau de Miramare": "Miramare Castle Trieste",
+    "Chateau San Giusto": "San Giusto Castle Trieste",
+    "Eglise Saint-Jean de Kaneo": "Church of Saint John at Kaneo Ohrid",
+    "Mosquee Sinan Pacha": "Sinan Pasha Mosque Prizren"
+  };
+  return (aliases[name] || name) + " " + (city || "");
+}
+function placeThumb(name, city) {
+  return "<span class=\"place-thumb\" data-place-name=\"" + escapeHtml(name) + "\" data-place-city=\"" + escapeHtml(city || "") + "\"><span class=\"place-thumb-icon\">" + visitIcon(name) + "</span></span>";
+}
+async function fetchPlaceImage(name, city) {
+  try {
+    const cache = JSON.parse(localStorage.getItem(imageCacheKey) || "{}");
+    const key = name + "|" + city;
+    if (Object.prototype.hasOwnProperty.call(cache, key)) return cache[key];
+    const query = encodeURIComponent(imageQueryForPlace(name, city));
+    const endpoint = "https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=" + query + "&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url&iiurlwidth=320&format=json&origin=*";
+    const response = await fetch(endpoint);
+    if (!response.ok) return "";
+    const data = await response.json();
+    const pages = Object.values(data.query?.pages || {});
+    const info = pages[0]?.imageinfo?.[0];
+    const url = info?.thumburl || info?.url || "";
+    cache[key] = url;
+    localStorage.setItem(imageCacheKey, JSON.stringify(cache));
+    return url;
+  } catch (error) {
+    return "";
+  }
+}
+async function hydratePlaceThumb(thumb) {
+  const name = thumb.dataset.placeName || "";
+  const city = thumb.dataset.placeCity || "";
+  const url = await fetchPlaceImage(name, city);
+  if (!url || !document.body.contains(thumb)) return;
+  const image = document.createElement("img");
+  image.className = "place-thumb-image";
+  image.alt = "";
+  image.loading = "lazy";
+  image.onload = () => {
+    const icon = thumb.querySelector(".place-thumb-icon");
+    if (icon) icon.hidden = true;
+    thumb.prepend(image);
+  };
+  image.src = url;
+}
+function hydratePlaceThumbs() {
+  const thumbs = [...document.querySelectorAll(".place-thumb[data-place-name]")];
+  if (!thumbs.length) return;
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.filter(entry => entry.isIntersecting).forEach(entry => {
+        observer.unobserve(entry.target);
+        hydratePlaceThumb(entry.target);
+      });
+    }, { rootMargin: "240px" });
+    thumbs.forEach(thumb => observer.observe(thumb));
+  } else {
+    thumbs.slice(0, 8).forEach(thumb => hydratePlaceThumb(thumb));
+  }
+}
+function listItems(items, city, withVisuals = false) {
+  if (!items || !items.length) return "<p class=\"small\">Rien de special ici.</p>";
+  const content = items.map(item => {
+    const href = googleMapsSearch(item, city);
+    if (!withVisuals) return "<li><a class=\"plain-link\" href=\"" + href + "\" target=\"_blank\" rel=\"noreferrer\">" + escapeHtml(item) + "</a></li>";
+    return "<li class=\"place-item\"><a class=\"place-link\" href=\"" + href + "\" target=\"_blank\" rel=\"noreferrer\">" + placeThumb(item, city) + "<span class=\"place-copy\"><span class=\"place-name\">" + escapeHtml(item) + "</span><span class=\"place-sub\">Ouvrir dans Maps</span></span></a></li>";
+  }).join("");
+  return "<ul class=\"list" + (withVisuals ? " place-list" : "") + "\">" + content + "</ul>";
 }
 function budget(stop) {
   const b = stop.budget || {};
@@ -4125,9 +4224,9 @@ function renderDay() {
       <div class="stack">
         <section class="card visit-card"><h3 class="section-title">Carte des visites</h3>${visitMap(stop, city)}</section>
         <section class="card travel-card"><h3 class="section-title">Temps de trajet</h3><div class="small"><b>${escapeHtml((stop.travel_reality || {}).duration || "A verifier")}</b><br>Arrivee indicative : ${escapeHtml((stop.travel_reality || {}).arrival || "A confirmer")}<br><b>${escapeHtml((stop.travel_reality || {}).status || "A adapter")}</b> - ${escapeHtml((stop.travel_reality || {}).note || VERIFY_NOTE)}</div></section><section class="card white"><h3 class="section-title">Programme realiste</h3><div class="timeline">${(stop.realistic_plan || stop.full_day_plan || []).map(row => `<div class="time-row"><strong>${escapeHtml(row.time || "")}</strong><span><h3>${escapeHtml(row.title || "")}</h3><p class="small">${escapeHtml(row.details || "")}</p></span></div>`).join("")}</div></section>
-        <section class="card white"><h3 class="section-title">A voir</h3>${listItems(stop.must_see, city)}</section>
-        <section class="card white"><h3 class="section-title">Calme</h3>${listItems(stop.quiet_spots, city)}</section>
-        <section class="card white"><h3 class="section-title">Rando / vues</h3>${listItems(stop.hikes, city)}</section>
+        <section class="card white"><h3 class="section-title">A voir</h3>${listItems(stop.must_see, city, true)}</section>
+        <section class="card white"><h3 class="section-title">Calme</h3>${listItems(stop.quiet_spots, city, true)}</section>
+        <section class="card white"><h3 class="section-title">Rando / vues</h3>${listItems(stop.hikes, city, true)}</section>
       </div>
       <div class="stack">
         <section class="card"><h3 class="section-title">Carte</h3>${routeMap(state.selected, true)}<div class="actions"><a class="action" href="${googleMapsRoute(stop)}" target="_blank" rel="noreferrer">Trajet Google Maps</a><a class="action secondary" href="${googleMapsSearch(city, stop.country)}" target="_blank" rel="noreferrer">Ville</a></div></section>
@@ -4139,6 +4238,7 @@ function renderDay() {
     </section>
   </article>`;
   initVisitLeaflet(stop, city);
+ hydratePlaceThumbs();
   document.getElementById("prevDay").addEventListener("click", () => chooseDay(state.selected - 1));
   document.getElementById("nextDay").addEventListener("click", () => chooseDay(state.selected + 1));
 }
@@ -4165,7 +4265,7 @@ function renderChecklist() {
   }));
 }
 function routeMap(activeIndex = 0, compact = false) {
-  const points = state.stops.map((stop, index) => ({ stop, index, coord: coordsForStop(stop) })).filter(p => p.coord);
+  const points = state.stops.map((stop, index) => ({ stop, index, coord: coordsForStop(stop) })).filter(p => Array.isArray(p.coord) && p.coord.length >= 2 && p.coord.every(value => Number.isFinite(Number(value))));
   const lons = points.map(p => p.coord[0]);
   const lats = points.map(p => p.coord[1]);
   const minLon = Math.min(...lons) - 1.2, maxLon = Math.max(...lons) + 1.2;
@@ -4200,7 +4300,7 @@ async function init() {
     return;
   }
   searchInput.addEventListener("input", event => { state.query = event.target.value; if (state.view !== "route") state.view = "search"; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.view === state.view)); render(); });
-  document.querySelectorAll(".chip").forEach(chip => chip.addEventListener("click", () => { state.filter = chip.dataset.filter; document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === chip)); render(); }));
+  document.querySelectorAll(".chip").forEach(chip => chip.addEventListener("click", () => { state.filter = chip.dataset.filter; state.view = "route"; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.view === "route")); document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === chip)); render(); window.scrollTo({ top: 0, behavior: "smooth" }); }));
   document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => setView(tab.dataset.view)));
   document.getElementById("todayButton").addEventListener("click", () => chooseDay(state.selected, "day"));
   // Single-file mode: no service worker needed.
