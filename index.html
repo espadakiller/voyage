@@ -14,14 +14,14 @@
   color-scheme: light;
   --ink: #17201c;
   --muted: #66706b;
-  --paper: #eaf2f0;
-  --panel: #fffdf7;
-  --line: #cbdcd6;
-  --green: #16483d;
-  --green-2: #2f7969;
-  --terracotta: #c45d3e;
-  --blue: #376b88;
-  --gold: #d39b2f;
+  --paper: #e8f2f8;
+  --panel: #ffffff;
+  --line: #bfd5e3;
+  --green: #12445a;
+  --green-2: #2d7890;
+  --terracotta: #c6554a;
+  --blue: #2776a6;
+  --gold: #e09f23;
   --danger: #9f3a32;
   --shadow: 0 10px 26px rgba(31, 38, 35, 0.10);
 }
@@ -30,7 +30,7 @@ body { padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
 button, input { font: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
 .app-shell { min-height: 100vh; padding: 14px 14px 92px; max-width: 860px; margin: 0 auto; }
-.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px; margin-bottom: 8px; background: #dcebe5; border: 1px solid var(--line); border-radius: 12px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px; margin-bottom: 8px; background: #cfe5f0; border: 1px solid var(--line); border-radius: 12px; }
 .eyebrow { margin: 0 0 2px; color: var(--terracotta); font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0; }
 h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; letter-spacing: 0; }
 .icon-button { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--green); color: white; font-weight: 900; box-shadow: var(--shadow); }
@@ -52,8 +52,25 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .map-dot.active { fill: var(--gold); stroke: var(--danger); stroke-width: 3; }
 .map-country { fill: none; stroke: rgba(16,40,32,0.13); stroke-width: 1; }
 .card { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); padding: 14px; }
-.card.white { background: #fffdfb; }
-.travel-card { background: #f7efe2; border-color: #e1c98f; }\n.travel-card strong { color: #805719; }\n.day-card { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: start; text-align: left; width: 100%; border: 1px solid var(--line); border-radius: 8px; background: white; padding: 12px; box-shadow: 0 7px 18px rgba(31, 38, 35, 0.06); color: var(--ink); }
+.card.white { background: #ffffff; }
+
+.visit-card { background: #f6fbfe; border-color: #a9cfe2; }
+.visit-map { overflow: hidden; border: 1px solid #b7d5e3; border-radius: 10px; background: #e7f3f8; }
+.visit-map svg { display: block; width: 100%; min-height: 190px; }
+.visit-map-bg { fill: #e7f3f8; }
+.visit-route-line { fill: none; stroke: #2776a6; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.visit-dot { fill: #ffffff; stroke: #c6554a; stroke-width: 3; }
+.visit-number { fill: #12445a; font-size: 12px; font-weight: 900; text-anchor: middle; dominant-baseline: central; }
+.visit-route-caption { padding: 9px 10px; color: #12445a; font-size: .82rem; font-weight: 750; }
+.visit-route-list { display: grid; gap: 6px; padding: 11px 0 0; margin: 0; list-style: none; }
+.visit-route-list li { display: grid; grid-template-columns: 30px 1fr; gap: 8px; align-items: start; }
+.visit-route-list a { color: #1d6488; font-weight: 750; text-decoration: none; }
+.visit-number-small { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: #12445a; color: white; font-size: .76rem; font-weight: 900; }
+.visit-optional { color: #6c7780; font-size: .78rem; }
+
+.travel-card { background: #e3f5ee; border-color: #86cbb6; }
+.travel-card strong { color: #146650; }
+.day-card { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: start; text-align: left; width: 100%; border: 1px solid var(--line); border-radius: 8px; background: white; padding: 12px; box-shadow: 0 7px 18px rgba(31, 38, 35, 0.06); color: var(--ink); }
 .day-card.active { border-color: var(--terracotta); box-shadow: 0 0 0 2px rgba(184,92,56,0.15); }
 .day-badge { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 8px; background: var(--green); color: white; font-weight: 900; }
 .day-card h2, .detail-head h2 { margin: 0 0 5px; font-size: 1.02rem; line-height: 1.25; letter-spacing: 0; }
@@ -80,11 +97,12 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .budget-cell { background: white; border: 1px solid #eadfcc; border-radius: 8px; padding: 10px; }
 .budget-cell b { display: block; color: var(--green); font-size: 1.1rem; }
 .empty { text-align: center; padding: 36px 20px; color: var(--muted); }
-.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; padding: 8px max(8px, env(safe-area-inset-left)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-right)); background: rgba(255,250,240,0.95); border-top: 1px solid var(--line); backdrop-filter: blur(14px); }
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; padding: 8px max(8px, env(safe-area-inset-left)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-right)); background: rgba(232,242,248,0.96); border-top: 1px solid var(--line); backdrop-filter: blur(14px); }
 .tab { min-height: 54px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); display: grid; place-items: center; gap: 2px; }
 .tab span { font-size: 1.18rem; line-height: 1; }
 .tab b { font-size: 0.68rem; letter-spacing: 0; }
-.tab.active { color: white; background: var(--green); }\n.tabbar { background: rgba(220,235,229,0.96); }
+.tab.active { color: white; background: var(--green); }
+.tabbar { background: rgba(207,229,240,0.96); }
 .check-row { display: grid; grid-template-columns: 34px 1fr; gap: 9px; align-items: center; min-height: 44px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 8px; background: white; }
 .check-row input { width: 24px; height: 24px; accent-color: var(--green); }
 .check-row.done span { text-decoration: line-through; color: var(--muted); }
@@ -3946,6 +3964,31 @@ function googleMapsRoute(stop) {
   const destination = parts[1] || stop.transport_next?.to || cityForStop(stop);
   return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=transit`;
 }
+function visitMap(stop, city) {
+  const main = (stop.must_see || []).map(name => ({ name, optional: false }));
+  const extras = [...(stop.quiet_spots || []), ...(stop.hikes || [])].map(name => ({ name, optional: true }));
+  const places = [...main, ...extras].filter((item, index, all) => all.findIndex(other => other.name === item.name) === index);
+  if (!places.length) return `<p class="small">Aucune visite geolocalisee pour cette etape.</p>`;
+  const mapPlaces = main.slice(0, 18);
+  const points = places.map((item, index) => {
+    const x = 54 + (index % 6) * 128 + (index % 2) * 18;
+    const y = 48 + Math.floor(index / 6) * 58 + (index % 3) * 8;
+    return { ...item, index, x, y };
+  });
+  const path = points.map((point, index) => `${index ? "L" : "M"}${point.x} ${point.y}`).join(" ");
+  const origin = city || stop.sleep_city || stop.name;
+  const destination = mapPlaces[mapPlaces.length - 1]?.name || origin;
+  const waypoints = mapPlaces.slice(0, -1).map(place => encodeURIComponent(place.name + " " + origin)).join("|");
+  const google = "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(origin) + "&destination=" + encodeURIComponent(destination + " " + origin) + (waypoints ? "&waypoints=" + waypoints : "") + "&travelmode=walking";
+  return `<div class="visit-map"><svg viewBox="0 0 820 190" role="img" aria-label="Schema de l'ordre conseille des visites a ${escapeHtml(origin)}">
+    <rect class="visit-map-bg" width="820" height="190"></rect>
+    <path class="visit-route-line" d="${path}"></path>
+    ${points.map(point => `<circle class="visit-dot" cx="${point.x}" cy="${point.y}" r="14"></circle><text class="visit-number" x="${point.x}" y="${point.y}">${point.index + 1}</text>`).join("")}
+  </svg><div class="visit-route-caption">Ordre conseille : du point 1 au dernier point. Les positions sont un schema lisible ; le bouton ouvre la carte geographique reelle.</div></div>
+  <div class="actions"><a class="action" href="${google}" target="_blank" rel="noreferrer">Parcours complet Google Maps</a></div>
+  <ol class="visit-route-list">${places.map(point => `<li><span class="visit-number-small">${point.index + 1}</span><span><a href="${googleMapsSearch(point.name, origin)}" target="_blank" rel="noreferrer">${escapeHtml(point.name)}</a>${point.optional ? ' <span class="visit-optional">option / calme / rando</span>' : ""}</span></li>`).join("")}</ol>`;
+}
+
 function tagsFor(stop) {
   const tags = [];
   if (stop.departure_latest) tags.push(`<span class="pill blue">Depart max ${escapeHtml(stop.departure_latest)}</span>`);
@@ -4013,6 +4056,7 @@ function renderDay() {
     </section>
     <section class="detail-grid">
       <div class="stack">
+        <section class="card visit-card"><h3 class="section-title">Carte des visites</h3>${visitMap(stop, city)}</section>
         <section class="card travel-card"><h3 class="section-title">Temps de trajet</h3><div class="small"><b>${escapeHtml((stop.travel_reality || {}).duration || "A verifier")}</b><br>Arrivee indicative : ${escapeHtml((stop.travel_reality || {}).arrival || "A confirmer")}<br><b>${escapeHtml((stop.travel_reality || {}).status || "A adapter")}</b> - ${escapeHtml((stop.travel_reality || {}).note || VERIFY_NOTE)}</div></section><section class="card white"><h3 class="section-title">Programme realiste</h3><div class="timeline">${(stop.realistic_plan || stop.full_day_plan || []).map(row => `<div class="time-row"><strong>${escapeHtml(row.time || "")}</strong><span><h3>${escapeHtml(row.title || "")}</h3><p class="small">${escapeHtml(row.details || "")}</p></span></div>`).join("")}</div></section>
         <section class="card white"><h3 class="section-title">A voir</h3>${listItems(stop.must_see, city)}</section>
         <section class="card white"><h3 class="section-title">Calme</h3>${listItems(stop.quiet_spots, city)}</section>
