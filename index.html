@@ -34,7 +34,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .eyebrow { margin: 0 0 2px; color: var(--terracotta); font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0; }
 h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; letter-spacing: 0; }
 .icon-button { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--green); color: white; font-weight: 900; box-shadow: var(--shadow); }
-.search-strip { position: sticky; top: env(safe-area-inset-top); z-index: 4; padding: 8px 0 10px; background: rgba(247, 244, 237, 0.96); backdrop-filter: blur(12px); }
+.search-strip { position: sticky; top: env(safe-area-inset-top); z-index: 4; padding: 8px 0 10px; background: rgba(232, 242, 248, 0.96); backdrop-filter: blur(12px); }
 .search-box { display: flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; background: white; box-shadow: 0 4px 14px rgba(30, 35, 32, 0.05); }
 .search-box span { color: var(--blue); font-size: 1.2rem; }
 .search-box input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); }
@@ -43,7 +43,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .chip { flex: 0 0 auto; min-height: 34px; border: 1px solid var(--line); border-radius: 999px; background: white; color: var(--green); padding: 0 13px; font-weight: 750; }
 .chip.active { background: var(--green); color: white; border-color: var(--green); }
 .view { display: grid; gap: 12px; }
-.hero-map { min-height: 236px; border: 1px solid var(--line); border-radius: 8px; background: #eef1e8; overflow: hidden; box-shadow: var(--shadow); }
+.hero-map { min-height: 236px; border: 1px solid var(--line); border-radius: 8px; background: #e7f3f8; overflow: hidden; box-shadow: var(--shadow); }
 .hero-map svg { display: block; width: 100%; height: 100%; min-height: 236px; }
 .map-label { font-size: 10px; font-weight: 800; paint-order: stroke; stroke: white; stroke-width: 3px; stroke-linejoin: round; fill: var(--green); }
 .route-path { fill: none; stroke: var(--terracotta); stroke-width: 3.8; stroke-linecap: round; stroke-linejoin: round; }
@@ -53,6 +53,12 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .map-country { fill: none; stroke: rgba(16,40,32,0.13); stroke-width: 1; }
 .card { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); padding: 14px; }
 .card.white { background: #ffffff; }
+
+
+.real-map { height: 360px; min-height: 280px; overflow: hidden; border: 1px solid #b7d5e3; border-radius: 10px; background: #e7f3f8; }
+.real-map-status { display: grid; place-items: center; min-height: 280px; padding: 18px; color: #12445a; text-align: center; }
+.visit-pin { background: transparent; border: 0; }
+.visit-pin span { display: grid; place-items: center; width: 30px; height: 30px; border: 3px solid #ffffff; border-radius: 50%; background: #c6554a; color: #ffffff; font-weight: 900; box-shadow: 0 2px 7px #12445a66; }
 
 .visit-card { background: #f6fbfe; border-color: #a9cfe2; }
 .visit-map { overflow: hidden; border: 1px solid #b7d5e3; border-radius: 10px; background: #e7f3f8; }
@@ -75,7 +81,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .day-badge { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 8px; background: var(--green); color: white; font-weight: 900; }
 .day-card h2, .detail-head h2 { margin: 0 0 5px; font-size: 1.02rem; line-height: 1.25; letter-spacing: 0; }
 .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.pill { display: inline-flex; align-items: center; min-height: 27px; padding: 0 9px; border-radius: 999px; background: #efe6d2; color: #4b4233; font-size: 0.78rem; font-weight: 780; }
+.pill { display: inline-flex; align-items: center; min-height: 27px; padding: 0 9px; border-radius: 999px; background: #e7f0f6; color: #12445a; font-size: 0.78rem; font-weight: 780; }
 .pill.green { background: #dfece6; color: var(--green); }
 .pill.blue { background: #dfeaf1; color: var(--blue); }
 .pill.red { background: #f4ded9; color: var(--danger); }
@@ -84,9 +90,9 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .section-title { margin: 2px 0 8px; font-size: 0.88rem; color: var(--green); text-transform: uppercase; font-weight: 900; letter-spacing: 0; }
 .stack { display: grid; gap: 9px; }
 .list { display: grid; gap: 7px; padding: 0; margin: 0; list-style: none; }
-.list li { padding: 9px 10px; background: white; border: 1px solid #eadfcc; border-radius: 8px; line-height: 1.3; }
+.list li { padding: 9px 10px; background: white; border: 1px solid #d8e6ee; border-radius: 8px; line-height: 1.3; }
 .timeline { display: grid; gap: 9px; }
-.time-row { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 10px; background: white; border: 1px solid #eadfcc; border-radius: 8px; }
+.time-row { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 10px; background: white; border: 1px solid #d8e6ee; border-radius: 8px; }
 .time-row strong { color: var(--terracotta); }
 .time-row h3 { margin: 0 0 4px; font-size: 0.96rem; letter-spacing: 0; }
 .time-row p { margin: 0; }
@@ -94,7 +100,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .action { display: grid; place-items: center; min-height: 42px; border: 1px solid var(--green); border-radius: 8px; background: var(--green); color: white; text-decoration: none; font-weight: 850; }
 .action.secondary { background: white; color: var(--green); }
 .budget-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
-.budget-cell { background: white; border: 1px solid #eadfcc; border-radius: 8px; padding: 10px; }
+.budget-cell { background: white; border: 1px solid #d8e6ee; border-radius: 8px; padding: 10px; }
 .budget-cell b { display: block; color: var(--green); font-size: 1.1rem; }
 .empty { text-align: center; padding: 36px 20px; color: var(--muted); }
 .tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; padding: 8px max(8px, env(safe-area-inset-left)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-right)); background: rgba(232,242,248,0.96); border-top: 1px solid var(--line); backdrop-filter: blur(14px); }
@@ -115,6 +121,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 }
 
   </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
   <div class="app-shell">
@@ -3968,25 +3975,85 @@ function visitMap(stop, city) {
   const main = (stop.must_see || []).map(name => ({ name, optional: false }));
   const extras = [...(stop.quiet_spots || []), ...(stop.hikes || [])].map(name => ({ name, optional: true }));
   const places = [...main, ...extras].filter((item, index, all) => all.findIndex(other => other.name === item.name) === index);
-  if (!places.length) return `<p class="small">Aucune visite geolocalisee pour cette etape.</p>`;
-  const mapPlaces = main.slice(0, 18);
-  const points = places.map((item, index) => {
-    const x = 54 + (index % 6) * 128 + (index % 2) * 18;
-    const y = 48 + Math.floor(index / 6) * 58 + (index % 3) * 8;
-    return { ...item, index, x, y };
-  });
-  const path = points.map((point, index) => `${index ? "L" : "M"}${point.x} ${point.y}`).join(" ");
+  if (!places.length) return '<p class="small">Aucune visite geolocalisee pour cette etape.</p>';
   const origin = city || stop.sleep_city || stop.name;
-  const destination = mapPlaces[mapPlaces.length - 1]?.name || origin;
-  const waypoints = mapPlaces.slice(0, -1).map(place => encodeURIComponent(place.name + " " + origin)).join("|");
+  const destination = main[main.length - 1] ? main[main.length - 1].name : origin;
+  const waypoints = main.slice(0, -1).map(place => encodeURIComponent(place.name + " " + origin)).join("|");
   const google = "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(origin) + "&destination=" + encodeURIComponent(destination + " " + origin) + (waypoints ? "&waypoints=" + waypoints : "") + "&travelmode=walking";
-  return `<div class="visit-map"><svg viewBox="0 0 820 190" role="img" aria-label="Schema de l'ordre conseille des visites a ${escapeHtml(origin)}">
-    <rect class="visit-map-bg" width="820" height="190"></rect>
-    <path class="visit-route-line" d="${path}"></path>
-    ${points.map(point => `<circle class="visit-dot" cx="${point.x}" cy="${point.y}" r="14"></circle><text class="visit-number" x="${point.x}" y="${point.y}">${point.index + 1}</text>`).join("")}
-  </svg><div class="visit-route-caption">Ordre conseille : du point 1 au dernier point. Les positions sont un schema lisible ; le bouton ouvre la carte geographique reelle.</div></div>
-  <div class="actions"><a class="action" href="${google}" target="_blank" rel="noreferrer">Parcours complet Google Maps</a></div>
-  <ol class="visit-route-list">${places.map(point => `<li><span class="visit-number-small">${point.index + 1}</span><span><a href="${googleMapsSearch(point.name, origin)}" target="_blank" rel="noreferrer">${escapeHtml(point.name)}</a>${point.optional ? ' <span class="visit-optional">option / calme / rando</span>' : ""}</span></li>`).join("")}</ol>`;
+  const apple = "https://maps.apple.com/?saddr=" + encodeURIComponent(origin) + "&daddr=" + encodeURIComponent(destination + " " + origin) + "&dirflg=w";
+  return '<div id="visit-map-' + stop.day + '" class="real-map"><div class="real-map-status">Chargement de la carte reelle...<br>Une connexion internet est necessaire pour afficher les lieux.</div></div>' +
+    '<div class="actions"><a class="action" href="' + google + '" target="_blank" rel="noreferrer">Parcours Google Maps</a><a class="action secondary" href="' + apple + '" target="_blank" rel="noreferrer">Plans Apple</a></div>' +
+    '<ol class="visit-route-list">' + places.map((point, index) => '<li><span class="visit-number-small">' + (Number(index) + 1) + '</span><span><a href="' + googleMapsSearch(point.name, origin) + '" target="_blank" rel="noreferrer">' + escapeHtml(point.name) + '</a>' + (point.optional ? ' <span class="visit-optional">option / calme / rando</span>' : "") + '</span></li>').join("") + '</ol>';
+}
+let leafletPromise = null;
+const geocodeCacheKey = "voyage-balkans-geocode-v1";
+function loadLeaflet() {
+  if (window.L) return Promise.resolve();
+  if (leafletPromise) return leafletPromise;
+  leafletPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+  return leafletPromise;
+}
+function sleepMs(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function geocodeVisit(name, city, country) {
+  const cache = JSON.parse(localStorage.getItem(geocodeCacheKey) || "{}");
+  const key = name + "|" + city;
+  if (cache[key]) return cache[key];
+  const query = encodeURIComponent(name + ", " + city + ", " + (country || ""));
+  const response = await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=" + query, { headers: { "Accept-Language": "fr" } });
+  if (!response.ok) return null;
+  const results = await response.json();
+  if (!results.length) return null;
+  const location = { lat: Number(results[0].lat), lon: Number(results[0].lon), name: name };
+  if (!Number.isFinite(location.lat) || !Number.isFinite(location.lon)) return null;
+  cache[key] = location;
+  localStorage.setItem(geocodeCacheKey, JSON.stringify(cache));
+  return location;
+}
+async function initVisitLeaflet(stop, city) {
+  const element = document.getElementById("visit-map-" + stop.day);
+  if (!element) return;
+  try {
+    await loadLeaflet();
+    const places = [...(stop.must_see || []), ...(stop.quiet_spots || []), ...(stop.hikes || [])].filter((name, index, all) => all.indexOf(name) === index);
+    const locations = [];
+    for (let index = 0; index < places.length; index += 1) {
+      if (index > 0) await sleepMs(1100);
+      try {
+        const location = await geocodeVisit(places[index], city, stop.country);
+        if (location) locations.push({ ...location, index });
+      } catch (error) {}
+    }
+    if (!locations.length) {
+      element.innerHTML = "<div class='real-map-status'>Les lieux n'ont pas pu etre localises.<br>Utilise les boutons Google Maps ou Plans Apple ci-dessous.</div>";
+      return;
+    }
+    element.innerHTML = "";
+    const map = L.map(element, { scrollWheelZoom: false });
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+    const line = locations.map(location => [location.lat, location.lon]);
+    L.polyline(line, { color: "#c6554a", weight: 4, opacity: 0.9 }).addTo(map);
+    locations.forEach(location => {
+      const marker = L.marker([location.lat, location.lon], {
+        icon: L.divIcon({ className: "visit-pin", html: "<span>" + (Number(location.index) + 1) + "</span>", iconSize: [30, 30], iconAnchor: [15, 15] })
+      }).addTo(map);
+      marker.bindPopup("<b>" + (Number(location.index) + 1) + ". " + escapeHtml(location.name) + "</b>");
+    });
+    map.fitBounds(L.latLngBounds(line).pad(0.18));
+    setTimeout(() => map.invalidateSize(), 100);
+  } catch (error) {
+    element.innerHTML = "<div class='real-map-status'>La carte interactive n'est pas disponible sans connexion.<br>Utilise les boutons Google Maps ou Plans Apple ci-dessous.</div>";
+  }
 }
 
 function tagsFor(stop) {
@@ -4071,6 +4138,7 @@ function renderDay() {
       </div>
     </section>
   </article>`;
+  initVisitLeaflet(stop, city);
   document.getElementById("prevDay").addEventListener("click", () => chooseDay(state.selected - 1));
   document.getElementById("nextDay").addEventListener("click", () => chooseDay(state.selected + 1));
 }
@@ -4107,7 +4175,7 @@ function routeMap(activeIndex = 0, compact = false) {
   const path = points.map((p, i) => `${i ? "L" : "M"}${xy(p.coord).map(n => n.toFixed(1)).join(" ")}`).join(" ");
   const labels = points.filter((p, i) => i === 0 || i === points.length - 1 || p.index === activeIndex || ["Sarajevo","Kotor","Tirana","Skopje","Sofia","Budapest"].some(city => cityForStop(p.stop).includes(city)));
   return `<div class="hero-map"><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Carte simplifiee du parcours">
-    <rect width="${w}" height="${h}" fill="#eef1e8"></rect>
+    <rect width="${w}" height="${h}" fill="#e7f3f8"></rect>
     <path class="map-country" d="M70 170 C170 90 230 110 300 150 S430 130 510 210 S620 250 700 190"></path>
     <path class="map-country" d="M110 290 C220 250 300 300 380 255 S560 270 680 330"></path>
     <path class="route-path-muted" d="${path}"></path><path class="route-path" d="${path}"></path>
