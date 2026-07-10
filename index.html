@@ -14,14 +14,14 @@
   color-scheme: light;
   --ink: #17201c;
   --muted: #66706b;
-  --paper: #f7f4ed;
-  --panel: #fffaf0;
-  --line: #ded6c5;
-  --green: #102820;
-  --green-2: #1f5c4d;
-  --terracotta: #b85c38;
-  --blue: #2e5f7f;
-  --gold: #c99735;
+  --paper: #eaf2f0;
+  --panel: #fffdf7;
+  --line: #cbdcd6;
+  --green: #16483d;
+  --green-2: #2f7969;
+  --terracotta: #c45d3e;
+  --blue: #376b88;
+  --gold: #d39b2f;
   --danger: #9f3a32;
   --shadow: 0 10px 26px rgba(31, 38, 35, 0.10);
 }
@@ -30,7 +30,7 @@ body { padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
 button, input { font: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
 .app-shell { min-height: 100vh; padding: 14px 14px 92px; max-width: 860px; margin: 0 auto; }
-.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 2px 10px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px; margin-bottom: 8px; background: #dcebe5; border: 1px solid var(--line); border-radius: 12px; }
 .eyebrow { margin: 0 0 2px; color: var(--terracotta); font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0; }
 h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; letter-spacing: 0; }
 .icon-button { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--green); color: white; font-weight: 900; box-shadow: var(--shadow); }
@@ -51,9 +51,9 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .map-dot { fill: var(--panel); stroke: var(--green); stroke-width: 2.2; }
 .map-dot.active { fill: var(--gold); stroke: var(--danger); stroke-width: 3; }
 .map-country { fill: none; stroke: rgba(16,40,32,0.13); stroke-width: 1; }
-.card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: var(--shadow); padding: 13px; }
-.card.white { background: white; }
-.day-card { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: start; text-align: left; width: 100%; border: 1px solid var(--line); border-radius: 8px; background: white; padding: 12px; box-shadow: 0 7px 18px rgba(31, 38, 35, 0.06); color: var(--ink); }
+.card { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); padding: 14px; }
+.card.white { background: #fffdfb; }
+.travel-card { background: #f7efe2; border-color: #e1c98f; }\n.travel-card strong { color: #805719; }\n.day-card { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: start; text-align: left; width: 100%; border: 1px solid var(--line); border-radius: 8px; background: white; padding: 12px; box-shadow: 0 7px 18px rgba(31, 38, 35, 0.06); color: var(--ink); }
 .day-card.active { border-color: var(--terracotta); box-shadow: 0 0 0 2px rgba(184,92,56,0.15); }
 .day-badge { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 8px; background: var(--green); color: white; font-weight: 900; }
 .day-card h2, .detail-head h2 { margin: 0 0 5px; font-size: 1.02rem; line-height: 1.25; letter-spacing: 0; }
@@ -84,7 +84,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
 .tab { min-height: 54px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); display: grid; place-items: center; gap: 2px; }
 .tab span { font-size: 1.18rem; line-height: 1; }
 .tab b { font-size: 0.68rem; letter-spacing: 0; }
-.tab.active { color: white; background: var(--green); }
+.tab.active { color: white; background: var(--green); }\n.tabbar { background: rgba(220,235,229,0.96); }
 .check-row { display: grid; grid-template-columns: 34px 1fr; gap: 9px; align-items: center; min-height: 44px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 8px; background: white; }
 .check-row input { width: 24px; height: 24px; accent-color: var(--green); }
 .check-row.done span { text-decoration: line-through; color: var(--muted); }
@@ -142,9 +142,9 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
     {
       "id": "j01-strasbourg-verone",
       "day": 1,
-      "name": "Strasbourg \u2192 V\u00e9rone",
+      "name": "Strasbourg → Vérone",
       "country": "France / Italie",
-      "sleep_city": "V\u00e9rone",
+      "sleep_city": "Vérone",
       "departure_latest": "07h00",
       "summary": "Grande entree en Italie par Verone, premiere soiree dans un centre historique tres lisible.",
       "ottoman_trace": "Pas ottoman, mais porte ferroviaire vers Adriatique et Balkans.",
@@ -209,7 +209,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": true,
         "night_train": false,
-        "notes": "Train de jour italien, reservation possible. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 9 h 30 a 11 h 30 de train, 2 a 3 correspondances. Journee de liaison : seulement installation et balade legere. Train de jour italien, reservation possible. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 34,
@@ -241,12 +241,41 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
           "title": "Option avant J1 : train de nuit vers Munich/Salzburg/Vienne",
           "details": "Possible seulement en partant la veille au soir, puis train de jour vers Verone. Reservation couchette ou siege a verifier. Horaires et correspondances a verifier 48h avant."
         }
+      ],
+      "travel_reality": {
+        "duration": "9 h 30 a 11 h 30 de train, 2 a 3 correspondances",
+        "arrival": "vers 17h-20h",
+        "free_time": "voir programme",
+        "status": "Transport lourd",
+        "note": "Journee de liaison : seulement installation et balade legere."
+      },
+      "realistic_plan": [
+        {
+          "time": "07h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 9 h 30 a 11 h 30 de train, 2 a 3 correspondances. Journee de liaison : seulement installation et balade legere. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 17h-20h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Arena de Verone, Piazza Bra, Piazza delle Erbe. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Vérone",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j02-verone-trieste",
       "day": 2,
-      "name": "V\u00e9rone \u2192 Trieste",
+      "name": "Vérone → Trieste",
       "country": "Italie",
       "sleep_city": "Trieste",
       "departure_latest": "12h00",
@@ -313,7 +342,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Liaison transfrontaliere a verifier. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 3 h 15 a 4 h 15 de train, correspondance a Venezia Mestre. Trieste est faisable l'apres-midi et en soiree. Liaison transfrontaliere a verifier. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 24,
@@ -339,13 +368,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "3 h 15 a 4 h 15 de train, correspondance a Venezia Mestre",
+        "arrival": "vers 15h30-17h",
+        "free_time": "voir programme",
+        "status": "Realisable",
+        "note": "Trieste est faisable l'apres-midi et en soiree."
+      },
+      "realistic_plan": [
+        {
+          "time": "12h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 3 h 15 a 4 h 15 de train, correspondance a Venezia Mestre. Trieste est faisable l'apres-midi et en soiree. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 15h30-17h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Piazza Unita d Italia, Molo Audace, Canal Grande. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Trieste",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j03-trieste-ljubljana",
       "day": 3,
-      "name": "Trieste \u2192 Ljubljana",
-      "country": "Italie / Slov\u00e9nie",
+      "name": "Trieste → Ljubljana",
+      "country": "Italie / Slovénie",
       "sleep_city": "Ljubljana",
       "departure_latest": "12h00",
       "summary": "Capitale compacte, verte, parfaite a pied.",
@@ -409,7 +467,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Train international court. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 2 h 30 a 3 h 30 de train ou bus, frontiere comprise. Garder Metelkova ou le chateau pour le lendemain si necessaire. Train international court. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 24,
@@ -435,13 +493,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "2 h 30 a 3 h 30 de train ou bus, frontiere comprise",
+        "arrival": "vers 15h-17h",
+        "free_time": "voir programme",
+        "status": "Realisable",
+        "note": "Garder Metelkova ou le chateau pour le lendemain si necessaire."
+      },
+      "realistic_plan": [
+        {
+          "time": "12h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 2 h 30 a 3 h 30 de train ou bus, frontiere comprise. Garder Metelkova ou le chateau pour le lendemain si necessaire. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 15h-17h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Vieille ville, Riviere Ljubljanica, Triple Bridge. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Ljubljana",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j04-ljubljana-zagreb",
       "day": 4,
-      "name": "Ljubljana \u2192 Zagreb",
-      "country": "Slov\u00e9nie / Croatie",
+      "name": "Ljubljana → Zagreb",
+      "country": "Slovénie / Croatie",
       "sleep_city": "Zagreb",
       "departure_latest": "13h00",
       "summary": "Pause croate avant la Bosnie, utile pour organiser le bus long.",
@@ -507,7 +594,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus vers Bosnie souvent non inclus Interrail. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 2 h 30 a 3 h de train. Prevoir Gradec et Tkalciceva, pas tous les musees. Bus vers Bosnie souvent non inclus Interrail. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 24,
@@ -533,13 +620,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "2 h 30 a 3 h de train",
+        "arrival": "vers 15h30-17h",
+        "free_time": "voir programme",
+        "status": "Realisable",
+        "note": "Prevoir Gradec et Tkalciceva, pas tous les musees."
+      },
+      "realistic_plan": [
+        {
+          "time": "13h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 2 h 30 a 3 h de train. Prevoir Gradec et Tkalciceva, pas tous les musees. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 15h30-17h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Ban Jelacic Square, Dolac Market, Upper Town Gradec. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Zagreb",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j05-zagreb-travnik",
       "day": 5,
-      "name": "Zagreb \u2192 Travnik/Jajce",
-      "country": "Croatie / Bosnie-Herz\u00e9govine",
+      "name": "Zagreb → Travnik/Jajce",
+      "country": "Croatie / Bosnie-Herzégovine",
       "sleep_city": "Travnik/Jajce",
       "departure_latest": "09h00",
       "summary": "Entree en Bosnie centrale et premiere vraie etape ottomane.",
@@ -603,7 +719,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus bosnien non inclus. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 5 h 30 a 7 h de bus, pauses et frontiere comprises. Choisir la forteresse ou Plava Voda, pas Travnik et Jajce en entier. Bus bosnien non inclus. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 22,
@@ -629,13 +745,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "5 h 30 a 7 h de bus, pauses et frontiere comprises",
+        "arrival": "vers 15h30-18h",
+        "free_time": "voir programme",
+        "status": "Transport lourd",
+        "note": "Choisir la forteresse ou Plava Voda, pas Travnik et Jajce en entier."
+      },
+      "realistic_plan": [
+        {
+          "time": "09h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 5 h 30 a 7 h de bus, pauses et frontiere comprises. Choisir la forteresse ou Plava Voda, pas Travnik et Jajce en entier. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 15h30-18h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Forteresse de Travnik, Vue depuis la forteresse, Plava Voda. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Travnik/Jajce",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j06-travnik-sarajevo",
       "day": 6,
-      "name": "Travnik/Jajce \u2192 Sarajevo",
-      "country": "Bosnie-Herz\u00e9govine",
+      "name": "Travnik/Jajce → Sarajevo",
+      "country": "Bosnie-Herzégovine",
       "sleep_city": "Sarajevo",
       "departure_latest": "13h00",
       "summary": "Arrivee dans le coeur ottoman du voyage.",
@@ -703,7 +848,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 1 h 45 a 3 h de bus selon Travnik ou Jajce. Garder les visites principales de Sarajevo pour J7 et J8. Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 24,
@@ -729,13 +874,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "1 h 45 a 3 h de bus selon Travnik ou Jajce",
+        "arrival": "vers 15h-17h",
+        "free_time": "voir programme",
+        "status": "Realisable",
+        "note": "Garder les visites principales de Sarajevo pour J7 et J8."
+      },
+      "realistic_plan": [
+        {
+          "time": "13h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 1 h 45 a 3 h de bus selon Travnik ou Jajce. Garder les visites principales de Sarajevo pour J7 et J8. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 15h-17h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Bascarsija, Sebilj, Mosquee Gazi Husrev-beg. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Sarajevo",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j07-sarajevo",
       "day": 7,
       "name": "Sarajevo : Bascarsija, Gazi Husrev-beg, Trebevic",
-      "country": "Bosnie-Herz\u00e9govine",
+      "country": "Bosnie-Herzégovine",
       "sleep_city": "Sarajevo",
       "departure_latest": "-",
       "summary": "Journee complete Sarajevo ottomane, panoramas et memoire.",
@@ -799,7 +973,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Train Sarajevo-Mostar si disponible, bus sinon. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : Pas de trajet interurbain. Journee complete pour Bascarsija, le coeur ottoman et Trebevic. Train Sarajevo-Mostar si disponible, bus sinon. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 24,
@@ -825,13 +999,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "Pas de trajet interurbain",
+        "arrival": "Sur place",
+        "free_time": "journee complete",
+        "status": "Journee de visite",
+        "note": "Journee complete pour Bascarsija, le coeur ottoman et Trebevic."
+      },
+      "realistic_plan": [
+        {
+          "time": "09h00",
+          "title": "Bascarsija",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "11h30",
+          "title": "Sebilj",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "15h00",
+          "title": "Mosquee Gazi Husrev-beg",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "18h30",
+          "title": "Morica Han",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        }
       ]
     },
     {
       "id": "j08-sarajevo-mostar",
       "day": 8,
-      "name": "Sarajevo \u2192 Mostar",
-      "country": "Bosnie-Herz\u00e9govine",
+      "name": "Sarajevo → Mostar",
+      "country": "Bosnie-Herzégovine",
       "sleep_city": "Mostar",
       "departure_latest": "12h00",
       "summary": "Descente vers Mostar et la Neretva.",
@@ -894,7 +1097,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Excursion locale non incluse. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 2 h a 2 h 30 de train ou bus. A Mostar : Stari Most et vieille ville a l'arrivee; le reste le lendemain. Excursion locale non incluse. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 23,
@@ -920,13 +1123,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "2 h a 2 h 30 de train ou bus",
+        "arrival": "vers 14h30-16h",
+        "free_time": "voir programme",
+        "status": "Realisable",
+        "note": "A Mostar : Stari Most et vieille ville a l'arrivee; le reste le lendemain."
+      },
+      "realistic_plan": [
+        {
+          "time": "12h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 2 h a 2 h 30 de train ou bus. A Mostar : Stari Most et vieille ville a l'arrivee; le reste le lendemain. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 14h30-16h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Stari Most, Vieille ville ottomane, Bazar Kujundziluk. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Mostar",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j09-blagaj-pocitelj",
       "day": 9,
-      "name": "Blagaj + Po\u010ditelj depuis Mostar",
-      "country": "Bosnie-Herz\u00e9govine",
+      "name": "Blagaj + Počitelj depuis Mostar",
+      "country": "Bosnie-Herzégovine",
       "sleep_city": "Mostar",
       "departure_latest": "08h30 local",
       "summary": "Journee autour de la Buna, tekke et village fortifie.",
@@ -989,7 +1221,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Long bus vers Montenegro. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 4 h 30 a 6 h de deplacements locaux. Blagaj et Pocitelj oui; Kravica seulement si transport confirme. Long bus vers Montenegro. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 23,
@@ -1015,13 +1247,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "4 h 30 a 6 h de deplacements locaux",
+        "arrival": "Retour Mostar vers 16h-18h",
+        "free_time": "voir programme",
+        "status": "Journee dense",
+        "note": "Blagaj et Pocitelj oui; Kravica seulement si transport confirme."
+      },
+      "realistic_plan": [
+        {
+          "time": "08h30 local",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 4 h 30 a 6 h de deplacements locaux. Blagaj et Pocitelj oui; Kravica seulement si transport confirme. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "Retour Mostar vers 16h-18h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Blagaj Tekke, Source de la Buna, Pocitelj. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Mostar",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j10-mostar-kotor",
       "day": 10,
-      "name": "Mostar \u2192 Kotor",
-      "country": "Bosnie-Herz\u00e9govine / Mont\u00e9n\u00e9gro",
+      "name": "Mostar → Kotor",
+      "country": "Bosnie-Herzégovine / Monténégro",
       "sleep_city": "Kotor",
       "departure_latest": "08h00",
       "summary": "Passage vers la baie de Kotor.",
@@ -1086,7 +1347,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus cotier non inclus. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 4 h 30 a 6 h de bus et frontiere. Vieille ville et baie; remparts complets seulement si arrivee tot. Bus cotier non inclus. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 30,
@@ -1112,13 +1373,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "4 h 30 a 6 h de bus et frontiere",
+        "arrival": "vers 14h-16h",
+        "free_time": "voir programme",
+        "status": "Transport lourd",
+        "note": "Vieille ville et baie; remparts complets seulement si arrivee tot."
+      },
+      "realistic_plan": [
+        {
+          "time": "08h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 4 h 30 a 6 h de bus et frontiere. Vieille ville et baie; remparts complets seulement si arrivee tot. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 14h-16h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Vieille ville fortifiee, Cathedrale Saint Tryphon, Ruelles tot matin. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Kotor",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j11-kotor-bar",
       "day": 11,
-      "name": "Kotor \u2192 Bar / Stari Bar",
-      "country": "Mont\u00e9n\u00e9gro",
+      "name": "Kotor → Bar / Stari Bar",
+      "country": "Monténégro",
       "sleep_city": "Bar / Stari Bar",
       "departure_latest": "10h00",
       "summary": "Ajout de Stari Bar pour les traces ottomanes montenegrines.",
@@ -1181,7 +1471,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus local non inclus. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 1 h 30 a 2 h 30 de bus. Stari Bar est faisable dans l'apres-midi. Bus local non inclus. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 24,
@@ -1207,13 +1497,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "1 h 30 a 2 h 30 de bus",
+        "arrival": "vers 12h-14h",
+        "free_time": "voir programme",
+        "status": "Realisable",
+        "note": "Stari Bar est faisable dans l'apres-midi."
+      },
+      "realistic_plan": [
+        {
+          "time": "10h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 1 h 30 a 2 h 30 de bus. Stari Bar est faisable dans l'apres-midi. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 12h-14h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Stari Bar, Forteresse ruines de Stari Bar, Aqueduc de Bar. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Bar / Stari Bar",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j12-bar-ulcinj",
       "day": 12,
-      "name": "Bar / Stari Bar \u2192 Ulcinj",
-      "country": "Mont\u00e9n\u00e9gro",
+      "name": "Bar / Stari Bar → Ulcinj",
+      "country": "Monténégro",
       "sleep_city": "Ulcinj",
       "departure_latest": "11h00",
       "summary": "Ulcinj ajoute une vraie ambiance islamique/adriatique avant l Albanie.",
@@ -1277,7 +1596,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus vers Albanie non inclus, frontiere a verifier. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 1 h a 1 h 30 de bus. Vieille ville d'Ulcinj et coucher de soleil; plage selon energie. Bus vers Albanie non inclus, frontiere a verifier. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 22,
@@ -1303,14 +1622,43 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "1 h a 1 h 30 de bus",
+        "arrival": "vers 13h-15h",
+        "free_time": "voir programme",
+        "status": "Realisable",
+        "note": "Vieille ville d'Ulcinj et coucher de soleil; plage selon energie."
+      },
+      "realistic_plan": [
+        {
+          "time": "11h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 1 h a 1 h 30 de bus. Vieille ville d'Ulcinj et coucher de soleil; plage selon energie. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 13h-15h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Vieille ville Ulcinj, Citadelle Balsic Tower, Pashas Mosque. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Ulcinj",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j13-ulcinj-shkoder",
       "day": 13,
-      "name": "Ulcinj \u2192 Shkod\u00ebr",
-      "country": "Mont\u00e9n\u00e9gro / Albanie",
-      "sleep_city": "Shkod\u00ebr",
+      "name": "Ulcinj → Shkodër",
+      "country": "Monténégro / Albanie",
+      "sleep_city": "Shkodër",
       "departure_latest": "10h00",
       "summary": "Entree en Albanie par Shkoder.",
       "ottoman_trace": "Shkoder combine forteresse, lac, mosquee centrale et culture albanaise du nord.",
@@ -1373,7 +1721,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus/furgon albanais non inclus. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 2 h 30 a 4 h de bus et frontiere. Rozafa et le centre sont prioritaires. Bus/furgon albanais non inclus. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 18,
@@ -1399,12 +1747,41 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "2 h 30 a 4 h de bus et frontiere",
+        "arrival": "vers 13h-15h",
+        "free_time": "voir programme",
+        "status": "Realisable",
+        "note": "Rozafa et le centre sont prioritaires."
+      },
+      "realistic_plan": [
+        {
+          "time": "10h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 2 h 30 a 4 h de bus et frontiere. Rozafa et le centre sont prioritaires. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 13h-15h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Rozafa Castle, Vue depuis Rozafa, Lac de Shkoder. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Shkodër",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j14-shkoder-kruje-tirana",
       "day": 14,
-      "name": "Shkod\u00ebr \u2192 Kruj\u00eb \u2192 Tirana",
+      "name": "Shkodër → Krujë → Tirana",
       "country": "Albanie",
       "sleep_city": "Tirana",
       "departure_latest": "08h30",
@@ -1473,7 +1850,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus international Albanie/Kosovo non inclus. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 4 h 30 a 6 h de bus avec arret a Kruje. Kruje est la visite principale; Tirana seulement en soiree. Bus international Albanie/Kosovo non inclus. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 20,
@@ -1499,12 +1876,41 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "4 h 30 a 6 h de bus avec arret a Kruje",
+        "arrival": "vers 16h-19h",
+        "free_time": "voir programme",
+        "status": "Transport lourd",
+        "note": "Kruje est la visite principale; Tirana seulement en soiree."
+      },
+      "realistic_plan": [
+        {
+          "time": "08h30",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 4 h 30 a 6 h de bus avec arret a Kruje. Kruje est la visite principale; Tirana seulement en soiree. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 16h-19h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Kruje Castle, Bazar de Kruje, Skanderbeg Square. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Tirana",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j15-tirana-prizren",
       "day": 15,
-      "name": "Tirana \u2192 Prizren",
+      "name": "Tirana → Prizren",
       "country": "Albanie / Kosovo",
       "sleep_city": "Prizren",
       "departure_latest": "08h00",
@@ -1571,7 +1977,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 4 h 30 a 6 h de bus et frontiere. Vieux centre et Sinan Pasha; forteresse selon l'arrivee. Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 20,
@@ -1597,6 +2003,35 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "4 h 30 a 6 h de bus et frontiere",
+        "arrival": "vers 13h-16h",
+        "free_time": "voir programme",
+        "status": "Journee dense",
+        "note": "Vieux centre et Sinan Pasha; forteresse selon l'arrivee."
+      },
+      "realistic_plan": [
+        {
+          "time": "08h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 4 h 30 a 6 h de bus et frontiere. Vieux centre et Sinan Pasha; forteresse selon l'arrivee. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 13h-16h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Mosquee Sinan Pasha, Stone Bridge, Shadervan Square. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Prizren",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
@@ -1661,7 +2096,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus Kosovo non inclus. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : Pas de trajet interurbain. Journee complete pour la forteresse et les monuments ottomans. Bus Kosovo non inclus. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 20,
@@ -1687,12 +2122,41 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "Pas de trajet interurbain",
+        "arrival": "Sur place",
+        "free_time": "journee complete",
+        "status": "Journee de visite",
+        "note": "Journee complete pour la forteresse et les monuments ottomans."
+      },
+      "realistic_plan": [
+        {
+          "time": "09h00",
+          "title": "Mosquee Sinan Pasha",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "11h30",
+          "title": "Stone Bridge",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "15h00",
+          "title": "Shadervan Square",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "18h30",
+          "title": "Vieux bazar",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        }
       ]
     },
     {
       "id": "j17-prizren-gjakova-peja",
       "day": 17,
-      "name": "Prizren \u2192 Gjakova \u2192 Peja",
+      "name": "Prizren → Gjakova → Peja",
       "country": "Kosovo",
       "sleep_city": "Peja",
       "departure_latest": "08h30",
@@ -1757,7 +2221,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Pas de grand trajet, transports locaux. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 3 h 30 a 5 h de bus avec arret a Gjakova. Gjakova est une vraie etape; garder Rugova pour J18. Pas de grand trajet, transports locaux. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 20,
@@ -1783,6 +2247,35 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "3 h 30 a 5 h de bus avec arret a Gjakova",
+        "arrival": "vers 13h-15h",
+        "free_time": "voir programme",
+        "status": "Journee dense",
+        "note": "Gjakova est une vraie etape; garder Rugova pour J18."
+      },
+      "realistic_plan": [
+        {
+          "time": "08h30",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 3 h 30 a 5 h de bus avec arret a Gjakova. Gjakova est une vraie etape; garder Rugova pour J18. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 13h-15h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Grand Bazaar Carsia e Madhe, Mosquee Hadum, Clock Tower. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Peja",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
@@ -1850,7 +2343,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus via Pristina probable. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : Pas de trajet interurbain. Rugova et le vieux bazar sont faisables; une seule activite outdoor. Bus via Pristina probable. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 20,
@@ -1876,13 +2369,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "Pas de trajet interurbain",
+        "arrival": "Sur place",
+        "free_time": "journee complete",
+        "status": "Journee nature",
+        "note": "Rugova et le vieux bazar sont faisables; une seule activite outdoor."
+      },
+      "realistic_plan": [
+        {
+          "time": "09h00",
+          "title": "Vieux bazar de Peja",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "11h30",
+          "title": "Centre de Peja",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "15h00",
+          "title": "Rugova Gorge",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "18h30",
+          "title": "Entree de Rugova Gorge",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        }
       ]
     },
     {
       "id": "j19-peja-skopje",
       "day": 19,
-      "name": "Peja/Pristina \u2192 Skopje",
-      "country": "Kosovo / Mac\u00e9doine du Nord",
+      "name": "Peja/Pristina → Skopje",
+      "country": "Kosovo / Macédoine du Nord",
       "sleep_city": "Skopje",
       "departure_latest": "09h30",
       "summary": "Passage vers Skopje et son vieux bazar ottoman.",
@@ -1948,7 +2470,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 5 h a 7 h de bus via Pristina, frontiere comprise. Vieux bazar le soir; garder Kale et Matka pour J20. Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 20,
@@ -1974,13 +2496,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "5 h a 7 h de bus via Pristina, frontiere comprise",
+        "arrival": "vers 16h-19h",
+        "free_time": "voir programme",
+        "status": "Transport lourd",
+        "note": "Vieux bazar le soir; garder Kale et Matka pour J20."
+      },
+      "realistic_plan": [
+        {
+          "time": "09h30",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 5 h a 7 h de bus via Pristina, frontiere comprise. Vieux bazar le soir; garder Kale et Matka pour J20. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 16h-19h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Old Bazaar Carsija, Stone Bridge, Kale Fortress. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Skopje",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j20-skopje",
       "day": 20,
       "name": "Skopje : vieux bazar, Kale, Stone Bridge",
-      "country": "Mac\u00e9doine du Nord",
+      "country": "Macédoine du Nord",
       "sleep_city": "Skopje",
       "departure_latest": "-",
       "summary": "Journee complete a Skopje.",
@@ -2042,7 +2593,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Bus/train local a verifier. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : Pas de trajet interurbain. Old Bazaar, Kale et une seule option nature. Bus/train local a verifier. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 20,
@@ -2068,13 +2619,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "Pas de trajet interurbain",
+        "arrival": "Sur place",
+        "free_time": "journee complete",
+        "status": "Journee de visite",
+        "note": "Old Bazaar, Kale et une seule option nature."
+      },
+      "realistic_plan": [
+        {
+          "time": "09h00",
+          "title": "Old Bazaar",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "11h30",
+          "title": "Stone Bridge",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "15h00",
+          "title": "Kale Fortress",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "18h30",
+          "title": "Mustafa Pasha Mosque",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        }
       ]
     },
     {
       "id": "j21-skopje-tetovo-ohrid",
       "day": 21,
-      "name": "Skopje \u2192 Tetovo \u2192 Ohrid",
-      "country": "Mac\u00e9doine du Nord",
+      "name": "Skopje → Tetovo → Ohrid",
+      "country": "Macédoine du Nord",
       "sleep_city": "Ohrid",
       "departure_latest": "09h00",
       "summary": "Ajout de Tetovo avant Ohrid pour la mosquee peinte.",
@@ -2135,7 +2715,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 5 h 30 a 7 h de bus avec arret a Tetovo. Tetovo se limite a la mosquee peinte; Ohrid commence J22. Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 22,
@@ -2161,13 +2741,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "5 h 30 a 7 h de bus avec arret a Tetovo",
+        "arrival": "vers 16h-19h",
+        "free_time": "voir programme",
+        "status": "Transport lourd",
+        "note": "Tetovo se limite a la mosquee peinte; Ohrid commence J22."
+      },
+      "realistic_plan": [
+        {
+          "time": "09h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 5 h 30 a 7 h de bus avec arret a Tetovo. Tetovo se limite a la mosquee peinte; Ohrid commence J22. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 16h-19h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Mosquee peinte Sarena Dzamija, Interieur de la mosquee peinte, Arabati Baba Tekke. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Ohrid",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j22-ohrid",
       "day": 22,
       "name": "Ohrid : lac, vieille ville, Kaneo, forteresse",
-      "country": "Mac\u00e9doine du Nord",
+      "country": "Macédoine du Nord",
       "sleep_city": "Ohrid",
       "departure_latest": "-",
       "summary": "Journee lacustre et patrimoniale.",
@@ -2226,7 +2835,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Tres long trajet J23. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : Pas de trajet interurbain. Boucle vieille ville, Kaneo, Plaosnik et forteresse. Tres long trajet J23. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 22,
@@ -2252,13 +2861,42 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "Pas de trajet interurbain",
+        "arrival": "Sur place",
+        "free_time": "journee complete",
+        "status": "Journee de visite",
+        "note": "Boucle vieille ville, Kaneo, Plaosnik et forteresse."
+      },
+      "realistic_plan": [
+        {
+          "time": "09h00",
+          "title": "Lac Ohrid",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "11h30",
+          "title": "Vieille ville",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "15h00",
+          "title": "Saint Jean de Kaneo",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "18h30",
+          "title": "Forteresse de Samuel",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        }
       ]
     },
     {
       "id": "j23-ohrid-sofia",
       "day": 23,
-      "name": "Ohrid \u2192 Skopje \u2192 Sofia",
-      "country": "Mac\u00e9doine du Nord / Bulgarie",
+      "name": "Ohrid → Skopje → Sofia",
+      "country": "Macédoine du Nord / Bulgarie",
       "sleep_city": "Sofia",
       "departure_latest": "06h30",
       "summary": "Long trajet vers Sofia, priorite fiabilite.",
@@ -2315,7 +2953,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": false,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 8 h a 10 h de bus via Skopje et frontiere. Aucune visite payante a Sofia; diner et repos. Pas de grand trajet. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 24,
@@ -2341,6 +2979,35 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "8 h a 10 h de bus via Skopje et frontiere",
+        "arrival": "vers 16h-20h",
+        "free_time": "voir programme",
+        "status": "Tres long trajet",
+        "note": "Aucune visite payante a Sofia; diner et repos."
+      },
+      "realistic_plan": [
+        {
+          "time": "06h30",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 8 h a 10 h de bus via Skopje et frontiere. Aucune visite payante a Sofia; diner et repos. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 16h-20h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Arrivee Sofia, Banya Bashi exterieur si possible, Bains mineraux exterieur. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Sofia",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
@@ -2409,7 +3076,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": true,
         "night_train": false,
-        "notes": "Long trajet international, reservation possible. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : Pas de trajet interurbain. Banya Bashi, bains mineraux et centre; Vitosha en option. Long trajet international, reservation possible. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 24,
@@ -2435,12 +3102,41 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "Pas de trajet interurbain",
+        "arrival": "Sur place",
+        "free_time": "journee complete",
+        "status": "Journee de visite",
+        "note": "Banya Bashi, bains mineraux et centre; Vitosha en option."
+      },
+      "realistic_plan": [
+        {
+          "time": "09h00",
+          "title": "Mosquee Banya Bashi",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "11h30",
+          "title": "Anciens bains mineraux",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "15h00",
+          "title": "Sources minerales publiques",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        },
+        {
+          "time": "18h30",
+          "title": "Ruines de Serdica",
+          "details": "Visite sur place, sans trajet interurbain. Adapter aux horaires reels."
+        }
       ]
     },
     {
       "id": "j25-sofia-bucarest",
       "day": 25,
-      "name": "Sofia \u2192 Bucarest",
+      "name": "Sofia → Bucarest",
       "country": "Bulgarie / Roumanie",
       "sleep_city": "Bucarest",
       "departure_latest": "07h30",
@@ -2507,7 +3203,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Train roumain vers mer Noire. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 6 h 30 de bus environ, ou 9 a 10 h en train. Vieille ville de Bucarest le soir seulement. Train roumain vers mer Noire. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 25,
@@ -2533,14 +3229,43 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "6 h 30 de bus environ, ou 9 a 10 h en train",
+        "arrival": "vers 15h-19h",
+        "free_time": "voir programme",
+        "status": "Transport lourd",
+        "note": "Vieille ville de Bucarest le soir seulement."
+      },
+      "realistic_plan": [
+        {
+          "time": "07h30",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 6 h 30 de bus environ, ou 9 a 10 h en train. Vieille ville de Bucarest le soir seulement. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 15h-19h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Vieille ville Lipscani, Hanul lui Manuc, Curtea Veche. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Bucarest",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j26-bucarest-constanta",
       "day": 26,
-      "name": "Bucarest \u2192 Constan\u021ba",
+      "name": "Bucarest → Constanța",
       "country": "Roumanie",
-      "sleep_city": "Constan\u021ba",
+      "sleep_city": "Constanța",
       "departure_latest": "08h00",
       "summary": "Mer Noire et traces musulmanes de Dobroudja.",
       "ottoman_trace": "Constanta justifie le detour par Carol I, Hunkar et la Dobroudja turco-tatare.",
@@ -2604,7 +3329,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": true,
         "night_train": true,
-        "notes": "Retour Bucarest puis train de nuit si disponible. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 2 h a 2 h 30 de train. Constanta est faisable sur la journee. Retour Bucarest puis train de nuit si disponible. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 24,
@@ -2630,15 +3355,44 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "2 h a 2 h 30 de train",
+        "arrival": "vers 10h-11h",
+        "free_time": "voir programme",
+        "status": "Realisable",
+        "note": "Constanta est faisable sur la journee."
+      },
+      "realistic_plan": [
+        {
+          "time": "08h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 2 h a 2 h 30 de train. Constanta est faisable sur la journee. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 10h-11h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Grande Mosquee Carol I, Minaret de Carol I, Mosquee Hunkar. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Constanța",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j27-constanta-budapest-night",
       "day": 27,
-      "name": "Constan\u021ba \u2192 Bucarest \u2192 Budapest si train de nuit",
+      "name": "Constanța → Bucarest → Budapest si train de nuit",
       "country": "Roumanie / Hongrie",
       "sleep_city": "Train de nuit vers Budapest si disponible",
-      "departure_latest": "Constanta 12h00 / Bucarest 15h-16h",
+      "departure_latest": "Constanta max 11h00; gare de Bucarest max 17h30",
       "summary": "Jour charniere : mer Noire puis train long ou de nuit.",
       "ottoman_trace": "Fin Dobroudja puis retour centre-europeen.",
       "crowd_level": "moyen",
@@ -2694,7 +3448,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": true,
         "night_train": true,
-        "notes": "Dacia/EuroNight ou train long via Budapest/Vienne, couchette probable. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 2 h a 2 h 30 jusqu'a Bucarest + marge vers Gara de Nord; nuit d'environ 14 h 30 si elle circule. Aucune visite : priorite au train de nuit et a la couchette. Dacia/EuroNight ou train long via Budapest/Vienne, couchette probable. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 0,
@@ -2725,6 +3479,35 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         {
           "title": "Option principale : Bucarest vers Budapest/Vienne en train de nuit",
           "details": "Chercher Dacia/EuroNight ou train long depuis Bucarest apres retour de Constanta. Couchette/lit ou siege avec reservation payante probable. Horaires et correspondances a verifier 48h avant."
+        }
+      ],
+      "travel_reality": {
+        "duration": "2 h a 2 h 30 jusqu'a Bucarest + marge vers Gara de Nord; nuit d'environ 14 h 30 si elle circule",
+        "arrival": "gare vers 17h-17h30",
+        "free_time": "voir programme",
+        "status": "Journee fragile",
+        "note": "Aucune visite : priorite au train de nuit et a la couchette."
+      },
+      "realistic_plan": [
+        {
+          "time": "Constanta max 11h00; gare de Bucarest max 17h30",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 2 h a 2 h 30 jusqu'a Bucarest + marge vers Gara de Nord; nuit d'environ 14 h 30 si elle circule. Aucune visite : priorite au train de nuit et a la couchette. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "gare vers 17h-17h30",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Promenade maritime, Dernier tour vieux centre, Gara de Nord Bucarest. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Train de nuit vers Budapest si disponible",
+          "details": "Repos et preparation du prochain depart."
         }
       ]
     },
@@ -2795,7 +3578,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": false,
         "night_train": false,
-        "notes": "Pecs faisable si depart tot J29. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : Arrivee du train de nuit vers 08h30-10h + transfert local. Repos d'abord; Gul Baba ou Rudas, pas les deux. Pecs faisable si depart tot J29. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 28,
@@ -2821,15 +3604,44 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "Garder passeport et carte bancaire en securite",
         "Ne pas laisser le sac sans surveillance",
         "Toujours verifier horaires 48h avant"
+      ],
+      "travel_reality": {
+        "duration": "Arrivee du train de nuit vers 08h30-10h + transfert local",
+        "arrival": "hotel vers 10h-11h30",
+        "free_time": "voir programme",
+        "status": "Recuperation",
+        "note": "Repos d'abord; Gul Baba ou Rudas, pas les deux."
+      },
+      "realistic_plan": [
+        {
+          "time": "-",
+          "title": "Trajet principal",
+          "details": "Duree indicative : Arrivee du train de nuit vers 08h30-10h + transfert local. Repos d'abord; Gul Baba ou Rudas, pas les deux. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "hotel vers 10h-11h30",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Tombeau de Gul Baba, Rose Garden, Bains Rudas. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Budapest",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j29-budapest-pecs",
       "day": 29,
-      "name": "Budapest ou aller-retour P\u00e9cs",
+      "name": "Budapest ou aller-retour Pécs",
       "country": "Hongrie",
       "sleep_city": "Budapest",
-      "departure_latest": "09h00 vers Pecs / retour 18h00",
+      "departure_latest": "Budapest max 08h00 vers Pecs; retour vers 18h00",
       "summary": "Derniere journee ottomane : Budapest ou Pecs.",
       "ottoman_trace": "Pecs conserve la mosquee de Pasha Qasim et Yakovali Hassan.",
       "crowd_level": "moyen",
@@ -2895,7 +3707,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": true,
         "night_train": false,
-        "notes": "Retour J30 en train de jour ; option nuit seulement depart J29. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 2 h 40 a 3 h par sens vers Pecs, environ 5 h 30 de train. Pecs est optionnel; rester a Budapest si un train manque. Retour J30 en train de jour ; option nuit seulement depart J29. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 28,
@@ -2927,12 +3739,41 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
           "title": "Option retour : Budapest vers Munich/Zurich/Vienne de nuit",
           "details": "Possible seulement en partant le soir de J29 et en terminant J30 vers Strasbourg en train de jour avant expiration du pass. Horaires et correspondances a verifier 48h avant."
         }
+      ],
+      "travel_reality": {
+        "duration": "2 h 40 a 3 h par sens vers Pecs, environ 5 h 30 de train",
+        "arrival": "Pecs vers 11h; Budapest vers 18h30-19h30",
+        "free_time": "voir programme",
+        "status": "Faisable mais serre",
+        "note": "Pecs est optionnel; rester a Budapest si un train manque."
+      },
+      "realistic_plan": [
+        {
+          "time": "Budapest max 08h00 vers Pecs; retour vers 18h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 2 h 40 a 3 h par sens vers Pecs, environ 5 h 30 de train. Pecs est optionnel; rester a Budapest si un train manque. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "Pecs vers 11h; Budapest vers 18h30-19h30",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Mosquee de Pasha Qasim, Szechenyi Square, Yakovali Hassan Mosque. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Budapest",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     },
     {
       "id": "j30-budapest-strasbourg",
       "day": 30,
-      "name": "Budapest \u2192 Strasbourg",
+      "name": "Budapest → Strasbourg",
       "country": "Hongrie / Autriche / Allemagne / France",
       "sleep_city": "Strasbourg",
       "departure_latest": "07h00",
@@ -2989,7 +3830,7 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
         "interrail_included": true,
         "reservation_needed": true,
         "night_train": false,
-        "notes": "Aucun train de nuit ce jour-la si pass expire a 23h59. Horaires et correspondances a verifier 48h avant."
+        "notes": "Duree indicative : 10 h a 12 h de train, 3 a 4 correspondances. Aucun train de nuit si le pass expire a 23h59. Aucun train de nuit ce jour-la si pass expire a 23h59. Horaires et correspondances a verifier 48h avant."
       },
       "budget": {
         "sleep": 0,
@@ -3021,30 +3862,59 @@ h1 { margin: 0; color: var(--green); font-size: 1.62rem; line-height: 1.05; lett
           "title": "Aucun train de nuit au depart de J30",
           "details": "Si le pass expire a 23h59, ne pas prendre de train de nuit le soir de J30 sauf billet separe hors pass. Horaires et correspondances a verifier 48h avant."
         }
+      ],
+      "travel_reality": {
+        "duration": "10 h a 12 h de train, 3 a 4 correspondances",
+        "arrival": "vers 18h-21h",
+        "free_time": "voir programme",
+        "status": "Retour long",
+        "note": "Aucun train de nuit si le pass expire a 23h59."
+      },
+      "realistic_plan": [
+        {
+          "time": "07h00",
+          "title": "Trajet principal",
+          "details": "Duree indicative : 10 h a 12 h de train, 3 a 4 correspondances. Aucun train de nuit si le pass expire a 23h59. Horaires a verifier 48h avant."
+        },
+        {
+          "time": "vers 18h-21h",
+          "title": "Arrivee et installation",
+          "details": "Prevoir bagages, gare routiere, trafic et marge de correspondance."
+        },
+        {
+          "time": "Apres l'arrivee",
+          "title": "Visites prioritaires",
+          "details": "Choisir : Gare de Budapest, Correspondances Autriche Allemagne, Arrivee Strasbourg. Ne pas essayer de tout faire."
+        },
+        {
+          "time": "Soir",
+          "title": "Nuit a Strasbourg",
+          "details": "Repos et preparation du prochain depart."
+        }
       ]
     }
   ]
 };
   </script>
   <script>
-const VERIFY_NOTE = "Horaires et correspondances ? v?rifier 48h avant.";
+const VERIFY_NOTE = "Horaires a verifier 48h avant.";
 const CHECKLIST = [
-  "Pass Interrail", "Pi?ce identit? / passeport", "R?servations", "Carte bancaire", "Esp?ces",
+  "Pass Interrail", "Piece identite / passeport", "Reservations", "Carte bancaire", "Especes",
   "Serviette microfibre", "Cadenas", "Batterie externe", "Adaptateur", "Gourde",
-  "Chaussures rando", "Lessive", "M?dicaments", "Chargeur iPhone", "Copies hors-ligne billets"
+  "Chaussures rando", "Lessive", "Medicaments", "Chargeur iPhone", "Copies hors-ligne billets"
 ];
 const LOCATION_COORDS = {
-  "Strasbourg": [7.7521, 48.5734], "V?rone": [10.9916, 45.4384], "Trieste": [13.7768, 45.6495],
+  "Strasbourg": [7.7521, 48.5734], "Verone": [10.9916, 45.4384], "Trieste": [13.7768, 45.6495],
   "Ljubljana": [14.5058, 46.0569], "Zagreb": [15.9819, 45.8150], "Travnik/Jajce": [17.48, 44.25],
   "Travnik": [17.6658, 44.2264], "Jajce": [17.2706, 44.3420], "Sarajevo": [18.4131, 43.8563],
-  "Mostar": [17.8078, 43.3438], "Blagaj": [17.9026, 43.2576], "Po?itelj": [17.7313, 43.1345],
+  "Mostar": [17.8078, 43.3438], "Blagaj": [17.9026, 43.2576], "Poctitelj": [17.7313, 43.1345],
   "Kotor": [18.7712, 42.4247], "Bar": [19.1003, 42.0931], "Stari Bar": [19.1347, 42.0917],
-  "Ulcinj": [19.2183, 41.9311], "Shkod?r": [19.5126, 42.0683], "Kruj?": [19.7978, 41.5095],
+  "Ulcinj": [19.2183, 41.9311], "Shkoder": [19.5126, 42.0683], "Kruje": [19.7978, 41.5095],
   "Tirana": [19.8187, 41.3275], "Prizren": [20.7397, 42.2139], "Gjakova": [20.4358, 42.3803],
   "Peja/Rugova": [20.2883, 42.6591], "Peja": [20.2883, 42.6591], "Rugova": [20.16, 42.70],
   "Pristina": [21.1655, 42.6629], "Skopje": [21.4316, 41.9981], "Tetovo": [20.9714, 42.0106],
   "Ohrid": [20.8016, 41.1231], "Sofia": [23.3219, 42.6977], "Bucarest": [26.1025, 44.4268],
-  "Constan?a": [28.6348, 44.1598], "Budapest": [19.0402, 47.4979], "P?cs": [18.2323, 46.0727]
+  "Constanta": [28.6348, 44.1598], "Budapest": [19.0402, 47.4979], "Pecs": [18.2323, 46.0727]
 };
 
 const state = { stops: [], selected: 0, view: "route", filter: "all", query: "" };
@@ -3057,12 +3927,12 @@ function escapeHtml(value = "") {
 function slugText(value = "") { return String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
 function stopText(stop) { return slugText(JSON.stringify(stop)); }
 function selectedStop() { return state.stops[state.selected] || state.stops[0]; }
-function cityForStop(stop) { return stop.sleep_city || stop.name?.split("?").pop()?.trim() || stop.name; }
+function cityForStop(stop) { return stop.sleep_city || stop.name?.split(String.fromCharCode(0x2192)).pop()?.trim() || stop.name; }
 function coordsForStop(stop) {
-  const candidates = [cityForStop(stop), ...(stop.name || "").split("?").map(x => x.trim()), stop.transport_next?.to].filter(Boolean);
+  const candidates = [cityForStop(stop), ...(stop.name || "").split(String.fromCharCode(0x2192)).map(x => x.trim()), stop.transport_next?.to].filter(Boolean);
   for (const name of candidates) {
     for (const key of Object.keys(LOCATION_COORDS).sort((a,b) => b.length - a.length)) {
-      if (name.includes(key)) return LOCATION_COORDS[key];
+      if (slugText(name).includes(slugText(key))) return LOCATION_COORDS[key];
     }
   }
   return null;
@@ -3071,14 +3941,14 @@ function googleMapsSearch(label, city) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(label + " " + (city || ""))}`;
 }
 function googleMapsRoute(stop) {
-  const parts = (stop.name || "").split("?").map(x => x.trim());
+  const parts = (stop.name || "").split(String.fromCharCode(0x2192)).map(x => x.trim());
   const origin = parts[0] || cityForStop(stop);
   const destination = parts[1] || stop.transport_next?.to || cityForStop(stop);
   return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=transit`;
 }
 function tagsFor(stop) {
   const tags = [];
-  if (stop.departure_latest) tags.push(`<span class="pill blue">D?part max ${escapeHtml(stop.departure_latest)}</span>`);
+  if (stop.departure_latest) tags.push(`<span class="pill blue">Depart max ${escapeHtml(stop.departure_latest)}</span>`);
   if (stop.sleep_city) tags.push(`<span class="pill green">Nuit ${escapeHtml(stop.sleep_city)}</span>`);
   if (stop.transport_next?.night_train || (stop.night_train_options || []).length) tags.push(`<span class="pill red">Train de nuit</span>`);
   if (stop.transport_next && stop.transport_next.mode !== "train") tags.push(`<span class="pill">${escapeHtml(stop.transport_next.mode)}</span>`);
@@ -3104,17 +3974,17 @@ function chooseDay(index, view = "day") {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 function listItems(items, city) {
-  if (!items || !items.length) return `<p class="small">Rien de sp?cial ici.</p>`;
+  if (!items || !items.length) return `<p class="small">Rien de special ici.</p>`;
   return `<ul class="list">${items.map(item => `<li><a href="${googleMapsSearch(item, city)}" target="_blank" rel="noreferrer">${escapeHtml(item)}</a></li>`).join("")}</ul>`;
 }
 function budget(stop) {
   const b = stop.budget || {};
   const total = Object.values(b).reduce((sum, value) => sum + (Number(value) || 0), 0);
   return `<div class="budget-grid">
-    <div class="budget-cell"><b>${b.sleep ?? 0}?</b><span class="small">Nuit</span></div>
-    <div class="budget-cell"><b>${b.food ?? 0}?</b><span class="small">Repas</span></div>
-    <div class="budget-cell"><b>${b.local_transport ?? 0}?</b><span class="small">Local</span></div>
-    <div class="budget-cell"><b>${total}?</b><span class="small">Total estim?</span></div>
+    <div class="budget-cell"><b>${b.sleep ?? 0} EUR</b><span class="small">Nuit</span></div>
+    <div class="budget-cell"><b>${b.food ?? 0} EUR</b><span class="small">Repas</span></div>
+    <div class="budget-cell"><b>${b.local_transport ?? 0} EUR</b><span class="small">Local</span></div>
+    <div class="budget-cell"><b>${total} EUR</b><span class="small">Total estime</span></div>
   </div>`;
 }
 function dayCard(stop, index) {
@@ -3125,7 +3995,7 @@ function dayCard(stop, index) {
 }
 function renderRoute() {
   const stops = state.stops.filter(matchesFilter);
-  app.innerHTML = `${routeMap(state.selected)}<div class="route-grid">${stops.map(stop => dayCard(stop, state.stops.indexOf(stop))).join("") || `<div class="empty">Aucun r?sultat.</div>`}</div>`;
+  app.innerHTML = `${routeMap(state.selected)}<div class="route-grid">${stops.map(stop => dayCard(stop, state.stops.indexOf(stop))).join("") || `<div class="empty">Aucun resultat.</div>`}</div>`;
   app.querySelectorAll("[data-day]").forEach(button => button.addEventListener("click", () => chooseDay(Number(button.dataset.day))));
 }
 function renderDay() {
@@ -3139,19 +4009,19 @@ function renderDay() {
       <h2>${escapeHtml(stop.name)}</h2>
       <p class="small">${escapeHtml(stop.summary || "")}</p>
       <span class="meta">${tagsFor(stop)}</span>
-      <div class="actions"><button class="action secondary" id="prevDay" type="button">Jour pr?c?dent</button><button class="action" id="nextDay" type="button">Jour suivant</button></div>
+      <div class="actions"><button class="action secondary" id="prevDay" type="button">Jour precedent</button><button class="action" id="nextDay" type="button">Jour suivant</button></div>
     </section>
     <section class="detail-grid">
       <div class="stack">
-        <section class="card white"><h3 class="section-title">Programme</h3><div class="timeline">${(stop.full_day_plan || []).map(row => `<div class="time-row"><strong>${escapeHtml(row.time || "")}</strong><span><h3>${escapeHtml(row.title || "")}</h3><p class="small">${escapeHtml(row.details || "")}</p></span></div>`).join("")}</div></section>
-        <section class="card white"><h3 class="section-title">? voir</h3>${listItems(stop.must_see, city)}</section>
+        <section class="card travel-card"><h3 class="section-title">Temps de trajet</h3><div class="small"><b>${escapeHtml((stop.travel_reality || {}).duration || "A verifier")}</b><br>Arrivee indicative : ${escapeHtml((stop.travel_reality || {}).arrival || "A confirmer")}<br><b>${escapeHtml((stop.travel_reality || {}).status || "A adapter")}</b> - ${escapeHtml((stop.travel_reality || {}).note || VERIFY_NOTE)}</div></section><section class="card white"><h3 class="section-title">Programme realiste</h3><div class="timeline">${(stop.realistic_plan || stop.full_day_plan || []).map(row => `<div class="time-row"><strong>${escapeHtml(row.time || "")}</strong><span><h3>${escapeHtml(row.title || "")}</h3><p class="small">${escapeHtml(row.details || "")}</p></span></div>`).join("")}</div></section>
+        <section class="card white"><h3 class="section-title">A voir</h3>${listItems(stop.must_see, city)}</section>
         <section class="card white"><h3 class="section-title">Calme</h3>${listItems(stop.quiet_spots, city)}</section>
         <section class="card white"><h3 class="section-title">Rando / vues</h3>${listItems(stop.hikes, city)}</section>
       </div>
       <div class="stack">
         <section class="card"><h3 class="section-title">Carte</h3>${routeMap(state.selected, true)}<div class="actions"><a class="action" href="${googleMapsRoute(stop)}" target="_blank" rel="noreferrer">Trajet Google Maps</a><a class="action secondary" href="${googleMapsSearch(city, stop.country)}" target="_blank" rel="noreferrer">Ville</a></div></section>
-        <section class="card"><h3 class="section-title">Transport suivant</h3><p class="small"><b>${escapeHtml(transport.mode || "")}</b> vers ${escapeHtml(transport.to || "")}. ${escapeHtml(transport.notes || VERIFY_NOTE)}</p><span class="meta"><span class="pill ${transport.interrail_included ? "green" : "red"}">${transport.interrail_included ? "Interrail" : "Non inclus"}</span><span class="pill ${transport.reservation_needed ? "red" : ""}">${transport.reservation_needed ? "R?servation" : "Sans r?servation"}</span></span></section>
-        <section class="card"><h3 class="section-title">Trains de nuit</h3>${night.length ? `<ul class="list">${night.map(item => `<li><b>${escapeHtml(item.title)}</b><br><span class="small">${escapeHtml(item.details)}</span></li>`).join("")}</ul>` : `<p class="small">Pas de train de nuit utile indiqu? pour cette ?tape. ${VERIFY_NOTE}</p>`}</section>
+        <section class="card"><h3 class="section-title">Transport suivant</h3><p class="small"><b>${escapeHtml(transport.mode || "")}</b> vers ${escapeHtml(transport.to || "")}. ${escapeHtml(transport.notes || VERIFY_NOTE)}</p><span class="meta"><span class="pill ${transport.interrail_included ? "green" : "red"}">${transport.interrail_included ? "Interrail" : "Non inclus"}</span><span class="pill ${transport.reservation_needed ? "red" : ""}">${transport.reservation_needed ? "Reservation" : "Sans reservation"}</span></span></section>
+        <section class="card"><h3 class="section-title">Trains de nuit</h3>${night.length ? `<ul class="list">${night.map(item => `<li><b>${escapeHtml(item.title)}</b><br><span class="small">${escapeHtml(item.details)}</span></li>`).join("")}</ul>` : `<p class="small">Pas de train de nuit utile indique pour cette etape. ${VERIFY_NOTE}</p>`}</section>
         <section class="card"><h3 class="section-title">Budget</h3>${budget(stop)}</section>
         <section class="card"><h3 class="section-title">Notes pratiques</h3>${listItems([...(stop.cheap_food_tips || []), ...(stop.cheap_sleep_tips || []), ...(stop.shower_laundry_tips || []), ...(stop.safety_notes || [])], city)}</section>
       </div>
@@ -3162,19 +4032,19 @@ function renderDay() {
 }
 function renderSearch() {
   const results = state.stops.filter(matchesFilter);
-  app.innerHTML = `<section class="stack"><div class="card"><h2>Recherche</h2><p class="small">${results.length} r?sultat(s)</p></div>${results.map(stop => dayCard(stop, state.stops.indexOf(stop))).join("") || `<div class="empty">Aucun r?sultat.</div>`}</section>`;
+  app.innerHTML = `<section class="stack"><div class="card"><h2>Recherche</h2><p class="small">${results.length} resultat(s)</p></div>${results.map(stop => dayCard(stop, state.stops.indexOf(stop))).join("") || `<div class="empty">Aucun resultat.</div>`}</section>`;
   app.querySelectorAll("[data-day]").forEach(button => button.addEventListener("click", () => chooseDay(Number(button.dataset.day))));
 }
 function renderMapView() {
   const stop = selectedStop();
-  app.innerHTML = `<section class="stack"><div class="card"><h2>Carte du parcours</h2><p class="small">${escapeHtml(stop.name)} ? Nuit ${escapeHtml(stop.sleep_city || "")}</p></div>${routeMap(state.selected)}<div class="actions"><button class="action secondary" id="mapPrev" type="button">Pr?c?dent</button><button class="action" id="mapNext" type="button">Suivant</button></div>${dayCard(stop, state.selected)}</section>`;
+  app.innerHTML = `<section class="stack"><div class="card"><h2>Carte du parcours</h2><p class="small">${escapeHtml(stop.name)} - Nuit ${escapeHtml(stop.sleep_city || "")}</p></div>${routeMap(state.selected)}<div class="actions"><button class="action secondary" id="mapPrev" type="button">Precedent</button><button class="action" id="mapNext" type="button">Suivant</button></div>${dayCard(stop, state.selected)}</section>`;
   document.getElementById("mapPrev").addEventListener("click", () => chooseDay(state.selected - 1, "map"));
   document.getElementById("mapNext").addEventListener("click", () => chooseDay(state.selected + 1, "map"));
   app.querySelector("[data-day]").addEventListener("click", () => chooseDay(state.selected));
 }
 function renderChecklist() {
   const saved = JSON.parse(localStorage.getItem("balkans-checklist") || "{}");
-  app.innerHTML = `<section class="stack"><div class="card"><h2>Sac et papiers</h2><p class="small">Sauvegard? sur cet iPhone.</p></div>${CHECKLIST.map((item, idx) => `<label class="check-row ${saved[item] ? "done" : ""}"><input type="checkbox" data-check="${idx}" ${saved[item] ? "checked" : ""}><span>${escapeHtml(item)}</span></label>`).join("")}</section>`;
+  app.innerHTML = `<section class="stack"><div class="card"><h2>Sac et papiers</h2><p class="small">Sauvegarde sur cet iPhone.</p></div>${CHECKLIST.map((item, idx) => `<label class="check-row ${saved[item] ? "done" : ""}"><input type="checkbox" data-check="${idx}" ${saved[item] ? "checked" : ""}><span>${escapeHtml(item)}</span></label>`).join("")}</section>`;
   app.querySelectorAll("[data-check]").forEach(input => input.addEventListener("change", () => {
     const item = CHECKLIST[Number(input.dataset.check)];
     saved[item] = input.checked;
@@ -3192,7 +4062,7 @@ function routeMap(activeIndex = 0, compact = false) {
   const xy = ([lon, lat]) => [pad + ((lon - minLon) / (maxLon - minLon)) * (w - pad * 2), h - pad - ((lat - minLat) / (maxLat - minLat)) * (h - pad * 2)];
   const path = points.map((p, i) => `${i ? "L" : "M"}${xy(p.coord).map(n => n.toFixed(1)).join(" ")}`).join(" ");
   const labels = points.filter((p, i) => i === 0 || i === points.length - 1 || p.index === activeIndex || ["Sarajevo","Kotor","Tirana","Skopje","Sofia","Budapest"].some(city => cityForStop(p.stop).includes(city)));
-  return `<div class="hero-map"><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Carte simplifi?e du parcours">
+  return `<div class="hero-map"><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Carte simplifiee du parcours">
     <rect width="${w}" height="${h}" fill="#eef1e8"></rect>
     <path class="map-country" d="M70 170 C170 90 230 110 300 150 S430 130 510 210 S620 250 700 190"></path>
     <path class="map-country" d="M110 290 C220 250 300 300 380 255 S560 270 680 330"></path>
