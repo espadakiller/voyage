@@ -4,11 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build iphone-app --outDir ../site-dist --emptyOutDir",
-    "dev": "vite iphone-app --host 0.0.0.0"
+    "build": "node scripts/build-site.mjs"
   },
-  "dependencies": {
-    "@vitejs/plugin-react": "^5.0.0",
-    "vite": "^7.0.0"
-  }
+  "dependencies": {}
 }
