@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, cp } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
@@ -112,3 +112,24 @@ for (const output of outputs) {
 
 await writeFile(resolve(root, "iphone-app", "stops.json"), JSON.stringify(payload, null, 2) + "\n", "utf8");
 console.log("Application generee : " + days.length + " jours, " + days.reduce((sum, day) => sum + day.visits.length, 0) + " visites.");
+
+const serverDir = resolve(root, "dist", "server");
+const hostingDir = resolve(root, "dist", ".openai");
+await mkdir(serverDir, { recursive: true });
+await mkdir(hostingDir, { recursive: true });
+await cp(resolve(root, ".openai", "hosting.json"), resolve(hostingDir, "hosting.json"));
+
+const worker = [
+  "export default {",
+  "  async fetch(request, env) {",
+  "    const response = await env.ASSETS.fetch(request);",
+  "    if (response.status !== 404 || request.method !== \"GET\") return response;",
+  "    const url = new URL(request.url);",
+  "    if (url.pathname.includes(\".\")) return response;",
+  "    url.pathname = \"/index.html\";",
+  "    return env.ASSETS.fetch(new Request(url, request));",
+  "  }",
+  "};",
+  ""
+].join("\n");
+await writeFile(resolve(serverDir, "index.js"), worker, "utf8");
