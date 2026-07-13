@@ -100,6 +100,7 @@ const html = template
   .replace('__ITINERARY_DATA__', () => embedded)
   .replace('/*__APP__*/', () => app);
 const outputs = [
+  resolve(root, "index.html"),
   resolve(root, "iphone-app", "index.html"),
   resolve(root, "dist", "index.html"),
   resolve(root, "dist", "Voyage-Balkans-iPhone.html")
