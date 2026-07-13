@@ -1,199 +1,186 @@
-const VERIFY_NOTE = "Horaires et correspondances ? v?rifier 48h avant.";
-const CHECKLIST = [
-  "Pass Interrail", "Pi?ce identit? / passeport", "R?servations", "Carte bancaire", "Esp?ces",
-  "Serviette microfibre", "Cadenas", "Batterie externe", "Adaptateur", "Gourde",
-  "Chaussures rando", "Lessive", "M?dicaments", "Chargeur iPhone", "Copies hors-ligne billets"
-];
-const LOCATION_COORDS = {
-  "Strasbourg": [7.7521, 48.5734], "V?rone": [10.9916, 45.4384], "Trieste": [13.7768, 45.6495],
-  "Ljubljana": [14.5058, 46.0569], "Zagreb": [15.9819, 45.8150], "Travnik/Jajce": [17.48, 44.25],
-  "Travnik": [17.6658, 44.2264], "Jajce": [17.2706, 44.3420], "Sarajevo": [18.4131, 43.8563],
-  "Mostar": [17.8078, 43.3438], "Blagaj": [17.9026, 43.2576], "Po?itelj": [17.7313, 43.1345],
-  "Kotor": [18.7712, 42.4247], "Bar": [19.1003, 42.0931], "Stari Bar": [19.1347, 42.0917],
-  "Ulcinj": [19.2183, 41.9311], "Shkod?r": [19.5126, 42.0683], "Kruj?": [19.7978, 41.5095],
-  "Tirana": [19.8187, 41.3275], "Prizren": [20.7397, 42.2139], "Gjakova": [20.4358, 42.3803],
-  "Peja/Rugova": [20.2883, 42.6591], "Peja": [20.2883, 42.6591], "Rugova": [20.16, 42.70],
-  "Pristina": [21.1655, 42.6629], "Skopje": [21.4316, 41.9981], "Tetovo": [20.9714, 42.0106],
-  "Ohrid": [20.8016, 41.1231], "Sofia": [23.3219, 42.6977], "Bucarest": [26.1025, 44.4268],
-  "Constan?a": [28.6348, 44.1598], "Budapest": [19.0402, 47.4979], "P?cs": [18.2323, 46.0727]
-};
+(function voyageApp() {
+  "use strict";
+  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const views={route:$("#routeView"),day:$("#dayView"),progress:$("#progressView")};
+  const state={view:"route",day:+localStorage.getItem("voyage-selected-day")||1,filter:"all",visitFilter:"all",query:""};
+  const read=key=>{try{return JSON.parse(localStorage.getItem(key))||{}}catch(e){return{}}};
+  const done=read("voyage-done-v3"), photos=read("voyage-photos-v3");
+  const esc=v=>String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+  const norm=v=>String(v||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+  const icons=()=>window.lucide&&window.lucide.createIcons({attrs:{"aria-hidden":"true"}});
+  const selected=()=>DATA.days.find(d=>d.day===state.day)||DATA.days[0];
+  const key=(d,i)=>d.day+"-"+i;
+  const count=d=>d.visits.reduce((n,v,i)=>n+(done[key(d,i)]?1:0),0);
+  const total=()=>DATA.days.reduce((n,d)=>n+d.visits.length,0);
+  const complete=()=>DATA.days.reduce((n,d)=>n+count(d),0);
 
-const state = { stops: [], selected: 0, view: "route", filter: "all", query: "" };
-const app = document.getElementById("app");
-const searchInput = document.getElementById("searchInput");
-
-function escapeHtml(value = "") {
-  return String(value).replace(/[&<>'"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch]));
-}
-function slugText(value = "") { return String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
-function stopText(stop) { return slugText(JSON.stringify(stop)); }
-function selectedStop() { return state.stops[state.selected] || state.stops[0]; }
-function cityForStop(stop) { return stop.sleep_city || stop.name?.split("?").pop()?.trim() || stop.name; }
-function coordsForStop(stop) {
-  const candidates = [cityForStop(stop), ...(stop.name || "").split("?").map(x => x.trim()), stop.transport_next?.to].filter(Boolean);
-  for (const name of candidates) {
-    for (const key of Object.keys(LOCATION_COORDS).sort((a,b) => b.length - a.length)) {
-      if (name.includes(key)) return LOCATION_COORDS[key];
+  function kind(d){
+    const t=norm(d.transport);
+    if(d.nightTravel)return"night";
+    if(t.includes("ferry"))return"ferry";
+    if(t.includes("bus"))return"bus";
+    if(t.includes("train"))return"train";
+    return"walk";
+  }
+  function meta(d){
+    return {night:["moon-star","Nuit","coral"],ferry:["ship","Ferry","coral"],bus:["bus-front","Bus",""],
+      train:["train-front","Train",""],walk:["footprints","Sur place","green"]}[kind(d)];
+  }
+  const ottoman=v=>/mosquee|camii|hamam|hammam|ottoman|bazar|bezesteni|tekke|pacha|pasha|caravanserail|ali pacha|ataturk/.test(norm(v));
+  const outdoor=v=>/promenade|lac|parc|jardin|mont|colline|gorge|forteresse|citadelle|rempart|panorama|belvedere|rives|front de mer|plage|coucher|pont|ile|cascade|sentier/.test(norm(v));
+  function visitIcon(v){
+    const x=norm(v);
+    if(/mosquee|camii/.test(x))return"landmark";
+    if(/hamam|hammam|bains/.test(x))return"waves";
+    if(/bazar|marche|rue|centre/.test(x))return"store";
+    if(/musee|maison|palais/.test(x))return"museum";
+    if(/forteresse|citadelle|chateau|rempart/.test(x))return"castle";
+    if(/lac|mer|plage|rives|port/.test(x))return"sailboat";
+    if(/mont|colline|gorge|panorama|belvedere/.test(x))return"mountain";
+    if(/eglise|cathedrale|basilique|monastere/.test(x))return"church";
+    if(/pont/.test(x))return"bridge";
+    return"map-pin";
+  }
+  const initials=v=>norm(v).split(/\s+/).filter(x=>x.length>2).slice(0,2).map(x=>x[0].toUpperCase()).join("")||"V";
+  function cleanPlace(v){
+    return v.replace(/^(matin|apres-midi|soir)\s*:\s*/i,"")
+      .replace(/^si la marge est suffisante\s*:\s*/i,"")
+      .replace(/,?\s*(si le temps le permet|selon les horaires|selon accessibilite|au minimum).*$/i,"").trim();
+  }
+  function routePlaces(d){
+    const reject=/^(installation|retour|arrivee|depart|transfert|train|bus|ferry|traversee|bateau vers|repas|verification|aucune visite)/;
+    return d.visits.map(cleanPlace).filter(v=>v&&!reject.test(norm(v)));
+  }
+  function routeTime(d,n){
+    if(d.day===30)return"Journee libre, sans visite obligatoire";
+    if(d.day===29)return"Parcours libre selon l'heure d'arrivee";
+    if(d.longTransfer)return n>=5?"2 h 30 a 4 h avec les visites, si la marge transport le permet":"Environ 2 h avec les visites, seulement si la marge le permet";
+    if(n>=10)return"3 h 30 a 5 h avec les visites et les pauses";
+    if(n>=7)return"3 h a 4 h 30 avec les visites";
+    return"2 h a 3 h 30 avec les visites";
+  }
+  const searchUrl=(place,d)=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(place+", "+d.location+", "+d.country);
+  function routeUrls(d){
+    const places=routePlaces(d), routes=[];
+    for(let start=0;start<places.length;start+=8){
+      const part=places.slice(start,start+9);
+      if(part.length<2)break;
+      const scoped=part.map(p=>p+", "+d.location+", "+d.country);
+      const origin=scoped[0], last=start+9>=places.length, destination=last?origin:scoped.at(-1);
+      const via=(last?scoped.slice(1):scoped.slice(1,-1)).join("|");
+      let url="https://www.google.com/maps/dir/?api=1&travelmode=walking&origin="+encodeURIComponent(origin)+"&destination="+encodeURIComponent(destination);
+      if(via)url+="&waypoints="+encodeURIComponent(via);
+      routes.push({url,start:start+1,end:start+part.length});
     }
+    return routes;
   }
-  return null;
-}
-function googleMapsSearch(label, city) {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(label + " " + (city || ""))}`;
-}
-function googleMapsRoute(stop) {
-  const parts = (stop.name || "").split("?").map(x => x.trim());
-  const origin = parts[0] || cityForStop(stop);
-  const destination = parts[1] || stop.transport_next?.to || cityForStop(stop);
-  return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=transit`;
-}
-function tagsFor(stop) {
-  const tags = [];
-  if (stop.departure_latest) tags.push(`<span class="pill blue">D?part max ${escapeHtml(stop.departure_latest)}</span>`);
-  if (stop.sleep_city) tags.push(`<span class="pill green">Nuit ${escapeHtml(stop.sleep_city)}</span>`);
-  if (stop.transport_next?.night_train || (stop.night_train_options || []).length) tags.push(`<span class="pill red">Train de nuit</span>`);
-  if (stop.transport_next && stop.transport_next.mode !== "train") tags.push(`<span class="pill">${escapeHtml(stop.transport_next.mode)}</span>`);
-  return tags.join("");
-}
-function matchesFilter(stop) {
-  const text = stopText(stop);
-  if (state.query && !text.includes(slugText(state.query))) return false;
-  if (state.filter === "ottoman") return text.includes("ottoman") || text.includes("mosquee") || text.includes("bazar") || text.includes("hammam") || text.includes("tekke");
-  if (state.filter === "hike") return (stop.hikes || []).length > 0 || text.includes("rando") || text.includes("vue");
-  if (state.filter === "night") return Boolean(stop.transport_next?.night_train || (stop.night_train_options || []).length);
-  if (state.filter === "bus") return stop.transport_next?.mode === "bus" || text.includes("bus non inclus");
-  return true;
-}
-function setView(view) {
-  state.view = view;
-  document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.view === view));
-  render();
-}
-function chooseDay(index, view = "day") {
-  state.selected = Math.max(0, Math.min(index, state.stops.length - 1));
-  setView(view);
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-function listItems(items, city) {
-  if (!items || !items.length) return `<p class="small">Rien de sp?cial ici.</p>`;
-  return `<ul class="list">${items.map(item => `<li><a href="${googleMapsSearch(item, city)}" target="_blank" rel="noreferrer">${escapeHtml(item)}</a></li>`).join("")}</ul>`;
-}
-function budget(stop) {
-  const b = stop.budget || {};
-  const total = Object.values(b).reduce((sum, value) => sum + (Number(value) || 0), 0);
-  return `<div class="budget-grid">
-    <div class="budget-cell"><b>${b.sleep ?? 0}?</b><span class="small">Nuit</span></div>
-    <div class="budget-cell"><b>${b.food ?? 0}?</b><span class="small">Repas</span></div>
-    <div class="budget-cell"><b>${b.local_transport ?? 0}?</b><span class="small">Local</span></div>
-    <div class="budget-cell"><b>${total}?</b><span class="small">Total estim?</span></div>
-  </div>`;
-}
-function dayCard(stop, index) {
-  return `<button type="button" class="day-card ${index === state.selected ? "active" : ""}" data-day="${index}">
-    <span class="day-badge">J${stop.day}</span>
-    <span><h2>${escapeHtml(stop.name)}</h2><p class="small">${escapeHtml(stop.summary || "")}</p><span class="meta">${tagsFor(stop)}</span></span>
-  </button>`;
-}
-function renderRoute() {
-  const stops = state.stops.filter(matchesFilter);
-  app.innerHTML = `${routeMap(state.selected)}<div class="route-grid">${stops.map(stop => dayCard(stop, state.stops.indexOf(stop))).join("") || `<div class="empty">Aucun r?sultat.</div>`}</div>`;
-  app.querySelectorAll("[data-day]").forEach(button => button.addEventListener("click", () => chooseDay(Number(button.dataset.day))));
-}
-function renderDay() {
-  const stop = selectedStop();
-  const city = cityForStop(stop);
-  const transport = stop.transport_next || {};
-  const night = stop.night_train_options || [];
-  app.innerHTML = `<article class="stack">
-    <section class="card detail-head">
-      <div class="meta"><span class="pill">J${stop.day}</span><span class="pill green">${escapeHtml(stop.country || "")}</span></div>
-      <h2>${escapeHtml(stop.name)}</h2>
-      <p class="small">${escapeHtml(stop.summary || "")}</p>
-      <span class="meta">${tagsFor(stop)}</span>
-      <div class="actions"><button class="action secondary" id="prevDay" type="button">Jour pr?c?dent</button><button class="action" id="nextDay" type="button">Jour suivant</button></div>
-    </section>
-    <section class="detail-grid">
-      <div class="stack">
-        <section class="card white"><h3 class="section-title">Programme</h3><div class="timeline">${(stop.full_day_plan || []).map(row => `<div class="time-row"><strong>${escapeHtml(row.time || "")}</strong><span><h3>${escapeHtml(row.title || "")}</h3><p class="small">${escapeHtml(row.details || "")}</p></span></div>`).join("")}</div></section>
-        <section class="card white"><h3 class="section-title">? voir</h3>${listItems(stop.must_see, city)}</section>
-        <section class="card white"><h3 class="section-title">Calme</h3>${listItems(stop.quiet_spots, city)}</section>
-        <section class="card white"><h3 class="section-title">Rando / vues</h3>${listItems(stop.hikes, city)}</section>
-      </div>
-      <div class="stack">
-        <section class="card"><h3 class="section-title">Carte</h3>${routeMap(state.selected, true)}<div class="actions"><a class="action" href="${googleMapsRoute(stop)}" target="_blank" rel="noreferrer">Trajet Google Maps</a><a class="action secondary" href="${googleMapsSearch(city, stop.country)}" target="_blank" rel="noreferrer">Ville</a></div></section>
-        <section class="card"><h3 class="section-title">Transport suivant</h3><p class="small"><b>${escapeHtml(transport.mode || "")}</b> vers ${escapeHtml(transport.to || "")}. ${escapeHtml(transport.notes || VERIFY_NOTE)}</p><span class="meta"><span class="pill ${transport.interrail_included ? "green" : "red"}">${transport.interrail_included ? "Interrail" : "Non inclus"}</span><span class="pill ${transport.reservation_needed ? "red" : ""}">${transport.reservation_needed ? "R?servation" : "Sans r?servation"}</span></span></section>
-        <section class="card"><h3 class="section-title">Trains de nuit</h3>${night.length ? `<ul class="list">${night.map(item => `<li><b>${escapeHtml(item.title)}</b><br><span class="small">${escapeHtml(item.details)}</span></li>`).join("")}</ul>` : `<p class="small">Pas de train de nuit utile indiqu? pour cette ?tape. ${VERIFY_NOTE}</p>`}</section>
-        <section class="card"><h3 class="section-title">Budget</h3>${budget(stop)}</section>
-        <section class="card"><h3 class="section-title">Notes pratiques</h3>${listItems([...(stop.cheap_food_tips || []), ...(stop.cheap_sleep_tips || []), ...(stop.shower_laundry_tips || []), ...(stop.safety_notes || [])], city)}</section>
-      </div>
-    </section>
-  </article>`;
-  document.getElementById("prevDay").addEventListener("click", () => chooseDay(state.selected - 1));
-  document.getElementById("nextDay").addEventListener("click", () => chooseDay(state.selected + 1));
-}
-function renderSearch() {
-  const results = state.stops.filter(matchesFilter);
-  app.innerHTML = `<section class="stack"><div class="card"><h2>Recherche</h2><p class="small">${results.length} r?sultat(s)</p></div>${results.map(stop => dayCard(stop, state.stops.indexOf(stop))).join("") || `<div class="empty">Aucun r?sultat.</div>`}</section>`;
-  app.querySelectorAll("[data-day]").forEach(button => button.addEventListener("click", () => chooseDay(Number(button.dataset.day))));
-}
-function renderMapView() {
-  const stop = selectedStop();
-  app.innerHTML = `<section class="stack"><div class="card"><h2>Carte du parcours</h2><p class="small">${escapeHtml(stop.name)} ? Nuit ${escapeHtml(stop.sleep_city || "")}</p></div>${routeMap(state.selected)}<div class="actions"><button class="action secondary" id="mapPrev" type="button">Pr?c?dent</button><button class="action" id="mapNext" type="button">Suivant</button></div>${dayCard(stop, state.selected)}</section>`;
-  document.getElementById("mapPrev").addEventListener("click", () => chooseDay(state.selected - 1, "map"));
-  document.getElementById("mapNext").addEventListener("click", () => chooseDay(state.selected + 1, "map"));
-  app.querySelector("[data-day]").addEventListener("click", () => chooseDay(state.selected));
-}
-function renderChecklist() {
-  const saved = JSON.parse(localStorage.getItem("balkans-checklist") || "{}");
-  app.innerHTML = `<section class="stack"><div class="card"><h2>Sac et papiers</h2><p class="small">Sauvegard? sur cet iPhone.</p></div>${CHECKLIST.map((item, idx) => `<label class="check-row ${saved[item] ? "done" : ""}"><input type="checkbox" data-check="${idx}" ${saved[item] ? "checked" : ""}><span>${escapeHtml(item)}</span></label>`).join("")}</section>`;
-  app.querySelectorAll("[data-check]").forEach(input => input.addEventListener("change", () => {
-    const item = CHECKLIST[Number(input.dataset.check)];
-    saved[item] = input.checked;
-    localStorage.setItem("balkans-checklist", JSON.stringify(saved));
-    input.closest(".check-row").classList.toggle("done", input.checked);
-  }));
-}
-function routeMap(activeIndex = 0, compact = false) {
-  const points = state.stops.map((stop, index) => ({ stop, index, coord: coordsForStop(stop) })).filter(p => p.coord);
-  const lons = points.map(p => p.coord[0]);
-  const lats = points.map(p => p.coord[1]);
-  const minLon = Math.min(...lons) - 1.2, maxLon = Math.max(...lons) + 1.2;
-  const minLat = Math.min(...lats) - 0.9, maxLat = Math.max(...lats) + 0.9;
-  const w = 760, h = compact ? 300 : 430, pad = 42;
-  const xy = ([lon, lat]) => [pad + ((lon - minLon) / (maxLon - minLon)) * (w - pad * 2), h - pad - ((lat - minLat) / (maxLat - minLat)) * (h - pad * 2)];
-  const path = points.map((p, i) => `${i ? "L" : "M"}${xy(p.coord).map(n => n.toFixed(1)).join(" ")}`).join(" ");
-  const labels = points.filter((p, i) => i === 0 || i === points.length - 1 || p.index === activeIndex || ["Sarajevo","Kotor","Tirana","Skopje","Sofia","Budapest"].some(city => cityForStop(p.stop).includes(city)));
-  return `<div class="hero-map"><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Carte simplifi?e du parcours">
-    <rect width="${w}" height="${h}" fill="#eef1e8"></rect>
-    <path class="map-country" d="M70 170 C170 90 230 110 300 150 S430 130 510 210 S620 250 700 190"></path>
-    <path class="map-country" d="M110 290 C220 250 300 300 380 255 S560 270 680 330"></path>
-    <path class="route-path-muted" d="${path}"></path><path class="route-path" d="${path}"></path>
-    ${points.map(p => { const [x,y] = xy(p.coord); return `<circle class="map-dot ${p.index === activeIndex ? "active" : ""}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${p.index === activeIndex ? 8 : 5}"></circle>`; }).join("")}
-    ${labels.map(p => { const [x,y] = xy(p.coord); return `<text class="map-label" x="${x.toFixed(1)}" y="${(y - 12).toFixed(1)}" text-anchor="middle">J${p.stop.day} ${escapeHtml(cityForStop(p.stop).replace(" / ", "/"))}</text>`; }).join("")}
-  </svg></div>`;
-}
-function render() {
-  if (!state.stops.length) { app.innerHTML = `<div class="empty">Chargement impossible.</div>`; return; }
-  if (state.view === "day") renderDay();
-  else if (state.view === "map") renderMapView();
-  else if (state.view === "search") renderSearch();
-  else if (state.view === "checklist") renderChecklist();
-  else renderRoute();
-}
-async function init() {
-  try {
-    const response = await fetch("stops.json", { cache: "no-cache" });
-    const payload = await response.json();
-    state.stops = payload.stops || [];
-  } catch (error) {
-    app.innerHTML = `<div class="empty">Impossible de charger le parcours.</div>`;
-    return;
+  function tags(d){
+    const m=meta(d), c=count(d);
+    return `<span class="row-tags"><span class="tag ${m[2]}">${m[1]}</span><span class="tag green">${esc(d.walkGoal)}</span>${c?`<span class="tag">${c}/${d.visits.length}</span>`:""}</span>`;
   }
-  searchInput.addEventListener("input", event => { state.query = event.target.value; if (state.view !== "route") state.view = "search"; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.view === state.view)); render(); });
-  document.querySelectorAll(".chip").forEach(chip => chip.addEventListener("click", () => { state.filter = chip.dataset.filter; document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === chip)); render(); }));
-  document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => setView(tab.dataset.view)));
-  document.getElementById("todayButton").addEventListener("click", () => chooseDay(state.selected, "day"));
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
-  render();
-}
-init();
+  function show(name){
+    state.view=name;
+    Object.entries(views).forEach(([k,v])=>v.hidden=k!==name);
+    $$(".nav-button").forEach(b=>b.dataset.view===name?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
+    if(name==="day")renderDay();
+    if(name==="progress")renderProgress();
+    scrollTo({top:0,behavior:"smooth"});icons();
+  }
+
+  function renderRoute(){
+    const all=total(), finished=complete(), pct=all?Math.round(finished/all*100):0, q=norm(state.query);
+    const filtered=DATA.days.filter(d=>{
+      const found=!q||norm([d.title,d.location,d.country,d.trajectory,...d.visits].join(" ")).includes(q);
+      return found&&(state.filter==="all"||state.filter===kind(d)||(state.filter==="visit"&&!d.longTransfer));
+    });
+    const filters=[["all","Tout"],["train","Train"],["bus","Bus"],["night","Nuit"],["visit","Grandes visites"]];
+    views.route.innerHTML=`<section class="overview"><div><h1>${esc(DATA.title)}</h1><p>${esc(DATA.subtitle)}</p></div>
+      <div class="metrics"><div class="metric"><strong>30</strong><span>journees</span></div><div class="metric"><strong>${all}</strong><span>lieux proposes</span></div><div class="metric"><strong>${finished}</strong><span>deja visites</span></div></div>
+      <div class="progress-track" aria-label="${pct}% termine"><div class="progress-bar" style="width:${pct}%"></div></div></section>
+      <section class="toolbar" aria-label="Recherche et filtres"><label class="search"><i data-lucide="search"></i><input id="daySearch" type="search" value="${esc(state.query)}" placeholder="Rechercher une ville, une visite..." autocomplete="off"></label>
+      <div class="segments">${filters.map(f=>`<button class="segment" type="button" data-filter="${f[0]}" aria-pressed="${state.filter===f[0]}">${f[1]}</button>`).join("")}</div></section>
+      <section class="day-grid">${filtered.length?filtered.map(d=>`<button class="day-row" type="button" data-day="${d.day}"><span class="day-number">J${d.day}</span><span class="day-copy"><strong>${esc(d.title)}</strong><small>${esc(d.duration||d.transport)}</small>${tags(d)}</span><i class="day-arrow" data-lucide="chevron-right"></i></button>`).join(""):`<div class="empty">Aucune journee ne correspond a cette recherche.</div>`}</section>`;
+    $("#daySearch").oninput=e=>{state.query=e.target.value;renderRoute();const input=$("#daySearch");input.focus();input.setSelectionRange(input.value.length,input.value.length)};
+    $$("[data-filter]",views.route).forEach(b=>b.onclick=()=>{state.filter=b.dataset.filter;renderRoute()});
+    $$("[data-day]",views.route).forEach(b=>b.onclick=()=>pick(+b.dataset.day));
+    icons();
+  }
+
+  function pick(day){
+    state.day=Math.max(1,Math.min(DATA.days.length,day));state.visitFilter="all";
+    localStorage.setItem("voyage-selected-day",state.day);show("day");
+  }
+  function visibleVisit(v,checked){
+    return state.visitFilter==="all"||(state.visitFilter==="ottoman"&&ottoman(v))||(state.visitFilter==="outdoor"&&outdoor(v))||(state.visitFilter==="todo"&&!checked);
+  }
+  function visitCard(d,v,i){
+    const checked=!!done[key(d,i)];
+    if(!visibleVisit(v,checked))return"";
+    const place=cleanPlace(v), category=ottoman(v)?"Patrimoine ottoman - ":outdoor(v)?"Plein air - ":"";
+    return `<li class="visit-item ${checked?"done":""}"><span class="visit-order">${i+1}</span>
+      <div class="visit-thumb" data-photo-query="${esc(place+" "+d.location)}" aria-hidden="true"><i data-lucide="${visitIcon(v)}"></i><span class="thumb-mark">${initials(v)}</span></div>
+      <div class="visit-copy"><strong>${esc(v)}</strong><span>${category}<a class="visit-map-link" href="${searchUrl(place,d)}" target="_blank" rel="noopener">Voir sur Google Maps</a></span></div>
+      <button class="check-button" type="button" data-check="${i}" aria-pressed="${checked}" aria-label="${checked?"Marquer comme non visite":"Marquer comme visite"}"><i data-lucide="check"></i></button></li>`;
+  }
+  function fact(icon,title,value){
+    return value?`<div class="fact"><i data-lucide="${icon}"></i><div><strong>${esc(title)}</strong><span>${esc(value)}</span></div></div>`:"";
+  }
+  function detail(title,value){
+    return value?`<details><summary>${esc(title)}<i data-lucide="chevron-down"></i></summary><p>${esc(value)}</p></details>`:"";
+  }
+  function renderDay(){
+    const d=selected(), places=routePlaces(d), routes=routeUrls(d), m=meta(d), previous=d.day>1, next=d.day<DATA.days.length;
+    const mapButtons=routes.length?routes.map((r,i)=>`<a class="button coral" href="${r.url}" target="_blank" rel="noopener"><i data-lucide="map"></i>${routes.length>1?`Parcours ${i+1} - lieux ${r.start}-${r.end}`:"Ouvrir le parcours"}</a>`).join(""):`<a class="button coral" href="${searchUrl(d.location,d)}" target="_blank" rel="noopener"><i data-lucide="map"></i>Ouvrir la zone</a>`;
+    const visitFilters=[["all","Tous"],["ottoman","Ottoman"],["outdoor","Plein air"],["todo","A faire"]];
+    views.day.innerHTML=`<div class="detail-nav"><button class="icon-button secondary" type="button" data-back aria-label="Retour a la liste"><i data-lucide="arrow-left"></i></button><div>
+      <button class="icon-button secondary" type="button" data-previous aria-label="Jour precedent" ${previous?"":"disabled"}><i data-lucide="chevron-left"></i></button>
+      <button class="icon-button secondary" type="button" data-next aria-label="Jour suivant" ${next?"":"disabled"}><i data-lucide="chevron-right"></i></button></div></div>
+      <section class="hero"><div class="hero-photo" data-photo-query="${esc(d.location+" "+d.country+" city landmark")}"></div><div class="hero-scrim"></div><div class="hero-content"><p class="hero-kicker">J${d.day} - ${esc(d.country)}</p><h1>${esc(d.title)}</h1><p>${esc(d.sleep||d.location)}</p></div></section>
+      <div class="detail-layout"><div class="main-column"><section class="band walk-band"><div class="walk-head"><div><h2>Parcours de visite</h2><p>${esc(routeTime(d,places.length))}</p></div><span class="walk-goal">${esc(d.walkGoal)}</span></div>
+      <p class="walk-note">Google Maps ordonne les points a pied. Le temps annonce comprend aussi les visites et les pauses. Tu peux raccourcir la boucle a tout moment.</p><div class="route-actions">${mapButtons}</div></section>
+      <section class="band"><div class="section-head"><div><h2>Lieux a visiter</h2><p>${count(d)} sur ${d.visits.length} marques comme visites</p></div><div class="visit-filters">${visitFilters.map(f=>`<button class="visit-filter" type="button" data-visit-filter="${f[0]}" aria-pressed="${state.visitFilter===f[0]}">${f[1]}</button>`).join("")}</div></div>
+      <ol class="visit-list">${d.visits.map((v,i)=>visitCard(d,v,i)).join("")}</ol></section></div>
+      <aside class="side-column"><section class="band"><h2>Trajet et nuit</h2><div class="facts">${fact(m[0],m[1],d.transport)}${fact("clock-3","Duree estimee",d.duration)}${fact("route","Trajet",d.trajectory)}${fact("bed-double","Nuit",d.sleep)}${fact("ticket-check","Interrail",d.interrail)}</div></section>
+      <section class="band"><h3>Informations pratiques</h3>${detail("Organisation conseillee",d.scheme)}${detail("Detail pratique",d.practical)}${detail("Horaires indicatifs",d.indicativeTimes)}${detail("Operateurs a verifier",d.operators)}${detail("Grande marche proposee",d.walk)}${detail("Reservation",d.reservation)}${detail("Plan B",d.planB)}${detail("Note",d.note)}</section>
+      <section class="band reminder"><i data-lucide="bell-ring"></i><div><strong>Avant de partir</strong><p>${esc(DATA.safety)}</p></div></section></aside></div>`;
+    $("[data-back]",views.day).onclick=()=>show("route");
+    if(previous)$("[data-previous]",views.day).onclick=()=>pick(d.day-1);
+    if(next)$("[data-next]",views.day).onclick=()=>pick(d.day+1);
+    $$("[data-visit-filter]",views.day).forEach(b=>b.onclick=()=>{state.visitFilter=b.dataset.visitFilter;renderDay()});
+    $$("[data-check]",views.day).forEach(b=>b.onclick=()=>{const k=key(d,+b.dataset.check);done[k]=!done[k];if(!done[k])delete done[k];localStorage.setItem("voyage-done-v3",JSON.stringify(done));renderDay();renderRoute()});
+    icons();hydrate(views.day);
+  }
+
+  function renderProgress(){
+    const all=total(), finished=complete(), pct=all?Math.round(finished/all*100):0;
+    views.progress.innerHTML=`<section class="overview"><div><h1>Ta progression</h1><p>Les coches restent enregistrees sur cet iPhone.</p></div>
+      <div class="metrics"><div class="metric"><strong>${finished}</strong><span>visites faites</span></div><div class="metric"><strong>${all-finished}</strong><span>encore possibles</span></div><div class="metric"><strong>${pct}%</strong><span>du parcours</span></div></div>
+      <div class="progress-track"><div class="progress-bar" style="width:${pct}%"></div></div></section>
+      <section class="band progress-list">${DATA.days.map(d=>`<div class="progress-row"><span class="day-number">J${d.day}</span><button type="button" data-progress-day="${d.day}">${esc(d.title)}<small>${esc(d.location)}</small></button><strong>${count(d)}/${d.visits.length}</strong></div>`).join("")}</section>`;
+    $$("[data-progress-day]",views.progress).forEach(b=>b.onclick=()=>pick(+b.dataset.progressDay));icons();
+  }
+
+  async function getPhoto(query){
+    if(photos[query])return photos[query];
+    try{
+      const url="https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url&iiurlwidth=640&format=json&origin=*&gsrsearch="+encodeURIComponent(query);
+      const response=await fetch(url);if(!response.ok)return"";
+      const data=await response.json(), page=Object.values(data.query&&data.query.pages||{})[0], info=page&&page.imageinfo&&page.imageinfo[0], image=info&&(info.thumburl||info.url);
+      if(image){photos[query]=image;localStorage.setItem("voyage-photos-v3",JSON.stringify(photos))}return image||"";
+    }catch(e){return""}
+  }
+  function loadPhoto(el){
+    if(el.dataset.loaded)return;el.dataset.loaded="1";
+    getPhoto(el.dataset.photoQuery).then(url=>{if(!url||!document.documentElement.contains(el))return;const image=new Image();image.alt="";image.loading="lazy";image.onload=()=>el.prepend(image);image.src=url});
+  }
+  function hydrate(scope){
+    const elements=$$("[data-photo-query]",scope);
+    if(!("IntersectionObserver"in window))return elements.forEach(loadPhoto);
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){observer.unobserve(entry.target);loadPhoto(entry.target)}}),{rootMargin:"180px"});
+    elements.forEach(el=>observer.observe(el));
+  }
+
+  $$(".nav-button").forEach(b=>b.onclick=()=>show(b.dataset.view));
+  renderRoute();show("route");addEventListener("DOMContentLoaded",icons);
+  document.documentElement.dataset.appVersion="2026.07.14";
+})();
