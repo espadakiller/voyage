@@ -6,6 +6,7 @@ const sourcePath = resolve(root, "iphone-app", "itinerary.md");
 const templatePath = resolve(root, "iphone-app", "template.html");
 const stylesPath = resolve(root, 'iphone-app', 'styles.css');
 const appPath = resolve(root, 'iphone-app', 'app.js');
+const mapRoutesPath = resolve(root, 'iphone-app', 'map-routes.json');
 
 const locations = {
   1: "Verone", 2: "Verone", 3: "Ancone", 4: "Ioannina", 5: "Ioannina",
@@ -72,6 +73,7 @@ function parseItinerary(markdown) {
       note: line(body, "Note"),
       longTransfer: longTransferDays.has(day),
       nightTravel: nightTravelDays.has(day),
+      mapRoutes: mapRoutes[String(day)] || [],
       walkGoal: recoveryDays.has(day) ? "Parcours libre" : longTransferDays.has(day) ? "Boucle longue si marge" : "Boucle de visite 2 h+"
     };
   });
@@ -81,6 +83,7 @@ const markdown = await readFile(sourcePath, "utf8");
 const template = await readFile(templatePath, "utf8");
 const styles = await readFile(stylesPath, 'utf8');
 const app = await readFile(appPath, 'utf8');
+const mapRoutes = JSON.parse(await readFile(mapRoutesPath, 'utf8'));
 const days = parseItinerary(markdown);
 
 if (days.length !== 30) {

@@ -31,6 +31,21 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Centre historique et Adige",
+          "context": "Verona, Italy",
+          "points": [
+            "Piazza Bra",
+            "Arena di Verona",
+            "Via Mazzini",
+            "Piazza delle Erbe",
+            "Piazza dei Signori",
+            "Arche Scaligere",
+            "Ponte Pietra"
+          ]
+        }
+      ],
       "walkGoal": "Boucle longue si marge"
     },
     {
@@ -68,6 +83,34 @@
       "note": "Garder Castel San Pietro pour la fin de journée afin de profiter du coucher du soleil.",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Verone ouest et centre",
+          "context": "Verona, Italy",
+          "points": [
+            "Arena di Verona",
+            "Museo di Castelvecchio",
+            "Ponte Scaligero",
+            "Basilica di San Zeno Maggiore",
+            "Porta Borsari",
+            "Piazza delle Erbe",
+            "Torre dei Lamberti",
+            "Piazza dei Signori",
+            "Casa di Giulietta"
+          ]
+        },
+        {
+          "label": "Verone est et belvedere",
+          "context": "Verona, Italy",
+          "points": [
+            "Cattedrale di Santa Maria Matricolare",
+            "Ponte Pietra",
+            "Teatro Romano di Verona",
+            "Castel San Pietro",
+            "Giardino Giusti"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -95,6 +138,19 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": true,
+      "mapRoutes": [
+        {
+          "label": "Ancone avant le ferry",
+          "context": "Ancona, Italy",
+          "points": [
+            "Arco di Traiano",
+            "Porto Antico Ancona",
+            "Cattedrale di San Ciriaco",
+            "Mole Vanvitelliana",
+            "Ancona Ferry Terminal"
+          ]
+        }
+      ],
       "walkGoal": "Boucle longue si marge"
     },
     {
@@ -125,6 +181,21 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Ioannina, chateau et lac",
+          "context": "Ioannina, Greece",
+          "points": [
+            "Mavili Square",
+            "Ioannina Castle",
+            "Its Kale Acropolis",
+            "Fethiye Mosque Ioannina",
+            "Tomb of Ali Pasha",
+            "Litharitsia Park",
+            "Lake Pamvotis Waterfront"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -156,6 +227,40 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Ioannina avant le bus",
+          "context": "Ioannina, Greece",
+          "points": [
+            "Aslan Pasha Mosque",
+            "Ioannina Castle",
+            "Its Kale Acropolis",
+            "Silversmithing Museum Ioannina",
+            "Mavili Square"
+          ]
+        },
+        {
+          "label": "Ile de Ioannina",
+          "context": "Ioannina Island, Greece",
+          "points": [
+            "Ioannina Island Port",
+            "Ali Pasha Museum Ioannina Island",
+            "Monastery of Saint Panteleimon Ioannina Island",
+            "Monastery of Philanthropinos",
+            "Ioannina Island Port"
+          ]
+        },
+        {
+          "label": "Thessalonique en soiree",
+          "context": "Thessaloniki, Greece",
+          "points": [
+            "Aristotelous Square",
+            "Ladadika District",
+            "Thessaloniki Waterfront",
+            "White Tower of Thessaloniki"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -196,6 +301,37 @@
       "note": "Commencer tôt ; plusieurs monuments religieux ferment ou limitent l’accès à certaines heures.",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Ville basse et front de mer",
+          "context": "Thessaloniki, Greece",
+          "points": [
+            "Kapani Market",
+            "Modiano Market",
+            "Bezesteni Market Thessaloniki",
+            "Hamza Bey Mosque",
+            "Bey Hamam",
+            "Church of Panagia Chalkeon",
+            "Hagia Sophia Thessaloniki",
+            "Arch of Galerius",
+            "Rotunda Thessaloniki",
+            "White Tower of Thessaloniki",
+            "The Umbrellas by Zongolopoulos"
+          ]
+        },
+        {
+          "label": "Ano Poli et remparts",
+          "context": "Thessaloniki, Greece",
+          "points": [
+            "Ataturk Museum Thessaloniki",
+            "Alaca Imaret Mosque",
+            "Tsinari Square",
+            "Vlatadon Monastery",
+            "Trigoniou Tower",
+            "Heptapyrgion Fortress"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -224,6 +360,18 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Edirne en soiree",
+          "context": "Edirne, Turkey",
+          "points": [
+            "Saraclar Street",
+            "Ali Pasha Bazaar",
+            "Old Mosque Edirne",
+            "Selimiye Mosque"
+          ]
+        }
+      ],
       "walkGoal": "Boucle longue si marge"
     },
     {
@@ -259,6 +407,31 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Edirne centre ottoman",
+          "context": "Edirne, Turkey",
+          "points": [
+            "Selimiye Mosque",
+            "Old Mosque Edirne",
+            "Uc Serefeli Mosque",
+            "Edirne Bedesten",
+            "Ali Pasha Bazaar"
+          ]
+        },
+        {
+          "label": "Bayezid, Tunca et Karaagac",
+          "context": "Edirne, Turkey",
+          "points": [
+            "Sultan Bayezid II Health Museum",
+            "Bayezid II Mosque Complex Edirne",
+            "Tunca Bridge",
+            "Meric Bridge",
+            "Karaagac Old Train Station",
+            "Lausanne Monument Edirne"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -293,6 +466,23 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Sultanahmet et Topkapi",
+          "context": "Istanbul, Turkey",
+          "points": [
+            "Sultanahmet Square",
+            "Obelisk of Theodosius",
+            "Blue Mosque",
+            "Hagia Sophia",
+            "Basilica Cistern",
+            "Topkapi Palace",
+            "Istanbul Archaeological Museums",
+            "Gulhane Park",
+            "Sarayburnu Park"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -329,6 +519,32 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": true,
+      "mapRoutes": [
+        {
+          "label": "Beyazit et Suleymaniye",
+          "context": "Istanbul, Turkey",
+          "points": [
+            "Nuruosmaniye Mosque",
+            "Grand Bazaar Istanbul",
+            "Beyazit Mosque",
+            "Suleymaniye Mosque",
+            "Tomb of Suleiman the Magnificent",
+            "Sehzade Mosque",
+            "Valens Aqueduct"
+          ]
+        },
+        {
+          "label": "Fatih, Zeyrek et Eminonu",
+          "context": "Istanbul, Turkey",
+          "points": [
+            "Fatih Mosque",
+            "Tomb of Mehmed II",
+            "Zeyrek Mosque",
+            "Spice Bazaar Istanbul",
+            "Rustem Pasha Mosque"
+          ]
+        }
+      ],
       "walkGoal": "Boucle longue si marge"
     },
     {
@@ -366,6 +582,33 @@
       "note": "Déposer les bagages dès l’arrivée ; demander à l’hôtel d’organiser un taxi pour İncekaya/Tokatlı.",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Safranbolu ottomane",
+          "context": "Safranbolu, Turkey",
+          "points": [
+            "Hidirlik Hill Safranbolu",
+            "Koprulu Mehmet Pasha Mosque",
+            "Cinci Han",
+            "Cinci Hamam",
+            "Izzet Mehmet Pasha Mosque",
+            "Yemeniciler Arastasi",
+            "Demirciler Bazaar Safranbolu",
+            "Kaymakamlar Travel House",
+            "Safranbolu Clock Tower",
+            "Safranbolu City History Museum"
+          ]
+        },
+        {
+          "label": "Aqueduc et canyon",
+          "context": "Safranbolu, Turkey",
+          "points": [
+            "Incekaya Aqueduct",
+            "Crystal Glass Terrace Safranbolu",
+            "Tokatli Canyon"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -394,6 +637,7 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": true,
+      "mapRoutes": [],
       "walkGoal": "Parcours libre"
     },
     {
@@ -430,6 +674,26 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Plovdiv ottomane et vieille ville",
+          "context": "Plovdiv, Bulgaria",
+          "points": [
+            "Dzhumaya Mosque",
+            "Ancient Stadium of Philipopolis",
+            "Kapana Creative District",
+            "Imaret Mosque Plovdiv",
+            "Ancient Theatre of Philippopolis",
+            "Balabanov House",
+            "Hindliyan House",
+            "Hisar Kapia",
+            "Regional Ethnographic Museum Plovdiv",
+            "Church of Saints Constantine and Helena Plovdiv",
+            "Nebet Tepe",
+            "Sahat Tepe Clock Tower"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -467,6 +731,27 @@
       "note": "La randonnée prend une demi-journée : commencer la visite urbaine tôt ou faire la randonnée le matin.",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Sofia historique",
+          "context": "Sofia, Bulgaria",
+          "points": [
+            "Banya Bashi Mosque",
+            "Regional History Museum Sofia",
+            "Central Sofia Market Hall",
+            "Serdica Archaeological Complex",
+            "Sofia Synagogue",
+            "Church of St Petka of the Saddlers",
+            "National Archaeological Museum Sofia",
+            "St George Rotunda Sofia",
+            "Ivan Vazov National Theatre",
+            "Russian Church Sofia",
+            "Alexander Nevsky Cathedral Sofia",
+            "Saint Sofia Church",
+            "Vitosha Boulevard"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -504,6 +789,27 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Skopje centre et vieux bazar",
+          "context": "Skopje, North Macedonia",
+          "points": [
+            "Macedonia Square Skopje",
+            "Stone Bridge Skopje",
+            "Daut Pasha Hamam",
+            "Old Bazaar Skopje",
+            "Cifte Hammam",
+            "Kursumli An",
+            "Suli An",
+            "Mustafa Pasha Mosque",
+            "Sultan Murad Mosque Skopje",
+            "Clock Tower Skopje",
+            "Skopje Fortress",
+            "Mother Teresa Memorial House",
+            "Museum of the City of Skopje"
+          ]
+        }
+      ],
       "walkGoal": "Boucle longue si marge"
     },
     {
@@ -535,6 +841,27 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Canyon de Matka a pied",
+          "context": "Matka Canyon, North Macedonia",
+          "points": [
+            "Matka Canyon Entrance",
+            "Monastery of Saint Andrew Matka",
+            "Canyon Matka Boat Terminal",
+            "Matka Canyon Viewpoint"
+          ]
+        },
+        {
+          "label": "Prizren en soiree",
+          "context": "Prizren, Kosovo",
+          "points": [
+            "Shadervan Square",
+            "Stone Bridge Prizren",
+            "Sinan Pasha Mosque Prizren"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -569,6 +896,23 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Prizren vieille ville et forteresse",
+          "context": "Prizren, Kosovo",
+          "points": [
+            "Shadervan Square",
+            "Sinan Pasha Mosque Prizren",
+            "Stone Bridge Prizren",
+            "Gazi Mehmet Pasha Hammam",
+            "Albanian League of Prizren Museum",
+            "Emin Pasha Mosque",
+            "Our Lady of Ljevis Church",
+            "Church of the Holy Saviour Prizren",
+            "Prizren Fortress"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -603,6 +947,38 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Tirana centre",
+          "context": "Tirana, Albania",
+          "points": [
+            "Skanderbeg Square",
+            "Et'hem Bey Mosque",
+            "Clock Tower of Tirana",
+            "Bunk'Art 2",
+            "House of Leaves Museum",
+            "Pyramid of Tirana",
+            "Boulevard Deshmoret e Kombit",
+            "Blloku Tirana"
+          ]
+        },
+        {
+          "label": "Mont Dajti",
+          "context": "Tirana, Albania",
+          "points": [
+            "Dajti Ekspres Upper Station",
+            "Dajti Mountain Viewpoint"
+          ]
+        },
+        {
+          "label": "Berat en soiree",
+          "context": "Berat, Albania",
+          "points": [
+            "Mangalem Quarter",
+            "Gorica Bridge"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -638,6 +1014,32 @@
       "note": "Cette journée est serrée : quitter Berat au plus tard vers 13 h.",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Berat, Kala et quartiers historiques",
+          "context": "Berat, Albania",
+          "points": [
+            "Berat Castle",
+            "Onufri Iconographic Museum",
+            "Holy Trinity Church Berat",
+            "Red Mosque Berat Castle",
+            "White Mosque Berat Castle",
+            "Mangalem Quarter",
+            "King Mosque Berat",
+            "Halveti Tekke Berat",
+            "Gorica Bridge",
+            "Gorica Quarter"
+          ]
+        },
+        {
+          "label": "Shkoder en soiree",
+          "context": "Shkoder, Albania",
+          "points": [
+            "Kole Idromeno Street",
+            "Ebu Bekr Mosque"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -670,6 +1072,30 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Shkoder centre et Rozafa",
+          "context": "Shkoder, Albania",
+          "points": [
+            "Kole Idromeno Street",
+            "Ebu Bekr Mosque",
+            "Marubi National Museum of Photography",
+            "Lead Mosque Shkoder",
+            "Rozafa Castle",
+            "Buna River Viewpoint Rozafa",
+            "Shiroka Waterfront"
+          ]
+        },
+        {
+          "label": "Kotor en soiree",
+          "context": "Kotor, Montenegro",
+          "points": [
+            "Sea Gate Kotor",
+            "Square of the Arms",
+            "Saint Tryphon Cathedral"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -706,6 +1132,32 @@
       "note": "Préparer 1,5 à 2 litres d’eau.",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Kotor vieille ville et forteresse",
+          "context": "Kotor, Montenegro",
+          "points": [
+            "Sea Gate Kotor",
+            "Square of the Arms",
+            "Clock Tower Kotor",
+            "Saint Tryphon Cathedral",
+            "Saint Luke's Church Kotor",
+            "Saint Nicholas Church Kotor",
+            "North Gate Kotor",
+            "Church of Our Lady of Remedy",
+            "San Giovanni Fortress Kotor"
+          ]
+        },
+        {
+          "label": "Perast a pied",
+          "context": "Perast, Montenegro",
+          "points": [
+            "Perast Museum",
+            "Saint Nicholas Church Perast",
+            "Perast Waterfront"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -737,6 +1189,20 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Sarajevo en soiree",
+          "context": "Sarajevo, Bosnia and Herzegovina",
+          "points": [
+            "Sebilj Fountain",
+            "Kazandziluk Street",
+            "Morica Han",
+            "Gazi Husrev-beg Mosque",
+            "Sarajevo City Hall",
+            "Latin Bridge"
+          ]
+        }
+      ],
       "walkGoal": "Boucle longue si marge"
     },
     {
@@ -778,6 +1244,45 @@
       "note": "Journée très dense : Trebević peut être réduit à 2–3 heures.",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Bascarsija et centre historique",
+          "context": "Sarajevo, Bosnia and Herzegovina",
+          "points": [
+            "Sebilj Fountain",
+            "Kazandziluk Street",
+            "Gazi Husrev-beg Mosque",
+            "Gazi Husrev-beg Madrasa",
+            "Sarajevo Clock Tower",
+            "Gazi Husrev-beg Bezistan",
+            "Morica Han",
+            "Brusa Bezistan",
+            "Old Orthodox Church Sarajevo",
+            "Sarajevo City Hall",
+            "Emperor's Mosque Sarajevo",
+            "Latin Bridge",
+            "Sacred Heart Cathedral Sarajevo"
+          ]
+        },
+        {
+          "label": "Forteresse jaune",
+          "context": "Sarajevo, Bosnia and Herzegovina",
+          "points": [
+            "Sebilj Fountain",
+            "Kovaci Cemetery",
+            "Yellow Fortress Sarajevo"
+          ]
+        },
+        {
+          "label": "Trebevic et piste olympique",
+          "context": "Sarajevo, Bosnia and Herzegovina",
+          "points": [
+            "Sarajevo Cable Car Upper Station",
+            "Sunnyland Viewpoint Trebevic",
+            "Sarajevo Olympic Bobsleigh Track"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -813,6 +1318,23 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Mostar, ponts et ville ottomane",
+          "context": "Mostar, Bosnia and Herzegovina",
+          "points": [
+            "Stari Most",
+            "Halebija Tower Mostar",
+            "Kujundziluk Old Bazaar",
+            "Koski Mehmed Pasha Mosque",
+            "Karadoz Bey Mosque",
+            "Muslibegovic House",
+            "Biscevic House",
+            "Kriva Cuprija",
+            "Mostar Old Bridge Viewpoint"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -847,6 +1369,35 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Blagaj et source de la Buna",
+          "context": "Blagaj, Bosnia and Herzegovina",
+          "points": [
+            "Blagaj Tekke",
+            "Vrelo Bune",
+            "Stjepan Grad Blagaj"
+          ]
+        },
+        {
+          "label": "Pocitelj fortifiee",
+          "context": "Pocitelj, Bosnia and Herzegovina",
+          "points": [
+            "Pocitelj Old Town",
+            "Sisman Ibrahim Pasha Mosque",
+            "Pocitelj Fortress"
+          ]
+        },
+        {
+          "label": "Split en soiree",
+          "context": "Split, Croatia",
+          "points": [
+            "Riva Split",
+            "Bronze Gate Diocletian's Palace",
+            "Peristyle Split"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -881,6 +1432,24 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Palais de Diocletien et Varos",
+          "context": "Split, Croatia",
+          "points": [
+            "Diocletian's Palace",
+            "Diocletian's Cellars",
+            "Peristyle Split",
+            "Vestibul Split",
+            "Temple of Jupiter Split",
+            "Cathedral of Saint Domnius",
+            "Golden Gate Split",
+            "Pazar Market Split",
+            "Varos Split",
+            "Prva Vidilica Marjan"
+          ]
+        }
+      ],
       "walkGoal": "Boucle longue si marge"
     },
     {
@@ -916,6 +1485,34 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Zagreb ville haute",
+          "context": "Zagreb, Croatia",
+          "points": [
+            "Ban Jelacic Square",
+            "Dolac Market",
+            "Zagreb Cathedral",
+            "Tkalciceva Street",
+            "Stone Gate Zagreb",
+            "St Mark's Church Zagreb",
+            "Croatian Parliament",
+            "Lotrscak Tower",
+            "Strossmayer Promenade",
+            "Zagreb Funicular"
+          ]
+        },
+        {
+          "label": "Ville basse vers la gare",
+          "context": "Zagreb, Croatia",
+          "points": [
+            "Zrinjevac Park",
+            "Strossmayer Square Zagreb",
+            "King Tomislav Square",
+            "Zagreb Central Station"
+          ]
+        }
+      ],
       "walkGoal": "Boucle longue si marge"
     },
     {
@@ -955,6 +1552,43 @@
       "note": "",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [
+        {
+          "label": "Gul Baba et Buda",
+          "context": "Budapest, Hungary",
+          "points": [
+            "Tomb of Gul Baba",
+            "Rose Garden Gul Baba",
+            "Veli Bej Bath",
+            "Fisherman's Bastion",
+            "Matthias Church",
+            "Buda Castle",
+            "Castle Garden Bazaar",
+            "Szechenyi Chain Bridge"
+          ]
+        },
+        {
+          "label": "Pest monumental",
+          "context": "Budapest, Hungary",
+          "points": [
+            "Hungarian Parliament Building",
+            "Shoes on the Danube Bank",
+            "St Stephen's Basilica Budapest",
+            "Andrassy Avenue",
+            "Heroes' Square Budapest",
+            "Vajdahunyad Castle"
+          ]
+        },
+        {
+          "label": "Danube de nuit",
+          "context": "Budapest, Hungary",
+          "points": [
+            "Szechenyi Chain Bridge",
+            "Batthyany Square",
+            "Margaret Bridge"
+          ]
+        }
+      ],
       "walkGoal": "Boucle de visite 2 h+"
     },
     {
@@ -982,6 +1616,7 @@
       "note": "",
       "longTransfer": true,
       "nightTravel": false,
+      "mapRoutes": [],
       "walkGoal": "Parcours libre"
     },
     {
@@ -1009,6 +1644,7 @@
       "note": "Ne jamais transformer ce jour en nouvelle étape touristique avant d’être certain que tous les transports précédents ont fonctionné.",
       "longTransfer": false,
       "nightTravel": false,
+      "mapRoutes": [],
       "walkGoal": "Parcours libre"
     }
   ]

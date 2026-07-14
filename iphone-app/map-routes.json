@@ -1,0 +1,638 @@
+{
+  "1": [
+    {
+      "label": "Centre historique et Adige",
+      "context": "Verona, Italy",
+      "points": [
+        "Piazza Bra",
+        "Arena di Verona",
+        "Via Mazzini",
+        "Piazza delle Erbe",
+        "Piazza dei Signori",
+        "Arche Scaligere",
+        "Ponte Pietra"
+      ]
+    }
+  ],
+  "2": [
+    {
+      "label": "Verone ouest et centre",
+      "context": "Verona, Italy",
+      "points": [
+        "Arena di Verona",
+        "Museo di Castelvecchio",
+        "Ponte Scaligero",
+        "Basilica di San Zeno Maggiore",
+        "Porta Borsari",
+        "Piazza delle Erbe",
+        "Torre dei Lamberti",
+        "Piazza dei Signori",
+        "Casa di Giulietta"
+      ]
+    },
+    {
+      "label": "Verone est et belvedere",
+      "context": "Verona, Italy",
+      "points": [
+        "Cattedrale di Santa Maria Matricolare",
+        "Ponte Pietra",
+        "Teatro Romano di Verona",
+        "Castel San Pietro",
+        "Giardino Giusti"
+      ]
+    }
+  ],
+  "3": [
+    {
+      "label": "Ancone avant le ferry",
+      "context": "Ancona, Italy",
+      "points": [
+        "Arco di Traiano",
+        "Porto Antico Ancona",
+        "Cattedrale di San Ciriaco",
+        "Mole Vanvitelliana",
+        "Ancona Ferry Terminal"
+      ]
+    }
+  ],
+  "4": [
+    {
+      "label": "Ioannina, chateau et lac",
+      "context": "Ioannina, Greece",
+      "points": [
+        "Mavili Square",
+        "Ioannina Castle",
+        "Its Kale Acropolis",
+        "Fethiye Mosque Ioannina",
+        "Tomb of Ali Pasha",
+        "Litharitsia Park",
+        "Lake Pamvotis Waterfront"
+      ]
+    }
+  ],
+  "5": [
+    {
+      "label": "Ioannina avant le bus",
+      "context": "Ioannina, Greece",
+      "points": [
+        "Aslan Pasha Mosque",
+        "Ioannina Castle",
+        "Its Kale Acropolis",
+        "Silversmithing Museum Ioannina",
+        "Mavili Square"
+      ]
+    },
+    {
+      "label": "Ile de Ioannina",
+      "context": "Ioannina Island, Greece",
+      "points": [
+        "Ioannina Island Port",
+        "Ali Pasha Museum Ioannina Island",
+        "Monastery of Saint Panteleimon Ioannina Island",
+        "Monastery of Philanthropinos",
+        "Ioannina Island Port"
+      ]
+    },
+    {
+      "label": "Thessalonique en soiree",
+      "context": "Thessaloniki, Greece",
+      "points": [
+        "Aristotelous Square",
+        "Ladadika District",
+        "Thessaloniki Waterfront",
+        "White Tower of Thessaloniki"
+      ]
+    }
+  ],
+  "6": [
+    {
+      "label": "Ville basse et front de mer",
+      "context": "Thessaloniki, Greece",
+      "points": [
+        "Kapani Market",
+        "Modiano Market",
+        "Bezesteni Market Thessaloniki",
+        "Hamza Bey Mosque",
+        "Bey Hamam",
+        "Church of Panagia Chalkeon",
+        "Hagia Sophia Thessaloniki",
+        "Arch of Galerius",
+        "Rotunda Thessaloniki",
+        "White Tower of Thessaloniki",
+        "The Umbrellas by Zongolopoulos"
+      ]
+    },
+    {
+      "label": "Ano Poli et remparts",
+      "context": "Thessaloniki, Greece",
+      "points": [
+        "Ataturk Museum Thessaloniki",
+        "Alaca Imaret Mosque",
+        "Tsinari Square",
+        "Vlatadon Monastery",
+        "Trigoniou Tower",
+        "Heptapyrgion Fortress"
+      ]
+    }
+  ],
+  "7": [
+    {
+      "label": "Edirne en soiree",
+      "context": "Edirne, Turkey",
+      "points": [
+        "Saraclar Street",
+        "Ali Pasha Bazaar",
+        "Old Mosque Edirne",
+        "Selimiye Mosque"
+      ]
+    }
+  ],
+  "8": [
+    {
+      "label": "Edirne centre ottoman",
+      "context": "Edirne, Turkey",
+      "points": [
+        "Selimiye Mosque",
+        "Old Mosque Edirne",
+        "Uc Serefeli Mosque",
+        "Edirne Bedesten",
+        "Ali Pasha Bazaar"
+      ]
+    },
+    {
+      "label": "Bayezid, Tunca et Karaagac",
+      "context": "Edirne, Turkey",
+      "points": [
+        "Sultan Bayezid II Health Museum",
+        "Bayezid II Mosque Complex Edirne",
+        "Tunca Bridge",
+        "Meric Bridge",
+        "Karaagac Old Train Station",
+        "Lausanne Monument Edirne"
+      ]
+    }
+  ],
+  "9": [
+    {
+      "label": "Sultanahmet et Topkapi",
+      "context": "Istanbul, Turkey",
+      "points": [
+        "Sultanahmet Square",
+        "Obelisk of Theodosius",
+        "Blue Mosque",
+        "Hagia Sophia",
+        "Basilica Cistern",
+        "Topkapi Palace",
+        "Istanbul Archaeological Museums",
+        "Gulhane Park",
+        "Sarayburnu Park"
+      ]
+    }
+  ],
+  "10": [
+    {
+      "label": "Beyazit et Suleymaniye",
+      "context": "Istanbul, Turkey",
+      "points": [
+        "Nuruosmaniye Mosque",
+        "Grand Bazaar Istanbul",
+        "Beyazit Mosque",
+        "Suleymaniye Mosque",
+        "Tomb of Suleiman the Magnificent",
+        "Sehzade Mosque",
+        "Valens Aqueduct"
+      ]
+    },
+    {
+      "label": "Fatih, Zeyrek et Eminonu",
+      "context": "Istanbul, Turkey",
+      "points": [
+        "Fatih Mosque",
+        "Tomb of Mehmed II",
+        "Zeyrek Mosque",
+        "Spice Bazaar Istanbul",
+        "Rustem Pasha Mosque"
+      ]
+    }
+  ],
+  "11": [
+    {
+      "label": "Safranbolu ottomane",
+      "context": "Safranbolu, Turkey",
+      "points": [
+        "Hidirlik Hill Safranbolu",
+        "Koprulu Mehmet Pasha Mosque",
+        "Cinci Han",
+        "Cinci Hamam",
+        "Izzet Mehmet Pasha Mosque",
+        "Yemeniciler Arastasi",
+        "Demirciler Bazaar Safranbolu",
+        "Kaymakamlar Travel House",
+        "Safranbolu Clock Tower",
+        "Safranbolu City History Museum"
+      ]
+    },
+    {
+      "label": "Aqueduc et canyon",
+      "context": "Safranbolu, Turkey",
+      "points": [
+        "Incekaya Aqueduct",
+        "Crystal Glass Terrace Safranbolu",
+        "Tokatli Canyon"
+      ]
+    }
+  ],
+  "12": [],
+  "13": [
+    {
+      "label": "Plovdiv ottomane et vieille ville",
+      "context": "Plovdiv, Bulgaria",
+      "points": [
+        "Dzhumaya Mosque",
+        "Ancient Stadium of Philipopolis",
+        "Kapana Creative District",
+        "Imaret Mosque Plovdiv",
+        "Ancient Theatre of Philippopolis",
+        "Balabanov House",
+        "Hindliyan House",
+        "Hisar Kapia",
+        "Regional Ethnographic Museum Plovdiv",
+        "Church of Saints Constantine and Helena Plovdiv",
+        "Nebet Tepe",
+        "Sahat Tepe Clock Tower"
+      ]
+    }
+  ],
+  "14": [
+    {
+      "label": "Sofia historique",
+      "context": "Sofia, Bulgaria",
+      "points": [
+        "Banya Bashi Mosque",
+        "Regional History Museum Sofia",
+        "Central Sofia Market Hall",
+        "Serdica Archaeological Complex",
+        "Sofia Synagogue",
+        "Church of St Petka of the Saddlers",
+        "National Archaeological Museum Sofia",
+        "St George Rotunda Sofia",
+        "Ivan Vazov National Theatre",
+        "Russian Church Sofia",
+        "Alexander Nevsky Cathedral Sofia",
+        "Saint Sofia Church",
+        "Vitosha Boulevard"
+      ]
+    }
+  ],
+  "15": [
+    {
+      "label": "Skopje centre et vieux bazar",
+      "context": "Skopje, North Macedonia",
+      "points": [
+        "Macedonia Square Skopje",
+        "Stone Bridge Skopje",
+        "Daut Pasha Hamam",
+        "Old Bazaar Skopje",
+        "Cifte Hammam",
+        "Kursumli An",
+        "Suli An",
+        "Mustafa Pasha Mosque",
+        "Sultan Murad Mosque Skopje",
+        "Clock Tower Skopje",
+        "Skopje Fortress",
+        "Mother Teresa Memorial House",
+        "Museum of the City of Skopje"
+      ]
+    }
+  ],
+  "16": [
+    {
+      "label": "Canyon de Matka a pied",
+      "context": "Matka Canyon, North Macedonia",
+      "points": [
+        "Matka Canyon Entrance",
+        "Monastery of Saint Andrew Matka",
+        "Canyon Matka Boat Terminal",
+        "Matka Canyon Viewpoint"
+      ]
+    },
+    {
+      "label": "Prizren en soiree",
+      "context": "Prizren, Kosovo",
+      "points": [
+        "Shadervan Square",
+        "Stone Bridge Prizren",
+        "Sinan Pasha Mosque Prizren"
+      ]
+    }
+  ],
+  "17": [
+    {
+      "label": "Prizren vieille ville et forteresse",
+      "context": "Prizren, Kosovo",
+      "points": [
+        "Shadervan Square",
+        "Sinan Pasha Mosque Prizren",
+        "Stone Bridge Prizren",
+        "Gazi Mehmet Pasha Hammam",
+        "Albanian League of Prizren Museum",
+        "Emin Pasha Mosque",
+        "Our Lady of Ljevis Church",
+        "Church of the Holy Saviour Prizren",
+        "Prizren Fortress"
+      ]
+    }
+  ],
+  "18": [
+    {
+      "label": "Tirana centre",
+      "context": "Tirana, Albania",
+      "points": [
+        "Skanderbeg Square",
+        "Et'hem Bey Mosque",
+        "Clock Tower of Tirana",
+        "Bunk'Art 2",
+        "House of Leaves Museum",
+        "Pyramid of Tirana",
+        "Boulevard Deshmoret e Kombit",
+        "Blloku Tirana"
+      ]
+    },
+    {
+      "label": "Mont Dajti",
+      "context": "Tirana, Albania",
+      "points": [
+        "Dajti Ekspres Upper Station",
+        "Dajti Mountain Viewpoint"
+      ]
+    },
+    {
+      "label": "Berat en soiree",
+      "context": "Berat, Albania",
+      "points": [
+        "Mangalem Quarter",
+        "Gorica Bridge"
+      ]
+    }
+  ],
+  "19": [
+    {
+      "label": "Berat, Kala et quartiers historiques",
+      "context": "Berat, Albania",
+      "points": [
+        "Berat Castle",
+        "Onufri Iconographic Museum",
+        "Holy Trinity Church Berat",
+        "Red Mosque Berat Castle",
+        "White Mosque Berat Castle",
+        "Mangalem Quarter",
+        "King Mosque Berat",
+        "Halveti Tekke Berat",
+        "Gorica Bridge",
+        "Gorica Quarter"
+      ]
+    },
+    {
+      "label": "Shkoder en soiree",
+      "context": "Shkoder, Albania",
+      "points": [
+        "Kole Idromeno Street",
+        "Ebu Bekr Mosque"
+      ]
+    }
+  ],
+  "20": [
+    {
+      "label": "Shkoder centre et Rozafa",
+      "context": "Shkoder, Albania",
+      "points": [
+        "Kole Idromeno Street",
+        "Ebu Bekr Mosque",
+        "Marubi National Museum of Photography",
+        "Lead Mosque Shkoder",
+        "Rozafa Castle",
+        "Buna River Viewpoint Rozafa",
+        "Shiroka Waterfront"
+      ]
+    },
+    {
+      "label": "Kotor en soiree",
+      "context": "Kotor, Montenegro",
+      "points": [
+        "Sea Gate Kotor",
+        "Square of the Arms",
+        "Saint Tryphon Cathedral"
+      ]
+    }
+  ],
+  "21": [
+    {
+      "label": "Kotor vieille ville et forteresse",
+      "context": "Kotor, Montenegro",
+      "points": [
+        "Sea Gate Kotor",
+        "Square of the Arms",
+        "Clock Tower Kotor",
+        "Saint Tryphon Cathedral",
+        "Saint Luke's Church Kotor",
+        "Saint Nicholas Church Kotor",
+        "North Gate Kotor",
+        "Church of Our Lady of Remedy",
+        "San Giovanni Fortress Kotor"
+      ]
+    },
+    {
+      "label": "Perast a pied",
+      "context": "Perast, Montenegro",
+      "points": [
+        "Perast Museum",
+        "Saint Nicholas Church Perast",
+        "Perast Waterfront"
+      ]
+    }
+  ],
+  "22": [
+    {
+      "label": "Sarajevo en soiree",
+      "context": "Sarajevo, Bosnia and Herzegovina",
+      "points": [
+        "Sebilj Fountain",
+        "Kazandziluk Street",
+        "Morica Han",
+        "Gazi Husrev-beg Mosque",
+        "Sarajevo City Hall",
+        "Latin Bridge"
+      ]
+    }
+  ],
+  "23": [
+    {
+      "label": "Bascarsija et centre historique",
+      "context": "Sarajevo, Bosnia and Herzegovina",
+      "points": [
+        "Sebilj Fountain",
+        "Kazandziluk Street",
+        "Gazi Husrev-beg Mosque",
+        "Gazi Husrev-beg Madrasa",
+        "Sarajevo Clock Tower",
+        "Gazi Husrev-beg Bezistan",
+        "Morica Han",
+        "Brusa Bezistan",
+        "Old Orthodox Church Sarajevo",
+        "Sarajevo City Hall",
+        "Emperor's Mosque Sarajevo",
+        "Latin Bridge",
+        "Sacred Heart Cathedral Sarajevo"
+      ]
+    },
+    {
+      "label": "Forteresse jaune",
+      "context": "Sarajevo, Bosnia and Herzegovina",
+      "points": [
+        "Sebilj Fountain",
+        "Kovaci Cemetery",
+        "Yellow Fortress Sarajevo"
+      ]
+    },
+    {
+      "label": "Trebevic et piste olympique",
+      "context": "Sarajevo, Bosnia and Herzegovina",
+      "points": [
+        "Sarajevo Cable Car Upper Station",
+        "Sunnyland Viewpoint Trebevic",
+        "Sarajevo Olympic Bobsleigh Track"
+      ]
+    }
+  ],
+  "24": [
+    {
+      "label": "Mostar, ponts et ville ottomane",
+      "context": "Mostar, Bosnia and Herzegovina",
+      "points": [
+        "Stari Most",
+        "Halebija Tower Mostar",
+        "Kujundziluk Old Bazaar",
+        "Koski Mehmed Pasha Mosque",
+        "Karadoz Bey Mosque",
+        "Muslibegovic House",
+        "Biscevic House",
+        "Kriva Cuprija",
+        "Mostar Old Bridge Viewpoint"
+      ]
+    }
+  ],
+  "25": [
+    {
+      "label": "Blagaj et source de la Buna",
+      "context": "Blagaj, Bosnia and Herzegovina",
+      "points": [
+        "Blagaj Tekke",
+        "Vrelo Bune",
+        "Stjepan Grad Blagaj"
+      ]
+    },
+    {
+      "label": "Pocitelj fortifiee",
+      "context": "Pocitelj, Bosnia and Herzegovina",
+      "points": [
+        "Pocitelj Old Town",
+        "Sisman Ibrahim Pasha Mosque",
+        "Pocitelj Fortress"
+      ]
+    },
+    {
+      "label": "Split en soiree",
+      "context": "Split, Croatia",
+      "points": [
+        "Riva Split",
+        "Bronze Gate Diocletian's Palace",
+        "Peristyle Split"
+      ]
+    }
+  ],
+  "26": [
+    {
+      "label": "Palais de Diocletien et Varos",
+      "context": "Split, Croatia",
+      "points": [
+        "Diocletian's Palace",
+        "Diocletian's Cellars",
+        "Peristyle Split",
+        "Vestibul Split",
+        "Temple of Jupiter Split",
+        "Cathedral of Saint Domnius",
+        "Golden Gate Split",
+        "Pazar Market Split",
+        "Varos Split",
+        "Prva Vidilica Marjan"
+      ]
+    }
+  ],
+  "27": [
+    {
+      "label": "Zagreb ville haute",
+      "context": "Zagreb, Croatia",
+      "points": [
+        "Ban Jelacic Square",
+        "Dolac Market",
+        "Zagreb Cathedral",
+        "Tkalciceva Street",
+        "Stone Gate Zagreb",
+        "St Mark's Church Zagreb",
+        "Croatian Parliament",
+        "Lotrscak Tower",
+        "Strossmayer Promenade",
+        "Zagreb Funicular"
+      ]
+    },
+    {
+      "label": "Ville basse vers la gare",
+      "context": "Zagreb, Croatia",
+      "points": [
+        "Zrinjevac Park",
+        "Strossmayer Square Zagreb",
+        "King Tomislav Square",
+        "Zagreb Central Station"
+      ]
+    }
+  ],
+  "28": [
+    {
+      "label": "Gul Baba et Buda",
+      "context": "Budapest, Hungary",
+      "points": [
+        "Tomb of Gul Baba",
+        "Rose Garden Gul Baba",
+        "Veli Bej Bath",
+        "Fisherman's Bastion",
+        "Matthias Church",
+        "Buda Castle",
+        "Castle Garden Bazaar",
+        "Szechenyi Chain Bridge"
+      ]
+    },
+    {
+      "label": "Pest monumental",
+      "context": "Budapest, Hungary",
+      "points": [
+        "Hungarian Parliament Building",
+        "Shoes on the Danube Bank",
+        "St Stephen's Basilica Budapest",
+        "Andrassy Avenue",
+        "Heroes' Square Budapest",
+        "Vajdahunyad Castle"
+      ]
+    },
+    {
+      "label": "Danube de nuit",
+      "context": "Budapest, Hungary",
+      "points": [
+        "Szechenyi Chain Bridge",
+        "Batthyany Square",
+        "Margaret Bridge"
+      ]
+    }
+  ],
+  "29": [],
+  "30": []
+}

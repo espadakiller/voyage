@@ -47,33 +47,70 @@
       .replace(/^si la marge est suffisante\s*:\s*/i,"")
       .replace(/,?\s*(si le temps le permet|selon les horaires|selon accessibilite|au minimum).*$/i,"").trim();
   }
+  function visitMapPlace(v,d){
+      const x=norm(v);
+      const aliases=[
+        [/adige/,"Ponte Pietra"],[/autour du port avant/,"Mole Vanvitelliana"],
+        [/bord du lac pamvotida|coucher du soleil au bord du lac/,"Mavili Square"],
+        [/vieille ville et centre pieton/,"Ioannina Castle"],
+        [/a thessalonique.*place aristote/,"@Aristotelous Square, Thessaloniki, Greece"],
+        [/promenade des parapluies/,"The Umbrellas by Zongolopoulos"],[/promenade sur saraclar/,"Saraclar Street"],
+        [/vieille mosquee et bazars/,"Old Mosque Edirne"],[/sarayburnu/,"Sarayburnu Park"],
+        [/panorama sur la ville et les montagnes/,"Prizren Fortress"],[/belvederes.*mont dajti/,"Dajti Mountain Viewpoint"],
+        [/arrivee a berat/,"@Mangalem Quarter, Berat, Albania"],[/arrivee a shkoder/,"@Kole Idromeno Street, Shkoder, Albania"],
+        [/panorama sur la buna/,"Rozafa Castle"],[/rive du lac a shiroke/,"Shiroka Waterfront"],
+        [/arrivee a kotor/,"@Sea Gate, Kotor, Montenegro"],[/ruelles et palais venitiens/,"Sea Gate Kotor"],
+        [/notre-dame-du-rocher/,"@Our Lady of the Rocks, Perast, Montenegro"],
+        [/promenade du soir le long de la miljacka/,"Latin Bridge"],[/promenade sur les deux rives/,"Stari Most"],
+        [/point de vue inferieur sur le pont/,"Mostar Old Bridge Viewpoint"],[/promenade au bord de l'eau/,"Vrelo Bune"],
+        [/option organisee.*pocitelj/,"@Pocitelj Old Town, Bosnia and Herzegovina"],
+        [/a split le soir.*riva/,"@Riva Split, Croatia"],[/belvedere de prva vidilica/,"Prva Vidilica Marjan"],
+        [/promenade strossmayer/,"Strossmayer Promenade"],[/parcs de la ville basse/,"Zrinjevac Park"],
+        [/vue nocturne sur le parlement/,"Batthyany Square"],[/bateau vers la grotte de vrelo/,"Vrelo Cave Matka"],
+        [/bateau vers l'ile de ioannina/,"Ioannina Island Port"]
+      ];
+      if(d.day===16&&/shadervan|pont de pierre|sinan pacha/.test(x))return"@"+cleanPlace(v)+", Prizren, Kosovo";
+      const alias=aliases.find(rule=>rule[0].test(x));
+      if(alias)return alias[1];
+      if(/^(installation|retour|journee volontairement|repas|verification|passage de frontiere|kayak|aucune visite|dejeuner|conserver batterie|rattraper|finir le retour|gerer une annulation|minaret si|panorama|coucher|promenade|arrivee)/.test(x))return"";
+      return cleanPlace(v);
+    }
   function routePlaces(d){
     const reject=/^(installation|retour|arrivee|depart|transfert|train|bus|ferry|traversee|bateau vers|repas|verification|aucune visite)/;
     return d.visits.map(cleanPlace).filter(v=>v&&!reject.test(norm(v)));
   }
   function routeTime(d,n){
     if(d.day===30)return"Journee libre, sans visite obligatoire";
+    if(!n)return"Aucun parcours a pied prevu pour cette journee de transit";
     if(d.day===29)return"Parcours libre selon l'heure d'arrivee";
     if(d.longTransfer)return n>=5?"2 h 30 a 4 h avec les visites, si la marge transport le permet":"Environ 2 h avec les visites, seulement si la marge le permet";
     if(n>=10)return"3 h 30 a 5 h avec les visites et les pauses";
     if(n>=7)return"3 h a 4 h 30 avec les visites";
     return"2 h a 3 h 30 avec les visites";
   }
-  const searchUrl=(place,d)=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(place+", "+d.location+", "+d.country);
+  const searchUrl=(place,d)=>{
+    const exact=place.startsWith("@");
+    const query=exact?place.slice(1):place+", "+d.location+", "+d.country;
+    return"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(query);
+  };
   function routeUrls(d){
-    const places=routePlaces(d), routes=[];
-    for(let start=0;start<places.length;start+=8){
-      const part=places.slice(start,start+9);
-      if(part.length<2)break;
-      const scoped=part.map(p=>p+", "+d.location+", "+d.country);
-      const origin=scoped[0], last=start+9>=places.length, destination=last?origin:scoped.at(-1);
-      const via=(last?scoped.slice(1):scoped.slice(1,-1)).join("|");
-      let url="https://www.google.com/maps/dir/?api=1&travelmode=walking&origin="+encodeURIComponent(origin)+"&destination="+encodeURIComponent(destination);
-      if(via)url+="&waypoints="+encodeURIComponent(via);
-      routes.push({url,start:start+1,end:start+part.length});
+      const fallback={label:"Parcours principal",context:d.location+", "+d.country,points:routePlaces(d)};
+      const groups=d.mapRoutes&&d.mapRoutes.length?d.mapRoutes:[fallback], routes=[];
+      groups.forEach(group=>{
+        const points=group.points||[], parts=Math.ceil((points.length-1)/4);
+        for(let start=0;start<points.length;start+=4){
+          const part=points.slice(start,start+5);
+          if(part.length<2)break;
+          const scoped=part.map(p=>p+", "+group.context);
+          const origin=scoped[0], isLast=start+5>=points.length, destination=isLast?origin:scoped.at(-1);
+          const via=(isLast?scoped.slice(1):scoped.slice(1,-1)).join("|");
+          let url="https://www.google.com/maps/dir/?api=1&travelmode=walking&origin="+encodeURIComponent(origin)+"&destination="+encodeURIComponent(destination);
+          if(via)url+="&waypoints="+encodeURIComponent(via);
+          routes.push({url,label:group.label,part:Math.floor(start/4)+1,parts,start:start+1,end:start+part.length});
+        }
+      });
+      return routes;
     }
-    return routes;
-  }
   function tags(d){
     const m=meta(d), c=count(d);
     return `<span class="row-tags"><span class="tag ${m[2]}">${m[1]}</span><span class="tag green">${esc(d.walkGoal)}</span>${c?`<span class="tag">${c}/${d.visits.length}</span>`:""}</span>`;
@@ -114,14 +151,16 @@
     return state.visitFilter==="all"||(state.visitFilter==="ottoman"&&ottoman(v))||(state.visitFilter==="outdoor"&&outdoor(v))||(state.visitFilter==="todo"&&!checked);
   }
   function visitCard(d,v,i){
-    const checked=!!done[key(d,i)];
-    if(!visibleVisit(v,checked))return"";
-    const place=cleanPlace(v), category=ottoman(v)?"Patrimoine ottoman - ":outdoor(v)?"Plein air - ":"";
-    return `<li class="visit-item ${checked?"done":""}"><span class="visit-order">${i+1}</span>
-      <div class="visit-thumb" data-photo-query="${esc(place+" "+d.location)}" aria-hidden="true"><i data-lucide="${visitIcon(v)}"></i><span class="thumb-mark">${initials(v)}</span></div>
-      <div class="visit-copy"><strong>${esc(v)}</strong><span>${category}<a class="visit-map-link" href="${searchUrl(place,d)}" target="_blank" rel="noopener">Voir sur Google Maps</a></span></div>
-      <button class="check-button" type="button" data-check="${i}" aria-pressed="${checked}" aria-label="${checked?"Marquer comme non visite":"Marquer comme visite"}"><i data-lucide="check"></i></button></li>`;
-  }
+      const checked=!!done[key(d,i)];
+      if(!visibleVisit(v,checked))return"";
+      const mapPlace=visitMapPlace(v,d), photoPlace=(mapPlace||cleanPlace(v)).replace(/^@/,"");
+      const category=ottoman(v)?"Patrimoine ottoman - ":outdoor(v)?"Plein air - ":"";
+      const mapAction=mapPlace?`<a class="visit-map-link" href="${searchUrl(mapPlace,d)}" target="_blank" rel="noopener">Voir sur Google Maps</a>`:`<span class="no-map">Activite sans point cartographique</span>`;
+      return `<li class="visit-item ${checked?"done":""}"><span class="visit-order">${i+1}</span>
+        <div class="visit-thumb" data-photo-query="${esc(photoPlace)}" aria-hidden="true"><i data-lucide="${visitIcon(v)}"></i><span class="thumb-mark">${initials(v)}</span></div>
+        <div class="visit-copy"><strong>${esc(v)}</strong><span>${category}${mapAction}</span></div>
+        <button class="check-button" type="button" data-check="${i}" aria-pressed="${checked}" aria-label="${checked?"Marquer comme non visite":"Marquer comme visite"}"><i data-lucide="check"></i></button></li>`;
+    }
   function fact(icon,title,value){
     return value?`<div class="fact"><i data-lucide="${icon}"></i><div><strong>${esc(title)}</strong><span>${esc(value)}</span></div></div>`:"";
   }
@@ -129,8 +168,8 @@
     return value?`<details><summary>${esc(title)}<i data-lucide="chevron-down"></i></summary><p>${esc(value)}</p></details>`:"";
   }
   function renderDay(){
-    const d=selected(), places=routePlaces(d), routes=routeUrls(d), m=meta(d), previous=d.day>1, next=d.day<DATA.days.length;
-    const mapButtons=routes.length?routes.map((r,i)=>`<a class="button coral" href="${r.url}" target="_blank" rel="noopener"><i data-lucide="map"></i>${routes.length>1?`Parcours ${i+1} - lieux ${r.start}-${r.end}`:"Ouvrir le parcours"}</a>`).join(""):`<a class="button coral" href="${searchUrl(d.location,d)}" target="_blank" rel="noopener"><i data-lucide="map"></i>Ouvrir la zone</a>`;
+    const d=selected(), places=(d.mapRoutes||[]).flatMap(route=>route.points||[]), routes=routeUrls(d), m=meta(d), previous=d.day>1, next=d.day<DATA.days.length;
+    const mapButtons=routes.length?routes.map((r,i)=>`<a class="button coral" href="${r.url}" target="_blank" rel="noopener"><i data-lucide="map"></i>${r.label+(r.parts>1?` - partie ${r.part}/${r.parts}`:"")}</a>`).join(""):`<a class="button coral" href="${searchUrl(d.location,d)}" target="_blank" rel="noopener"><i data-lucide="map"></i>Ouvrir la zone</a>`;
     const visitFilters=[["all","Tous"],["ottoman","Ottoman"],["outdoor","Plein air"],["todo","A faire"]];
     views.day.innerHTML=`<div class="detail-nav"><button class="icon-button secondary" type="button" data-back aria-label="Retour a la liste"><i data-lucide="arrow-left"></i></button><div>
       <button class="icon-button secondary" type="button" data-previous aria-label="Jour precedent" ${previous?"":"disabled"}><i data-lucide="chevron-left"></i></button>
