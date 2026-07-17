@@ -77,10 +77,7 @@
       "country": "France / Suisse / Italie",
       "trajectory": "Strasbourg → Basel SBB → Zürich HB → Lugano → Chiasso ou Como → Milano Centrale → Verona Porta Nuova",
       "transport": "Trains régionaux et trains suisses ordinaires",
-      "duration": "Environ 8 h 40 à 10 h",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Parcours si marge"
+      "duration": "Environ 8 h 40 à 10 h"
     },
     {
       "departureTime": "08:00",
@@ -178,10 +175,7 @@
       "country": "Italie",
       "trajectory": "Piazza Bra → San Zeno → Castelvecchio → centre historique → Ponte Pietra → Castel San Pietro",
       "transport": "Marche et bus urbain éventuel",
-      "duration": "Journée complète, 4 à 7 h de marche avec les visites",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète, 4 à 7 h de marche avec les visites"
     },
     {
       "departureTime": "06:00–07:30",
@@ -258,10 +252,7 @@
       "country": "Italie / Autriche",
       "trajectory": "Verona Porta Nuova → Bolzano/Bozen → Brennero/Brenner → Innsbruck Hbf → Wien Hbf",
       "transport": "Train",
-      "duration": "Environ 10 à 12 h",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Parcours si marge"
+      "duration": "Environ 10 à 12 h"
     },
     {
       "departureTime": "12:00–14:00",
@@ -353,10 +344,7 @@
       "country": "Autriche / Hongrie",
       "trajectory": "Vienne centre → Wien Hbf → Budapest-Keleti ou Budapest-Kelenföld",
       "transport": "Marche puis Railjet ou EuroCity",
-      "duration": "2 h 30 à 3 h de train, plus les visites",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Parcours si marge"
+      "duration": "2 h 30 à 3 h de train, plus les visites"
     },
     {
       "departureTime": "Soirée, horaire exact à confirmer",
@@ -442,10 +430,7 @@
       "country": "Hongrie / Roumanie",
       "trajectory": "Budapest centre → gare de départ à confirmer → Timișoara → București Nord",
       "transport": "Marche puis train international de nuit",
-      "duration": "Une nuit, durée exacte à confirmer selon travaux",
-      "longTransfer": true,
-      "nightTravel": true,
-      "walkGoal": "Parcours si marge"
+      "duration": "Une nuit, durée exacte à confirmer selon travaux"
     },
     {
       "departureTime": "10:46",
@@ -484,10 +469,7 @@
       "country": "Roumanie / Bulgarie / Turquie",
       "trajectory": "București Nord → Ruse → Bulgarie → Istanbul-Halkalı",
       "transport": "Train international de nuit România 461",
-      "duration": "Environ 23 h 10",
-      "longTransfer": true,
-      "nightTravel": true,
-      "walkGoal": "Carte du trajet"
+      "duration": "Environ 23 h 10"
     },
     {
       "departureTime": "09:56 à Halkalı",
@@ -563,10 +545,7 @@
       "country": "Turquie",
       "trajectory": "Halkalı → Marmaray → Sirkeci → Eminönü",
       "transport": "Marmaray puis marche",
-      "duration": "Journée légère après deux nuits de train",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée légère après deux nuits de train"
     },
     {
       "departureTime": "08:00",
@@ -643,10 +622,7 @@
       "country": "Turquie",
       "trajectory": "Topkapı → Gülhane → Sainte-Sophie → Sultanahmet → Citerne → Sarayburnu",
       "transport": "Marche et tram éventuel",
-      "duration": "Journée complète, 5 à 7 h avec visites",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète, 5 à 7 h avec visites"
     },
     {
       "departureTime": "08:00–09:00",
@@ -725,10 +701,7 @@
       "country": "Turquie",
       "trajectory": "Istanbul centre → Esenler Otogar → Edirne Otogar → centre d’Edirne",
       "transport": "Bus interurbain puis marche",
-      "duration": "Environ 3 h de bus",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Parcours si marge"
+      "duration": "Environ 3 h de bus"
     },
     {
       "departureTime": "Bus retour vers 17:00–19:00",
@@ -820,10 +793,7 @@
       "country": "Turquie",
       "trajectory": "Edirne centre → Bayezid II → ponts → Karaağaç → Edirne Otogar → Istanbul",
       "transport": "Marche, transport local puis bus",
-      "duration": "Journée complète",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Parcours si marge"
+      "duration": "Journée complète"
     },
     {
       "departureTime": "08:00",
@@ -923,10 +893,7 @@
       "country": "Turquie",
       "trajectory": "Nuruosmaniye → Grand Bazar → Beyazıt → Süleymaniye → Şehzade → Fatih → Zeyrek → Eminönü",
       "transport": "Marche, tram ou métro",
-      "duration": "Journée complète, 5 à 7 h avec visites",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète, 5 à 7 h avec visites"
     },
     {
       "departureTime": "08:00",
@@ -1030,10 +997,7 @@
       "country": "Turquie",
       "trajectory": "Eyüp → Pierre-Loti → Balat → Fener → ferry → Üsküdar",
       "transport": "Métro, ferry et marche",
-      "duration": "Journée complète",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète"
     },
     {
       "departureTime": "Vers 19:00",
@@ -1109,10 +1073,7 @@
       "country": "Turquie / Macédoine du Nord",
       "trajectory": "Istanbul centre → Beşiktaş → Taksim → Esenler Otogar → Skopje Bus Station",
       "transport": "Marche puis bus international de nuit",
-      "duration": "Environ 11 h de bus",
-      "longTransfer": true,
-      "nightTravel": true,
-      "walkGoal": "Parcours si marge"
+      "duration": "Environ 11 h de bus"
     },
     {
       "departureTime": "Après l’arrivée vers 06:00 et une pause",
@@ -1200,10 +1161,7 @@
       "country": "Macédoine du Nord",
       "trajectory": "Gare routière → centre → vieux bazar → Kale → centre",
       "transport": "Marche et bus urbain éventuel",
-      "duration": "Journée complète adaptée à la fatigue",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète adaptée à la fatigue"
     },
     {
       "departureTime": "07:00–08:00",
@@ -1272,10 +1230,7 @@
       "country": "Macédoine du Nord",
       "trajectory": "Skopje → entrée du canyon → monastère Saint-André → sentier → Skopje",
       "transport": "Bus local ou taxi partagé puis marche",
-      "duration": "3 à 4 h de marche, plus les transports",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "3 à 4 h de marche, plus les transports"
     },
     {
       "departureTime": "Vers 16:00",
@@ -1358,10 +1313,7 @@
       "country": "Macédoine du Nord / Kosovo",
       "trajectory": "Skopje centre → Skopje Bus Station → Prizren Bus Station → Shadervan",
       "transport": "Marche puis bus international",
-      "duration": "Environ 3 à 4 h avec frontière",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Parcours si marge"
+      "duration": "Environ 3 à 4 h avec frontière"
     },
     {
       "departureTime": "08:00",
@@ -1446,10 +1398,7 @@
       "country": "Kosovo",
       "trajectory": "Shadervan → vieille ville → Marash → Saint-Sauveur → forteresse → Shadervan",
       "transport": "Marche",
-      "duration": "Journée complète, 4 à 6 h avec montée",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète, 4 à 6 h avec montée"
     },
     {
       "departureTime": "22:10 indicatif",
@@ -1517,10 +1466,7 @@
       "country": "Kosovo / Monténégro",
       "trajectory": "Prizren → frontière → Kotor Bus Station",
       "transport": "Marche puis bus international de nuit",
-      "duration": "Environ 6 h 05",
-      "longTransfer": true,
-      "nightTravel": true,
-      "walkGoal": "Parcours si marge"
+      "duration": "Environ 6 h 05"
     },
     {
       "departureTime": "Après l’arrivée à 04:15 et une pause",
@@ -1596,10 +1542,7 @@
       "country": "Monténégro",
       "trajectory": "Kotor Bus Station → Škaljari → vieille ville → front de mer",
       "transport": "Marche",
-      "duration": "Journée légère à modérée",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée légère à modérée"
     },
     {
       "departureTime": "Avant 07:00",
@@ -1677,10 +1620,7 @@
       "country": "Monténégro",
       "trajectory": "Kotor → forteresse Saint-Jean → Kotor → Perast → Kotor",
       "transport": "Marche, bus local et bateau",
-      "duration": "Journée complète",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète"
     },
     {
       "departureTime": "Vers 07:40",
@@ -1754,10 +1694,7 @@
       "country": "Monténégro / Bosnie-Herzégovine",
       "trajectory": "Kotor Bus Station → frontière → Sarajevo Bus Station → Baščaršija",
       "transport": "Bus international puis marche",
-      "duration": "Environ 7 h 15",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Parcours si marge"
+      "duration": "Environ 7 h 15"
     },
     {
       "departureTime": "08:00",
@@ -1871,10 +1808,7 @@
       "country": "Bosnie-Herzégovine",
       "trajectory": "Baščaršija → Gazi Husrev-beg → Vijećnica → Pont latin → Ferhadija → Forteresse jaune",
       "transport": "Marche",
-      "duration": "Journée complète",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète"
     },
     {
       "departureTime": "08:30",
@@ -1957,10 +1891,7 @@
       "country": "Bosnie-Herzégovine",
       "trajectory": "Centre → téléphérique → Trebević → centre → musée ou Tunnel de l’Espoir",
       "transport": "Téléphérique, marche, bus ou taxi",
-      "duration": "Journée complète",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète"
     },
     {
       "departureTime": "Matin, horaire à confirmer",
@@ -2056,10 +1987,7 @@
       "country": "Bosnie-Herzégovine",
       "trajectory": "Sarajevo → Mostar Bus Station ou Mostar Railway Station → vieille ville",
       "transport": "Train intérieur si disponible, sinon bus",
-      "duration": "Environ 2 à 3 h",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Parcours si marge"
+      "duration": "Environ 2 à 3 h"
     },
     {
       "departureTime": "08:00",
@@ -2149,10 +2077,7 @@
       "country": "Bosnie-Herzégovine",
       "trajectory": "Mostar → Blagaj → Mostar vieille ville et boulevard",
       "transport": "Bus local puis marche",
-      "duration": "Journée complète",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète"
     },
     {
       "departureTime": "15:00 conseillé, sinon horaire à confirmer",
@@ -2189,10 +2114,7 @@
       "country": "Bosnie-Herzégovine / Croatie",
       "trajectory": "Mostar Bus Station → frontière croate → Zagreb Bus Station",
       "transport": "Bus direct",
-      "duration": "Environ 8 à 10 h",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Carte du trajet"
+      "duration": "Environ 8 à 10 h"
     },
     {
       "departureTime": "08:00",
@@ -2290,10 +2212,7 @@
       "country": "Croatie",
       "trajectory": "Ban Jelačić → Dolac → ville haute → théâtre → Zrinjevac → gare",
       "transport": "Marche et funiculaire éventuel",
-      "duration": "Journée complète",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée complète"
     },
     {
       "departureTime": "06:00–08:00",
@@ -2385,10 +2304,7 @@
       "country": "Croatie / Slovénie / Autriche / Allemagne",
       "trajectory": "Zagreb → Ljubljana → Villach, puis éventuellement Salzburg → München Hbf",
       "transport": "Train",
-      "duration": "Environ 5 à 11 h selon option",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Parcours si marge"
+      "duration": "Environ 5 à 11 h selon option"
     },
     {
       "departureTime": "Tôt, idéalement 06:00–07:00",
@@ -2439,10 +2355,7 @@
       "country": "Allemagne / France ou Autriche / Allemagne / France",
       "trajectory": "Munich → Stuttgart ou Karlsruhe → Strasbourg, ou Villach → Salzburg/Munich → Stuttgart/Karlsruhe → Strasbourg",
       "transport": "Train",
-      "duration": "Environ 5 à 12 h selon ville de départ",
-      "longTransfer": true,
-      "nightTravel": false,
-      "walkGoal": "Carte du trajet"
+      "duration": "Environ 5 à 12 h selon ville de départ"
     },
     {
       "departureTime": "Aucun départ obligatoire",
@@ -2482,10 +2395,7 @@
       "country": "France",
       "trajectory": "Aucun trajet obligatoire ; journée réservée aux retards ou correspondances manquées",
       "transport": "Transport de secours uniquement si nécessaire",
-      "duration": "Journée de marge",
-      "longTransfer": false,
-      "nightTravel": false,
-      "walkGoal": "Parcours de visite 2 h+"
+      "duration": "Journée de marge"
     }
   ]
 }
